@@ -63,7 +63,20 @@ O trabalho foi desenvolvido devido à dores observadas pelos integrantes do grup
 
 ## 2. Participantes do processo
 
-_Apresente aqui os perfis dos usuários-chave do sistema. Diversas são as informações que podem ser relevantes para a definição dos perfis dos usuários, tais como idade, gênero, aspectos culturais, nível de educação, entre outros. A pesquisa de mercado pode ser uma ferramenta poderosa para se identificar e caracterizar os perfis de usuários. Apresente claramente o papel a ser desempenhado por cada usuário._
+- **Lojista**
+  -  Idade: entre 20 e 60 anos.
+  -  Gênero: Não especificado
+  -  Ocupação: Vendedor de produtos usados/Dono de brechó/Dono de bazar
+  -  Nível de educação: Ensino Médio Completo ou maior.
+  -  Aspectos culturais: Preza pelo contato humano, mantém relação próxima com os seus clientes e é uma pessoa hospitaleira.
+    
+- **Comprador**
+  -  Idade: Entre 18 e 35 anos.
+  -  Gênero: Não especificado
+  -  Ocupação: Estudantes, Profissional Liberal, Profissional de Carteira Assinada, Estagiário.
+  -  Nível de educação: Ensino Médio Completo / Superior Cursando ou Completo.
+  -  Aspectos culturais: Gosta de consumo Sustentável, consciente sobre os gastos, apoiador do comércio local.
+
 
 ## 3. Modelagem do processo de negócio
 
@@ -77,13 +90,13 @@ _Apresente aqui uma descrição da sua proposta abordando seus limites e suas li
 
 ### 3.3. Modelagem dos processos
 
-[PROCESSO 1 - Nome do Processo](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
+[PROCESSO 1 - Cadastro de Produtos](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
 
-[PROCESSO 2 - Nome do Processo](processo-2-nome-do-processo.md "Detalhamento do Processo 2.")
+[PROCESSO 2 - Carrinho de Compras](processo-2-nome-do-processo.md "Detalhamento do Processo 2.")
 
-[PROCESSO 3 - Nome do Processo](processo-3-nome-do-processo.md "Detalhamento do Processo 3.")
+[PROCESSO 3 - Pagamento de Pedidos](processo-3-nome-do-processo.md "Detalhamento do Processo 3.")
 
-[PROCESSO 4 - Nome do Processo](processo-4-nome-do-processo.md "Detalhamento do Processo 4.")
+[PROCESSO 4 - Mapeamento de Brechós](processo-4-nome-do-processo.md "Detalhamento do Processo 4.")
 
 ## 4. Projeto da solução
 
