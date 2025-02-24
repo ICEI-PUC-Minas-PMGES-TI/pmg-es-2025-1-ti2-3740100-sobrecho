@@ -1,7 +1,7 @@
-# TITULO DO PROJETO
+# SóBrechó
 
 
-**Nome completo do Aluno 1, email do aluno 1**
+**Sol Quaresma Crisóstomo**
 
 **Nome completo do Aluno 2, email do aluno 2**
 
@@ -39,35 +39,27 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 
 ## 1. Introdução
 
-_Apresente uma frase introdutória definindo o que será apresentado._
+Esse repositório contém o projeto do grupo 3 da disciplina de Trabalho Interdisciplinar 2. Para esse trabalho, nós propomos uma solução para compra e venda de usados voltada especialmente para brechós e bazares.
 
 ### 1.1 Contextualização
 
-_Na **contextualização**, o aluno deve dizer do que se trata o trabalho, em que área ou contexto se insere.
-A **contextualização** deve ser desenvolvida de algo mais genérico para algo mais específico. 
-A citação de pesquisas quantitativas é bem aceita aqui (corretamente referenciadas)._
+O projeto SóBrechó se trata de uma solução para compra de venda de produtos usados, uma vez que uma ferramenta de marketplace com foco em brechós e bazares não é algo comum.
 
 ### 1.2 Problema
 
-_Em seguida o aluno deve caminhar a contextualização para descrever o **problema** que o trabalho trata. 
-O **problema** pode ser algo vivido em uma empresa específica. Neste caso, o aluno deve rapidamente apresentar 
-o cenário de problema da empresa. A empresa só deve ser citada explicitamente se o aluno tiver autorização 
-para tal._
+Atualmente, brechós e bazares sofrem com o problema da crescente transformação digital, uma vez que são um tipo de comércio tradicionalmente analógico. Além disso, o surgimento dos e-commerce e das lojas de roupa do tipo "fast-fashion" online (como a Shein, Renner, C&A) tornam a competição no mercado e a obtenção de clientes para esses pequenos lojistas cada vez mais difícil.
 
 ### 1.3 Objetivo geral
 
-_O aluno deve escrever um pequeno parágrafo ou frase com o **objetivo geral** do trabalho. 
-O objetivo deve ser bem direto, específico e definido com verbos de ação (elaborar, propor, avaliar, comparar, desenvolver, etc.). No caso específico deste projeto, o objetivo deste trabalho é desenvolver um sistema para automação de processos para um problema específico._
+O objetivo desse projeto é desenvolver um sistema do tipo "marketplace" para brechós e bazares.
 
 #### 1.3.1 Objetivos específicos
 
-_Apresente também alguns (pelo menos 2) **objetivos específicos** dependendo de onde você vai querer 
-concentrar sua prática investigativa, ou como você irá aprofundar seu trabalho._
+O projeto tem como objetivos específicos trazer uma solução digital que traga o "calor humano" do comércio físico para o meio digital, além de prover uma experiência conveniente de compra e venda digital que complemente o espaço físico e o aspecto "analógico" característico de brechós e bazares.
 
 ### 1.4 Justificativas
 
-_Mostre também as **justificativas** para o 
-desenvolvimento do seu trabalho e, caso deseje, destaque alguma contribuição do trabalho._
+O trabalho foi desenvolvido devido à dores observadas pelos integrantes do grupo na experiência de compra e venda de usados em brechós e bazares.
 
 ## 2. Participantes do processo
 
