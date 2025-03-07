@@ -1,27 +1,29 @@
 # SóBrechó
 
 
-**Sol Quaresma Crisóstomo**
+**Bernardo Antonio Meirelles Lima, bamlima@sga.pucminas.br**
 
-**Nome completo do Aluno 2, email do aluno 2**
+**Caio Souza de Resende, caio.resende@sga.pucminas.br**
 
-**Nome completo do Aluno 3, email do aluno 3**
+**Iago de Lara Cotta Monteiro, iago.cotta@sga.pucminas.br**
 
-**Nome completo do Aluno 4, email do aluno 4**
+**João Paulo Gobira Lopes Costa, joao.costa.1520911@sga.pucminas.br**
 
-**Nome completo do Aluno 5, email do aluno 5**
+**Matheus Cordeiro Berto, matheus.berto@sga.pucminas.br**
 
-**Nome completo do Aluno 6, email do aluno 6**
+**Matheus Ruas Gazire Xavier, matheus.gazire@sga.pucminas.br**
+
+**Sol Quaresma Crisóstomo, quaresmasol1221@gmail.com**
 
 ---
 
 Professores:
 
-** Prof. Nome do Prof 1 **
+** Danilo **
 
-** Prof. Nome do Prof 2 **
+** Joana **
 
-** Prof. Nome do Prof 3 **
+**Michelle 3 **
 
 ---
 
@@ -43,7 +45,7 @@ Esse repositório contém o projeto do grupo 3 da disciplina de Trabalho Interdi
 
 ### 1.1 Contextualização
 
-O projeto SóBrechó se trata de uma solução para compra de venda de produtos usados, uma vez que uma ferramenta de marketplace com foco em brechós e bazares não é algo comum.
+O projeto SóBrechó se trata de uma solução para compra de venda de produtos usados, uma vez que estabelecimentos como brechós sofrem muito com a crescente nescessidade de transformação digital, em vista do seu modelo de negócio essencialmente analógico. Nossa plataforma visa trazer o "calor humano" e a sustentabilidade para o comércio online ao disponibilizar a nossa ferramenta pare esses comerciantes.
 
 ### 1.2 Problema
 
@@ -51,15 +53,18 @@ Atualmente, brechós e bazares sofrem com o problema da crescente transformaçã
 
 ### 1.3 Objetivo geral
 
-O objetivo desse projeto é desenvolver um sistema do tipo "marketplace" para brechós e bazares.
+O objetivo geral desse projeto é desenvolver um sistema web do tipo "marketplace" a fim de sanar as dores experienciadas por brechós.
 
 #### 1.3.1 Objetivos específicos
 
-O projeto tem como objetivos específicos trazer uma solução digital que traga o "calor humano" do comércio físico para o meio digital, além de prover uma experiência conveniente de compra e venda digital que complemente o espaço físico e o aspecto "analógico" característico de brechós e bazares.
+O projeto tem como objetivos específicos:
+- Trazer uma solução digital que traga o "calor humano" do comércio físico para o meio digital
+- Prover uma experiência conveniente de compra e venda digital que complemente o espaço físico e o aspecto "analógico" característico de brechós e bazares.
+- Promover a sustentabilidade e o reúso de produtos.
 
 ### 1.4 Justificativas
 
-O trabalho foi desenvolvido devido à dores observadas pelos integrantes do grupo na experiência de compra e venda de usados em brechós e bazares.
+O trabalho foi desenvolvido devido à dores observadas pelos integrantes do grupo na experiência de compra e venda de usados em brechós e bazares, uma vez que em um tempo dominado pelo comércio digital, esse tipo de estabelecimento acaba sofrendo com a necessidade de transformação digital e a competição com plataformas como o Mercado Livre, Magalu e Shein, que dominam o mercado e fazem com que os donos de brechós sejam prejudicados devido a natureza física ou analógica do negócio.
 
 ## 2. Participantes do processo
 
@@ -82,12 +87,12 @@ O trabalho foi desenvolvido devido à dores observadas pelos integrantes do grup
 
 ### 3.1. Análise da situação atual
 
-_Apresente uma descrição textual de como os sistemas atuais resolvem o problema que se propõe a resolver.  Caso sua proposta seja inovadora e não existam processos claramente definidos, **apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente**, mesmo que não se utilize tecnologia computacional._
+Os brechós nos dias de hoje seguem o mesmo modelo de negócio que seguiam décadas atrás: há um estabelecimento comercial, em que um responsável por fazer uma curadoria de itens adquire peças que julga como adequadas para a revenda (de bazares, clientes, doações) e as disponibiliza em um espaço físico, em que a troca de "calor humano" torna a experiência de compra e venda muito pessoal. Atualmente existem plataformas para a compra e venda de usados, como a OLX e a Enjoei, que aproximam a experiência de comprar e vender seminovos a de um e-commerce tradicional.
 
 ### 3.2. Descrição geral da proposta de solução
 
-_Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias._
-
+A nossa proposta de solução é a aproximação do vendedor e do cliente através do uso de processos informatizados que possibilitem o anúncio dos itens de vestuário seminovos e em bom estado. Junto disso, implementaremos também um sistema de pagamentos que possibilita a negociação de preços, a famosa "pechincha", que traz o aspecto humano presente nos brechós. Além desse aspecto de calor humano, a sustentabilidade também é uma característica muito importante do brechó e nós prezamos por cultivar esse valor através da nossa plataforma e da troca de produtos entre os usuários.
+ 
 ### 3.3. Modelagem dos processos
 
 [PROCESSO 1 - Cadastro de Produtos](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
