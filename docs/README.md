@@ -97,35 +97,52 @@ Diante desse contexto, este trabalho busca desenvolver uma solução acessível 
 
 - **Lojista**
 Perfil: Indivíduo que administra um brechó ou bazar, buscando ampliar sua clientela e modernizar suas vendas no ambiente digital.
+Faixa etária: Entre 20 e 60 anos.
 
--Faixa etária: Entre 20 e 60 anos.
--Gênero: Não especificado.
--Ocupação: Vendedor de produtos usados, dono de brechó ou bazar.
--Nível de escolaridade: Ensino Médio completo ou superior.
+Gênero: Não especificado.
+
+Ocupação: Vendedor de produtos usados, dono de brechó ou bazar.
+
+Nível de escolaridade: Ensino Médio completo ou superior.
+
 -Principais desafios:
-  -Dificuldade em digitalizar o negócio e expandir as vendas online.
-  -Concorrência com grandes plataformas de e-commerce e fast fashion.
-  -Necessidade de manter o atendimento humanizado e próximo ao cliente mesmo no meio digital.
+  Dificuldade em digitalizar o negócio e expandir as vendas online.
+  
+  Concorrência com grandes plataformas de e-commerce e fast fashion.
+  
+  Necessidade de manter o atendimento humanizado e próximo ao cliente mesmo no meio digital.
+  
 -Aspectos culturais:
-  -Valoriza o contato humano e a fidelização dos clientes.
-  -Mantém um relacionamento próximo com sua base de consumidores.
+  Valoriza o contato humano e a fidelização dos clientes.
+  
+  Mantém um relacionamento próximo com sua base de consumidores.
+  
   -Hospitaleiro e interessado em contar histórias por trás das peças que vende.
 
 -**Comprador**
 Perfil: Indivíduo que busca produtos usados como alternativa ao consumo tradicional, priorizando sustentabilidade e economia.
 
--Faixa etária: Entre 18 e 35 anos.
--Gênero: Não especificado.
--Ocupação: Estudantes, profissionais liberais, trabalhadores com carteira assinada, estagiários.
--Nível de escolaridade: Ensino Médio completo / Ensino Superior cursando ou completo.
+Faixa etária: Entre 18 e 35 anos.
+
+Gênero: Não especificado.
+
+Ocupação: Estudantes, profissionais liberais, trabalhadores com carteira assinada, estagiários.
+
+Nível de escolaridade: Ensino Médio completo / Ensino Superior cursando ou completo.
+
 -Principais motivações:
-  -Interesse pelo consumo sustentável e pela economia circular.
-  -Busca por peças únicas e acessíveis.
-  -Apoio ao comércio local e a pequenos empreendedores.
+
+  Interesse pelo consumo sustentável e pela economia circular.
+  
+  Busca por peças únicas e acessíveis.
+
+  Apoio ao comércio local e a pequenos empreendedores
+  
 -Aspectos culturais:
- -Consciente sobre os impactos ambientais da moda fast fashion.
- -Preocupado com o custo-benefício das compras.
- -Engajado em movimentos de consumo responsável e comércio justo.
+
+ Consciente sobre os impactos ambientais da moda fast fashion.
+ Preocupado com o custo-benefício das compras.
+ Engajado em movimentos de consumo responsável e comércio justo.
 
 
 ## 3. Modelagem do processo de negócio
