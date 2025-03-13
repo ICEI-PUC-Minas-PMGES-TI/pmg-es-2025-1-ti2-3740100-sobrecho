@@ -1,8 +1,6 @@
 ### 3.3.3 Processo 3 – PAGAMENTO DE PEDIDOS
 
-[Pagamento de pedido Diagrama](https://github.com/user-attachments/assets/cdebab4e-77bd-4f6e-ada3-d046f20ce183)
-(.")
-
+docs/images/PagamentoDePedido.png
 
 #### Detalhamento das atividades
 
