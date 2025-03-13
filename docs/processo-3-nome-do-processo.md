@@ -7,7 +7,7 @@
 _Descreva aqui cada uma das propriedades das atividades do processo 3. 
 Devem estar relacionadas com o modelo de processo apresentado anteriormente._
 
-_Os tipos de dados a serem utilizados são:_![Uploading Pagamento de pedido Diagrama.png…]()
+_Os tipos de dados a serem utilizados são:
 
 
 _* **Área de texto** - campo texto de múltiplas linhas_
