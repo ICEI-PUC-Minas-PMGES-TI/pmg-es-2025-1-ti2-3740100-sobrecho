@@ -1,6 +1,6 @@
 ### 3.3.3 Processo 3 – PAGAMENTO DE PEDIDOS
 
-![images/PagamentoDePedido.png]
+!(images/PagamentoDePedido.png "Pagamento De Pedido.")
 
 #### Detalhamento das atividades
 
