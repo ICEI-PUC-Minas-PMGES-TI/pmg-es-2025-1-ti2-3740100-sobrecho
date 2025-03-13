@@ -5,8 +5,9 @@
 
 #### Detalhamento das atividades
 
-_Descreva aqui cada uma das propriedades das atividades do processo 3. 
-Devem estar relacionadas com o modelo de processo apresentado anteriormente._
+O processo 3 tem como prioridade a implementação do sistema de pagamentos funcional, capaz de 
+reconhecer a forma de pagamento selecionada pelo cliente, confirmar a compra e enviar 
+um recibo para o cliente
 
 _Os tipos de dados a serem utilizados são:
 
