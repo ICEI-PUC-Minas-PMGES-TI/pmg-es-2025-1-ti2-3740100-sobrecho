@@ -1,9 +1,7 @@
 ### 3.3.3 Processo 3 – PAGAMENTO DE PEDIDOS
 
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 3. 
-Em seguida, apresente o modelo do processo 3, descrito no padrão BPMN._
-
-![Exemplo de um Modelo BPMN do PROCESSO 3](images/process.png "Modelo BPMN do Processo 3.")
+[Pagamento de pedido Diagrama](https://github.com/user-attachments/assets/cdebab4e-77bd-4f6e-ada3-d046f20ce183)
+(.")
 
 
 #### Detalhamento das atividades
@@ -11,7 +9,8 @@ Em seguida, apresente o modelo do processo 3, descrito no padrão BPMN._
 _Descreva aqui cada uma das propriedades das atividades do processo 3. 
 Devem estar relacionadas com o modelo de processo apresentado anteriormente._
 
-_Os tipos de dados a serem utilizados são:_
+_Os tipos de dados a serem utilizados são:_![Uploading Pagamento de pedido Diagrama.png…]()
+
 
 _* **Área de texto** - campo texto de múltiplas linhas_
 
