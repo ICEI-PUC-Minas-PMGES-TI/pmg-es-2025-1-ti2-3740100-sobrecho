@@ -6,9 +6,7 @@
 
 #### Detalhamento das atividades
 
-O processo 3 tem como prioridade a implementação do sistema de pagamentos funcional, capaz de 
-reconhecer a forma de pagamento selecionada pelo cliente, confirmar a compra e enviar 
-um recibo para o cliente
+O processo 3 tem como prioridade a implementação do sistema de pagamentos funcional, capaz de reconhecer a forma de pagamento selecionada pelo cliente, confirmar a compra e enviar um recibo para o cliente
 
 _Os tipos de dados a serem utilizados são:
 
