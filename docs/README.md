@@ -45,7 +45,7 @@ Este repositório contém o projeto do Grupo 3 da disciplina Trabalho Interdisci
 
 ### 1.1 Contextualização
 
-O projeto SóBrechó surge como uma solução inovadora para a compra e venda de produtos usados, atendendo a um mercado em constante crescimento. De acordo com o Resale Report 2023 da ThredUp https://portugaltextil.com/vendas-de-roupa-em-segunda-mao-duplicam-ate-2027/, o mercado global de vestuário de segunda mão deverá quase dobrar até 2027, atingindo um valor estimado de US$ 350 bilhões. ​
+O projeto SóBrechó surge como uma solução inovadora para a compra e venda de produtos usados, atendendo a um mercado em constante crescimento. De acordo com o Resale Report 2023 da ThredUp [1] https://portugaltextil.com/vendas-de-roupa-em-segunda-mao-duplicam-ate-2027/, o mercado global de vestuário de segunda mão deverá quase dobrar até 2027, atingindo um valor estimado de US$ 350 bilhões. ​
 
 No Brasil, o segmento de brechós vem ganhando força, impulsionado pela busca por alternativas mais econômicas e sustentáveis. Entretanto, muitos desses estabelecimentos ainda operam de forma analógica, sem uma presença digital consolidada, o que limita seu alcance e competitividade no mercado. A transformação digital no comércio tem sido uma tendência essencial para pequenos empreendedores, permitindo a ampliação da clientela, otimização da gestão de estoque e maior visibilidade para os negócios.​
 
