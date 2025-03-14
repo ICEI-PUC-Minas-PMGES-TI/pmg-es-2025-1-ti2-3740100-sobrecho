@@ -1,67 +1,95 @@
-### 3.3.2 Processo 2 – NOME DO PROCESSO
+# 3.3.2 Processo 2 – Cadastro de Produtos
 
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 2. 
-Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN._
+O processo de cadastro de produtos permite que vendedores adicionem novos produtos à venda. Ele garante que todas as informações necessárias estejam completas antes da publicação do item.
 
-![Exemplo de um Modelo BPMN do PROCESSO 2](images/process.png "Modelo BPMN do Processo 2.")
+## Oportunidades de Melhoria
+- Implementação de feedback mais detalhado sobre erros no cadastro.
+- Automação do envio de notificações ao vendedor quando um erro for detectado.
+- Interface mais intuitiva para evitar preenchimentos incorretos.
 
+## Modelo BPMN do Processo 2
+![Modelo BPMN do Processo 2](images/cadastro_de_produtos "Modelo BPMN do Processo 2.")
 
-#### Detalhamento das atividades
+---
 
-_Descreva aqui cada uma das propriedades das atividades do processo 2. 
-Devem estar relacionadas com o modelo de processo apresentado anteriormente._
+## Detalhamento das Atividades
 
-_Os tipos de dados a serem utilizados são:_
+### 1. Inserir Informações do Produto
+O vendedor insere os dados básicos do produto, como nome, descrição, preço e categoria.
 
-_* **Área de texto** - campo texto de múltiplas linhas_
+| **Campo**       | **Tipo**         | **Restrições**                     | **Valor default** |
+|----------------|-----------------|----------------------------------|------------------|
+| Nome do produto | Caixa de texto   | Obrigatório, mínimo 3 caracteres | - |
+| Descrição       | Área de texto    | Obrigatório, mínimo 10 caracteres | - |
+| Preço          | Número           | Obrigatório, maior que zero | - |
+| Categoria      | Seleção única    | Obrigatório, opções predefinidas | - |
 
-_* **Caixa de texto** - campo texto de uma linha_
+**Comandos:**
+- **Salvar** → *Verificação do sistema* (default)
 
-_* **Número** - campo numérico_
+---
 
-_* **Data** - campo do tipo data (dd-mm-aaaa)_
+### 2. Upload de Imagens do Produto
+O vendedor adiciona imagens para ilustrar o produto.
 
-_* **Hora** - campo do tipo hora (hh:mm:ss)_
+| **Campo**  | **Tipo**  | **Restrições** | **Valor default** |
+|-----------|----------|----------------|------------------|
+| Imagem 1  | Imagem   | Obrigatório, formato JPG/PNG | - |
+| Imagem 2  | Imagem   | Opcional, formato JPG/PNG | - |
 
-_* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)_
+**Comandos:**
+- **Enviar** → *Verificação do sistema* (default)
 
-_* **Imagem** - campo contendo uma imagem_
+---
 
-_* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivas (tradicional radio button ou combobox)_
+### 3. Verificação do Sistema
+O sistema analisa se todas as informações e imagens foram preenchidas corretamente. Se houver erro, envia uma mensagem ao vendedor.
 
-_* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente (tradicional checkbox ou listbox)_
+| **Campo**           | **Tipo**        | **Restrições**          | **Valor default** |
+|--------------------|---------------|----------------------|------------------|
+| Status de verificação | Seleção única | Aprovado/Reprovado | - |
 
-_* **Arquivo** - campo de upload de documento_
+**Comandos:**
+- **Aprovado** → *Produto aprovado* (default)
+- **Reprovado** → *Mensagem de erro* (default)
 
-_* **Link** - campo que armazena uma URL_
+---
 
-_* **Tabela** - campo formado por uma matriz de valores_
+### 4. Mensagem de Erro
+Caso haja erro no cadastro, o sistema notifica o vendedor para correção.
 
-**Nome da atividade 1**
+| **Campo**           | **Tipo**      | **Restrições** | **Valor default** |
+|--------------------|-------------|--------------|------------------|
+| Descrição do erro | Área de texto | Obrigatório | - |
 
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-| ***Exemplo:***  |                  |                |                   |
-| login           | Caixa de Texto   | formato de e-mail |                |
-| senha           | Caixa de Texto   | mínimo de 8 caracteres |           |
+**Comandos:**
+- **Corrigir** → *Inserir informações do produto* (default)
+- **Não corrigir** → *Fim* (cancel)
 
-| **Comandos**         |  **Destino**                   | **Tipo** |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
-| ***Exemplo:***       |                                |                   |
-| entrar               | Fim do Processo 1              | default           |
-| cadastrar            | Início do proceso de cadastro  |                   |
+---
 
+### 5. Produto Aprovado
+Se todas as informações estiverem corretas, o sistema aprova o produto e envia uma notificação ao vendedor.
 
-**Nome da atividade 2**
+| **Campo**              | **Tipo**      | **Restrições** | **Valor default** |
+|-----------------------|-------------|--------------|------------------|
+| Mensagem de aprovação | Área de texto | Obrigatório | "Seu produto foi aprovado!" |
 
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-|                 |                  |                |                   |
+**Comandos:**
+- **Confirmar** → *Postagem feita* (default)
 
-| **Comandos**         |  **Destino**                   | **Tipo**          |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
-|                      |                                |                   |
+---
+
+### 6. Postagem Feita
+O produto é publicado na plataforma e fica disponível para os compradores.
+
+| **Campo**            | **Tipo**       | **Restrições** | **Valor default** |
+|---------------------|--------------|--------------|------------------|
+| Data de publicação | Data e Hora  | Obrigatório | - |
+
+**Comandos:**
+- **Finalizar** → *Fim* (default)
+
+---
+
+Esse detalhamento garante um entendimento completo do processo de cadastro de produtos no **SóBrecho**, conforme representado no diagrama BPMN.
