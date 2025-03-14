@@ -1,10 +1,6 @@
-### 3.3.4 Processo 4 – NOME DO PROCESSO
-
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 4. 
-Em seguida, apresente o modelo do processo 4, descrito no padrão BPMN._
+### 3.3.4 Processo 4 – Troca de Peças
 
 ![Exemplo de um Modelo BPMN do PROCESSO 4](images/process.png "Modelo BPMN do Processo 4.")
-
 
 #### Detalhamento das atividades
 
