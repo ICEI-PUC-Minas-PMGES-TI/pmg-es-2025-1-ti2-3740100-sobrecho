@@ -1,6 +1,5 @@
 ### 3.3.3 Processo 3 – PAGAMENTO DE PEDIDOS
 
-![Modelo BPMN do Processo 3.](https://drive.google.com/uc?export=view&id=1fAJQBROen3TQe_fZUCCldz2uwVcN4nPO)
 <img src="images/PagamentoDePedido.png" alt="Modelo BPMN do Processo 3">
 
 #### Detalhamento das atividades
