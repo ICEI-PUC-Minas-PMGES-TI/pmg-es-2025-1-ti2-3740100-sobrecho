@@ -41,7 +41,7 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 
 ## 1. Introdução
 
-Este repositório contém o projeto do Grupo 3 da disciplina Trabalho Interdisciplinar 2. O objetivo deste trabalho é desenvolver uma plataforma inovadora para a compra e venda de produtos de segunda mão, com foco em brechós e bazares. Nossa solução busca facilitar a conexão entre vendedores e compradores, promovendo o consumo sustentável e acessível por meio da digitalização do comércio de peças usadas.
+O objetivo deste trabalho é desenvolver uma plataforma inovadora para a compra e venda de produtos de segunda mão, com foco em brechós e bazares. A solução proposta busca facilitar a conexão entre vendedores e compradores, promovendo o consumo sustentável e acessível por meio da digitalização do comércio de peças usadas.
 
 ### 1.1 Contextualização
 
@@ -63,26 +63,17 @@ Diante desse contexto, surge a necessidade de uma solução acessível e eficien
 
 ### 1.3 Objetivo geral
 
-O objetivo geral deste projeto é desenvolver um sistema web do tipo "marketplace" voltado para brechós e bazares, proporcionando uma solução digital acessível e eficiente. A plataforma tem como propósito facilitar a compra e venda de produtos de segunda mão, promovendo a sustentabilidade e permitindo que pequenos lojistas superem as barreiras da transformação digital.
+O objetivo geral deste projeto é desenvolver um sistema web do tipo "marketplace" voltado para brechós e bazares, proporcionando uma solução digital acessível e eficiente.
 
-Para alcançar esse objetivo, o sistema contará com funcionalidades essenciais, incluindo:
+#### 1.3.1 Objetivos específicos
+
+O projeto tem como objetivos específicos desenvolver as seguintes funcionalidades para o sistema:
 
 - Carrinho de Compras, garantindo uma experiência intuitiva e eficiente para os compradores.
 - Cadastro de Produtos, permitindo que os vendedores anunciem seus itens de forma organizada e atrativa.
 - Sistema de Pagamento de Pedidos, integrando métodos de pagamento seguros e acessíveis.
 - Trocas de Produtos, incentivando a economia circular e o consumo sustentável.
-  
-Essa solução busca atender às necessidades dos brechós e bazares, oferecendo uma alternativa acessível e eficiente para aumentar sua visibilidade no ambiente digital e facilitar suas operações de venda.
-
-#### 1.3.1 Objetivos específicos
-
-O projeto tem como objetivos específicos:
-
-Desenvolver uma solução digital humanizada, preservando a essência dos brechós e bazares ao trazer para o ambiente online a experiência acolhedora e personalizada do comércio físico.
-Oferecer uma experiência intuitiva e conveniente de compra e venda digital, garantindo que a plataforma complemente o espaço físico dos brechós, sem perder seu caráter autêntico e analógico.
-Facilitar a digitalização de pequenos lojistas, fornecendo ferramentas acessíveis para que possam gerenciar estoques, processar pagamentos e atrair clientes de forma eficiente.
-Incentivar o consumo sustentável e a economia circular, promovendo a reutilização de produtos e reduzindo o impacto ambiental do setor de moda.
-
+- 
 ### 1.4 Justificativas
 
 O desenvolvimento deste projeto surgiu a partir das dificuldades observadas pelos integrantes do grupo na experiência de compra e venda de produtos usados em brechós e bazares. Em um cenário cada vez mais dominado pelo comércio digital, esses estabelecimentos enfrentam desafios significativos para se manterem competitivos.
@@ -96,54 +87,10 @@ Diante desse contexto, este trabalho busca desenvolver uma solução acessível 
 ## 2. Participantes do processo
 
 - **Lojista**
-Perfil: Indivíduo que administra um brechó ou bazar, buscando ampliar sua clientela e modernizar suas vendas no ambiente digital.
-Faixa etária: Entre 20 e 60 anos.
-
-Gênero: Não especificado.
-
-Ocupação: Vendedor de produtos usados, dono de brechó ou bazar.
-
-Nível de escolaridade: Ensino Médio completo ou superior.
-
--Principais desafios:
-  Dificuldade em digitalizar o negócio e expandir as vendas online.
-  
-  Concorrência com grandes plataformas de e-commerce e fast fashion.
-  
-  Necessidade de manter o atendimento humanizado e próximo ao cliente mesmo no meio digital.
-  
--Aspectos culturais:
-  Valoriza o contato humano e a fidelização dos clientes.
-  
-  Mantém um relacionamento próximo com sua base de consumidores.
-  
-  -Hospitaleiro e interessado em contar histórias por trás das peças que vende.
+Perfil: Indivíduo que administra um brechó ou bazar, buscando ampliar sua clientela e modernizar suas vendas no ambiente digital. Ele é o participante responsável por todas as atividades que dizem respeito à venda de produtos e controle dos mesmos.
 
 -**Comprador**
-Perfil: Indivíduo que busca produtos usados como alternativa ao consumo tradicional, priorizando sustentabilidade e economia.
-
-Faixa etária: Entre 18 e 35 anos.
-
-Gênero: Não especificado.
-
-Ocupação: Estudantes, profissionais liberais, trabalhadores com carteira assinada, estagiários.
-
-Nível de escolaridade: Ensino Médio completo / Ensino Superior cursando ou completo.
-
--Principais motivações:
-
-  Interesse pelo consumo sustentável e pela economia circular.
-  
-  Busca por peças únicas e acessíveis.
-
-  Apoio ao comércio local e a pequenos empreendedores
-  
--Aspectos culturais:
-
- Consciente sobre os impactos ambientais da moda fast fashion.
- Preocupado com o custo-benefício das compras.
- Engajado em movimentos de consumo responsável e comércio justo.
-
+Perfil: Indivíduo que busca produtos usados como alternativa ao consumo tradicional, priorizando sustentabilidade e economia. Ele é o participante responsável pelas atividades que dizem respeito à compra de produtos.
 
 ## 3. Modelagem do processo de negócio
 
