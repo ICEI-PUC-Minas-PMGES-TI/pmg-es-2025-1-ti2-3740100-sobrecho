@@ -1,6 +1,6 @@
 ### 3.3.4 Processo 4 – Troca de Peças
 
-![Modelo BPMN do Processo de Troca de Peças](images/TrocaDePecas.jpeg "Modelo BPMN do Processo de Troca de Peças.")
+![Modelo BPMN do Processo de Troca de Peças](images/TrocasDePecas-v2.png "Modelo BPMN do Processo de Troca de Peças.")
 
 #### Detalhamento das atividades
 
@@ -43,3 +43,16 @@
 | Aceitar | Proposta Aceita  | (default/accept/  )                          |
 | Recusar | Proposta Recusada  | (default/cancel/  )                        |
 | Recusar e Reagendar | Proposta Recusada  | (default/cancel/  )            |
+
+**Analisar estado da(s) peça(s)**
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| Aprovar | Itens Aceitos/Seguir para o envio  | (default/accept/  )        |
+| Reprovar | Cancelar Proposta de Troca  | (default/cancel/  )              |
+
+**Confirmar recebimento da(s) peça(s)**
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| Confirmar | Finalizar Troca | (default/accept/  )                         |
