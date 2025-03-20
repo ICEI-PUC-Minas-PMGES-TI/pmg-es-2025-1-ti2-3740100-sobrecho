@@ -114,7 +114,7 @@ No que tange os prcessos, o controle dos produtos será feito de forma digital, 
 
 [PROCESSO 3 - Pagamento de Pedidos](processo-3-nome-do-processo.md "Detalhamento do Processo 3.")
 
-[PROCESSO 4 - Mapeamento de Brechós](processo-4-nome-do-processo.md "Detalhamento do Processo 4.")
+[PROCESSO 4 - Troca de Peças](processo-4-troca-de-pecas.md "Detalhamento do Processo 4.")
 
 ## 4. Projeto da solução
 
