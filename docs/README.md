@@ -89,7 +89,7 @@ Diante desse contexto, este trabalho busca desenvolver uma solução acessível 
 - **Lojista**
 Perfil: Indivíduo que administra um brechó ou bazar, buscando ampliar sua clientela e modernizar suas vendas no ambiente digital. Ele é o participante responsável por todas as atividades que dizem respeito à venda de produtos e controle dos mesmos.
 
--**Comprador**
+- **Comprador**
 Perfil: Indivíduo que busca produtos usados como alternativa ao consumo tradicional, priorizando sustentabilidade e economia. Ele é o participante responsável pelas atividades que dizem respeito à compra de produtos.
 
 ## 3. Modelagem do processo de negócio
@@ -98,21 +98,13 @@ Perfil: Indivíduo que busca produtos usados como alternativa ao consumo tradici
 
 Os brechós, historicamente, operam com um modelo de negócio tradicional, semelhante ao que era praticado décadas atrás. Geralmente, possuem um estabelecimento físico, onde um responsável realiza a curadoria de peças, adquirindo itens de diferentes fontes, como bazares, clientes e doações. Esses produtos são então organizados no espaço do brechó, proporcionando uma experiência de compra personalizada e baseada no contato humano, onde a interação entre vendedor e cliente desempenha um papel essencial.
 
-Entretanto, com o avanço do comércio digital, esse modelo vem enfrentando desafios. Enquanto os brechós ainda priorizam a troca presencial e a experiência sensorial, plataformas de compra e venda de usados, como OLX e Enjoei, têm digitalizado esse mercado, aproximando-o do formato dos e-commerces tradicionais. Nessas plataformas, a experiência de compra ocorre de maneira mais automatizada, eliminando a interação direta entre vendedor e comprador.
-
-Embora essas soluções ampliem o alcance dos produtos de segunda mão, elas não conseguem reproduzir totalmente a experiência única dos brechós físicos, onde o cliente pode tocar as peças, conhecer suas histórias e contar com a curadoria especializada do lojista. Além disso, brechós independentes ainda enfrentam dificuldades na digitalização, seja por falta de recursos tecnológicos, resistência à mudança ou desconhecimento sobre ferramentas online.
-
-Dessa forma, a transição para o meio digital apresenta desafios tanto para os lojistas, que precisam se adaptar a um novo modelo de negócios, quanto para os consumidores, que buscam um equilíbrio entre a conveniência do online e a experiência autêntica dos brechós físicos.
+No que diz respeito aos processos, o controle dos produtos é feito de forma manual e analógica, geralmente sem um gerenciamento de inventário detalhado ou rígido. O pagamento dos pedidos é feito tradicionalmente, através de dinheiro, pix ou cartão, no momento em que o comprador escolhe suas peças e as leva ao caixa, com a possibilidade de "pechinchar" o preço com o vendedor e adquirir descontos. As trocas de peças são feitas em tempo real, com o comprador trazendo ao lojista as peças que ele tem a oferecer e negocia outras peças e/ou dinheiro em troca delas.
 
 ### 3.2. Descrição geral da proposta de solução
 
 Nossa solução busca aproximar vendedores e clientes, preservando a essência dos brechós tradicionais por meio de um marketplace digital humanizado e acessível. Para isso, utilizaremos processos informatizados que permitirão que lojistas anunciem itens de vestuário seminovos e em bom estado de maneira intuitiva e eficiente.
 
-Um dos diferenciais da plataforma será a possibilidade de negociação de preços diretamente entre comprador e vendedor, trazendo para o ambiente digital a tradicional “pechincha”, um aspecto característico dos brechós físicos. Dessa forma, o sistema de pagamentos permitirá uma interação mais próxima entre as partes, garantindo uma experiência mais personalizada e alinhada à dinâmica desse tipo de comércio.
-
-Além da valorização da troca de calor humano, o projeto também reforça o compromisso com a sustentabilidade, incentivando o reúso de produtos e a economia circular. Para ampliar esse impacto, a plataforma também facilitará a troca de produtos entre usuários, criando um ecossistema onde peças podem ganhar novas histórias e circular de maneira consciente e responsável.
-
-Com essa abordagem, nossa solução se diferencia das plataformas tradicionais de e-commerce, oferecendo não apenas praticidade e alcance digital, mas também um espaço que respeita e fortalece a identidade dos brechós.
+No que tange os prcessos, o controle dos produtos será feito de forma digital, com a possibilidade do lojista fazer o controle completo do seu inventário, além de contar com funcionalidades como a atualização automática do estoque quando, por exemplo, uma troca ou venda for efetivada. O pagamento dos pedidos será feito através de uma API de Pix no momento em que o comprador fizer o checkout fo seu carrinho de compras, o que assegura o conforto de não ter que sair de casa para efetuar a compra e a confiabilidade dessa forma de pagamento. E como no modelo tradicional, nosso sistema também vai permitir a "pechincha" de pedidos feitos para um lojista. Por fim, as trocas de peça poderão ser efetuadas à distância, o que garante mais praticidade e permite que as trocas sejam feitas entre clientes e lojistas que não tem como se encontrar pessoalmente por motivos de distância ou locomoção. 
  
 ### 3.3. Modelagem dos processos
 
