@@ -110,11 +110,15 @@ No que tange os prcessos, o controle dos produtos será feito de forma digital, 
 
 [PROCESSO 1 - Cadastro de Produtos](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
 
-[PROCESSO 2 - Carrinho de Compras](processo-2-nome-do-processo.md "Detalhamento do Processo 2.")
+[PROCESSO 2 - Carrinho de Compras](processo-2-cadastro-de-produto.md "Detalhamento do Processo 2.")
 
-[PROCESSO 3 - Pagamento de Pedidos](processo-3-nome-do-processo.md "Detalhamento do Processo 3.")
+[PROCESSO 3 - Pagamento de Pedidos](processo-3-Pagamento-De_Pedidos.md "Detalhamento do Processo 3.")
 
-[PROCESSO 4 - Troca de Peças](processo-4-troca-de-pecas.md "Detalhamento do Processo 4.")
+[PROCESSO 4 - Carrinho-de-compras](processo-4-Carrinho-de-compra.md "Detalhamento do Processo 4.")
+
+[PROCESSO 5 - Troca de Peças](processo-5-troca-de-pecas.md "Detalhamento do Processo 5.")
+
+[PROCESSO 6 - Avaliação do lojista](processo-6-avaliacao-do-lojista.md "Detalhamento do Processo 6.")
 
 ## 4. Projeto da solução
 
