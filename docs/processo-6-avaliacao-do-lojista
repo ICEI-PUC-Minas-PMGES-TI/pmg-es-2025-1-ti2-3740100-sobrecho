@@ -1,67 +1,55 @@
-### 3.3.2 Processo 2 – NOME DO PROCESSO
+## 3.3.2 Processo 2 – Avaliação de Cliente  
 
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 2. 
-Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN._
+Este processo permite que um lojista avalie um cliente após o atendimento. O fluxo inclui a possibilidade de atribuir uma nota e, caso a nota seja menor ou igual a 2 estrelas, a inclusão obrigatória de um comentário.  
 
-![Exemplo de um Modelo BPMN do PROCESSO 2](images/cadastro_de_produtos "Modelo BPMN do Processo 2.")
+![Modelo BPMN do Processo 2](images/processo-avaliacao-lojista.png "Modelo BPMN do Processo 2.")  
 
+---
 
-#### Detalhamento das atividades
+### 🔹 Detalhamento das Atividades  
 
-_Descreva aqui cada uma das propriedades das atividades do processo 2. 
-Devem estar relacionadas com o modelo de processo apresentado anteriormente._
+#### **Realiza atendimento**  
 
-_Os tipos de dados a serem utilizados são:_
+| **Campo**              | **Tipo**        | **Restrições**  | **Valor default** |
+|------------------------|----------------|----------------|------------------|
+| Descrição do atendimento | Área de texto | Obrigatório    | - |
 
-_* **Área de texto** - campo texto de múltiplas linhas_
+| **Comandos**          | **Destino**                            | **Tipo**    |
+|----------------------|--------------------------------------|------------|
+| Finalizar atendimento | Gateway "Deseja avaliar o cliente?" | Default |
 
-_* **Caixa de texto** - campo texto de uma linha_
+---
 
-_* **Número** - campo numérico_
+#### **Atribuir nota de avaliação**  
 
-_* **Data** - campo do tipo data (dd-mm-aaaa)_
+| **Campo**      | **Tipo**   | **Restrições**         | **Valor default** |
+|---------------|-----------|------------------------|------------------|
+| Nota         | Número     | 1 a 5 estrelas        | - |
 
-_* **Hora** - campo do tipo hora (hh:mm:ss)_
+| **Comandos**   | **Destino**                         | **Tipo**    |
+|---------------|----------------------------------|------------|
+| Confirmar nota | Gateway "Nota maior que 2 estrelas?" | Default |
 
-_* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)_
+---
 
-_* **Imagem** - campo contendo uma imagem_
+#### **Escrever comentário** *(Obrigatório caso a nota seja menor ou igual a 2 estrelas)*  
 
-_* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivas (tradicional radio button ou combobox)_
+| **Campo**    | **Tipo**      | **Restrições**                 | **Valor default** |
+|-------------|-------------|-----------------------------|------------------|
+| Comentário  | Área de texto | Obrigatório se nota ≤ 2    | - |
 
-_* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente (tradicional checkbox ou listbox)_
+| **Comandos**    | **Destino**                         | **Tipo**    |
+|---------------|----------------------------------|------------|
+| Enviar comentário | "Registrar avaliação no sistema" | Default |
 
-_* **Arquivo** - campo de upload de documento_
+---
 
-_* **Link** - campo que armazena uma URL_
+#### **Registrar avaliação no sistema**  
 
-_* **Tabela** - campo formado por uma matriz de valores_
+| **Campo**       | **Tipo**  | **Restrições** | **Valor default** |
+|---------------|---------|--------------|------------------|
+| Avaliação salva | Confirmação | Obrigatório | - |
 
-**Nome da atividade 1**
-
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-| ***Exemplo:***  |                  |                |                   |
-| login           | Caixa de Texto   | formato de e-mail |                |
-| senha           | Caixa de Texto   | mínimo de 8 caracteres |           |
-
-| **Comandos**         |  **Destino**                   | **Tipo** |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
-| ***Exemplo:***       |                                |                   |
-| entrar               | Fim do Processo 1              | default           |
-| cadastrar            | Início do proceso de cadastro  |                   |
-
-
-**Nome da atividade 2**
-
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-|                 |                  |                |                   |
-
-| **Comandos**         |  **Destino**                   | **Tipo**          |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
-|                      |                                |                   |
+| **Comandos**  | **Destino**  | **Tipo**    |
+|-------------|------------|------------|
+| Finalizar   | Fim do processo | Default |
