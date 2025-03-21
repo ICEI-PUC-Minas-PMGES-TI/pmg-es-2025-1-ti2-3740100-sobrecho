@@ -2,7 +2,7 @@
 
 Este processo permite que um lojista avalie um cliente após o atendimento. O fluxo inclui a possibilidade de atribuir uma nota e, caso a nota seja menor ou igual a 2 estrelas, a inclusão obrigatória de um comentário.  
 
-![Modelo BPMN do Processo 2](images/processo-avaliacao-lojista.png "Modelo BPMN do Processo 2.")  
+![Modelo BPMN do Processo 2](images/processo-avaliacao-lojista "Modelo BPMN do Processo 2.")  
 
 ---
 
