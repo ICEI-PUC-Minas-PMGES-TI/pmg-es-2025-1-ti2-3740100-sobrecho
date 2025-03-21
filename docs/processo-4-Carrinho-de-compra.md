@@ -25,7 +25,7 @@ O usuário seleciona um produto para adicionar ao carrinho de compras.
 | Tamanho          | Seleção Única    | Opções: Pequeno, Médio, Grande         | -                |
 | Cor              | Seleção Única    | Opções: diversas cores                  | -                |
 | Imagem do Produto | Imagem           | Formato de imagem .jpg ou .png          | -                |
-| Promoção         | Seleção Única    | Opções: Sim, Não                        | Não              |
+
 
 **Comandos:**  
 - **Adicionar ao Carrinho** → *Página de Carrinho de Compras* (default)  
@@ -58,9 +58,7 @@ O usuário preenche os detalhes necessários para concluir a compra.
 | **Campo**           | **Tipo**        | **Restrições**                          | **Valor default** |
 |---------------------|----------------|------------------------------------------|------------------|
 | Endereço de Entrega | Área de Texto  | Máximo 200 caracteres                   | -                |
-| Forma de Pagamento | Seleção Única  | Opções: Cartão de Crédito, Boleto, PayPal | -                |
 | Data de Entrega    | Data           | Data mínima: 1 dia após a compra        | -                |
-| Código do Cupom    | Caixa de Texto | Somente números e letras                | -                |
 | Total Final       | Número         | Somente leitura (campo não editável)    | -                |
 
 **Comandos:**  
