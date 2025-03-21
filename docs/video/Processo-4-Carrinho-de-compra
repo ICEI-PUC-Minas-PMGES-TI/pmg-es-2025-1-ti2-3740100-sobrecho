@@ -1,1 +1,46 @@
+Detalhamento das atividades do processo de Carrinho de Compras
+
+Nome da atividade 1: Adicionar Produto ao Carrinho
+
+Campo	Tipo de Dados	Restrições	Valor Default
+Nome do Produto	Caixa de Texto	Formato de texto livre	
+Quantidade	Número	Valor mínimo: 1, valor máximo: 99	1
+Preço	Número	Somente valores numéricos	
+Tamanho	Seleção Única	Lista de opções: Pequeno, Médio, Grande	
+Cor	Seleção Única	Lista de opções de cores disponíveis	
+Imagem do Produto	Imagem	Formato de imagem .jpg ou .png	
+Promoção	Seleção Única	Opções: Sim, Não	Não
+Comandos
+
+Nome do botão/link	Atividade/Processo de Destino	Tipo
+Adicionar ao Carrinho	Página de Carrinho de Compras	default
+Continuar Comprando	Página de Produtos	default
+Finalizar Compra	Página de Finalização de Compra	default
+Nome da atividade 2: Visualizar Carrinho de Compras
+
+Campo	Tipo de Dados	Restrições	Valor Default
+Nome do Produto	Caixa de Texto	Somente leitura (campo não editável)	
+Quantidade	Número	Valor mínimo: 1, valor máximo: 99	
+Preço	Número	Somente leitura (campo não editável)	
+Total	Número	Somente leitura (campo não editável)	
+Imagem do Produto	Imagem	Somente leitura (campo não editável)	
+Comandos
+
+Nome do botão/link	Atividade/Processo de Destino	Tipo
+Remover Produto	Página de Carrinho de Compras	default
+Continuar Comprando	Página de Produtos	default
+Finalizar Compra	Página de Finalização de Compra	default
+Nome da atividade 3: Finalizar Compra
+
+Campo	Tipo de Dados	Restrições	Valor Default
+Endereço de Entrega	Área de Texto	Máximo 200 caracteres	
+Forma de Pagamento	Seleção Única	Opções: Cartão de Crédito, Boleto, PayPal	
+Data de Entrega	Data	Data mínima: 1 dia após a compra	
+Código do Cupom	Caixa de Texto	Somente números e letras	
+Total Final	Número	Somente leitura (campo não editável)	
+Comandos
+
+Nome do botão/link	Atividade/Processo de Destino	Tipo
+Confirmar Compra	Página de Confirmação de Compra	default
+Cancelar Compra	Página de Carrinho de Compras	cancel
 
