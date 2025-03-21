@@ -1,4 +1,4 @@
-### 3.3.5 Processo 4 – Troca de Peças
+### 3.3.5 Processo 5 – Troca de Peças
 
 ![Modelo BPMN do Processo de Troca de Peças](images/TrocasDePecas-v2.png "Modelo BPMN do Processo de Troca de Peças.")
 
