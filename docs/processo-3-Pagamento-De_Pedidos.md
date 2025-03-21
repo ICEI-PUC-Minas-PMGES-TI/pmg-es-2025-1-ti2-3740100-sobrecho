@@ -8,36 +8,9 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 # Detalhamento das Atividades - Pagamento de Pedidos
 
-## 1. Adicionar pedidos no carrinho
-
-| **Campo**       | **Tipo**         | **Restrições**          | **Valor default** |
-|----------------|----------------|------------------------|-------------------|
-| Produto        | Seleção múltipla | Obrigatório             | -                 |
-| Quantidade    | Número           | Mínimo 1 unidade        | 1                 |
-| Preço unitário | Número           | Maior que zero          | -                 |
-| Total parcial  | Número           | Soma automática         | -                 |
-
-| **Comandos**         | **Destino**                    | **Tipo**   |
-|----------------------|------------------------------|-----------|
-| Continuar comprando  | Adicionar pedidos no carrinho | default    |
-| Finalizar compra     | Finalizar compra?             | default    |
-
 ---
 
-## 2. Finalizar compra?
-
-| **Campo**  | **Tipo**        | **Restrições** | **Valor default** |
-|------------|---------------|---------------|-------------------|
-| Escolha    | Seleção única  | Obrigatório   | -                 |
-
-| **Comandos**         | **Destino**                    | **Tipo**   |
-|----------------------|--------------------------------|-----------|
-| Sim                  | Calcular total dos produtos   | default    |
-| Não                  | Adicionar pedidos no carrinho | cancel     |
-
----
-
-## 3. Calcular total dos produtos
+## 1. Calcular total dos produtos
 
 | **Campo**     | **Tipo**  | **Restrições**            | **Valor default** |
 |--------------|---------|------------------------|-------------------|
@@ -49,7 +22,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 4. Selecionar método de pagamento
+## 2. Selecionar método de pagamento
 
 | **Campo**             | **Tipo**        | **Restrições** | **Valor default** |
 |----------------------|---------------|---------------|-------------------|
@@ -62,7 +35,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 5. Método de pagamento é válido?
+## 3. Método de pagamento é válido?
 
 | **Campo**       | **Tipo**        | **Restrições** | **Valor default** |
 |----------------|---------------|---------------|-------------------|
@@ -75,7 +48,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 6. Processar o pagamento
+## 4. Processar o pagamento
 
 | **Campo**    | **Tipo**       | **Restrições**            | **Valor default** |
 |------------|-------------|------------------------|-------------------|
@@ -89,7 +62,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 7. Pagamento confirmado?
+## 5. Pagamento confirmado?
 
 | **Campo**   | **Tipo**       | **Restrições** | **Valor default** |
 |------------|-------------|---------------|-------------------|
@@ -102,7 +75,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 8. Enviar recibo
+## 6. Enviar recibo
 
 | **Campo**   | **Tipo**  | **Restrições**       | **Valor default** |
 |------------|---------|-------------------|-------------------|
@@ -114,7 +87,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 9. Atualizar status do pedido
+## 7. Atualizar status do pedido
 
 | **Campo**    | **Tipo**        | **Restrições** | **Valor default** |
 |------------|--------------|---------------|-------------------|
@@ -126,7 +99,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 
 ---
 
-## 10. Mensagem de erro
+## 8. Mensagem de erro
 
 | **Campo**     | **Tipo**  | **Restrições**       | **Valor default** |
 |-------------|---------|-------------------|-------------------|
