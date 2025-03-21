@@ -1,21 +1,30 @@
 # Nome do projeto
 
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+O objetivo deste trabalho é desenvolver uma plataforma inovadora para a compra e venda de produtos de segunda mão, com foco em brechós e bazares. A solução proposta busca facilitar a conexão entre vendedores e compradores, promovendo o consumo sustentável e acessível por meio da digitalização do comércio de peças usadas.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 5
-* Nome completo do aluno 6
+**Bernardo Antonio Meirelles Lima, bamlima@sga.pucminas.br**
+
+**Caio Souza de Resende, caio.resende@sga.pucminas.br**
+
+**Iago de Lara Cotta Monteiro, iago.cotta@sga.pucminas.br**
+
+**João Paulo Gobira Lopes Costa, joao.costa.1520911@sga.pucminas.br**
+
+**Matheus Cordeiro Berto, matheus.berto@sga.pucminas.br**
+
+**Matheus Ruas Gazire Xavier, matheus.gazire@sga.pucminas.br**
+
+**Sol Quaresma Crisóstomo, quaresmasol1221@gmail.com**
 
 ## Professor
 
-* Nome completo do professor 1
-* Nome completo do professor 2
-* Nome completo do professor 3
+**Danilo de Quadros Maia Filho**
+
+**Joana Gabriela Ribeiro de Souza**
+
+**Michelle Hanne Soares de Andrade**s
 
 ## Instruções de utilização
 
