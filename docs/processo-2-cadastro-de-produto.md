@@ -8,7 +8,7 @@ O processo de cadastro de produtos permite que vendedores adicionem novos produt
 - Interface mais intuitiva para evitar preenchimentos incorretos.
 
 ## Modelo BPMN do Processo 2
-![Modelo BPMN do Processo 2](images/cadastro_de_produtos "Modelo BPMN do Processo 2.")
+![Modelo BPMN do Processo 2](images/Diagrama_CadastroProdutosCRUD.png "Modelo BPMN do Processo 2.")
 
 ---
 
