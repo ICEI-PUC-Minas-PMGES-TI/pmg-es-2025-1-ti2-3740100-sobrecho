@@ -1,7 +1,7 @@
 # 3.3.4 Processo 4 – Gestão de Produtos
 
 ## Modelo BPMN do Processo 1
-![Modelo BPMN do Processo 1](images/DiagramaCadastroProdutoAtualizadoSoBrecho.png")
+<img src="images/DiagramaCadastroProdutoAtualizadoSoBrecho.png">
 
 ---
 
