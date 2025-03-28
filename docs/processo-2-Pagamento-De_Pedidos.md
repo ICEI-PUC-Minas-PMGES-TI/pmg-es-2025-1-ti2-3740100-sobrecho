@@ -1,4 +1,4 @@
-### 3.3.3 Processo 3 – PAGAMENTO DE PEDIDOS
+### 3.3.3 Processo 2 – PAGAMENTO DE PEDIDOS
 
 #### Detalhamento das atividades
 
