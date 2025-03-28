@@ -8,7 +8,7 @@ Apresenta-se o processo de Carrinho de Compras, um processo essencial no ciclo d
 - Interface mais intuitiva para modificação de quantidades e remoção de itens.
 
 ## Modelo BPMN do Processo 1
-![Modelo BPMN do Processo 1](images/carrinho-de-compra.jfif "Modelo BPMN do Processo 4.")
+![Modelo BPMN do Processo 1](images/Modelagem-carrinho-de-compra-Diagrama.png "Modelo BPMN do Processo 4.")
 
 ---
 
