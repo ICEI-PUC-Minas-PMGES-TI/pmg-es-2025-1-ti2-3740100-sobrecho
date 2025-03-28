@@ -1,4 +1,4 @@
-# 3.4 Processo 4 – Carrinho de Compras
+# 3.3.4 Processo 3 – Carrinho de Compras
 
 Apresenta-se o processo de Carrinho de Compras, um processo essencial no ciclo de compra online. Este processo possibilita ao usuário adicionar itens ao carrinho, visualizar e modificar as quantidades, aplicar cupons de desconto e finalizar a compra. O modelo BPMN apresentado a seguir descreve as principais etapas deste processo.
 
@@ -8,7 +8,7 @@ Apresenta-se o processo de Carrinho de Compras, um processo essencial no ciclo d
 - Interface mais intuitiva para modificação de quantidades e remoção de itens.
 
 ## Modelo BPMN do Processo 1
-![Modelo BPMN do Processo 1](images/carrinho-de-compra.jfif "Modelo BPMN do Processo 4.")
+![Modelo BPMN do Processo 1](images/Modelagem-carrinho-de-compra-Diagrama.png "Modelo BPMN do Processo 4.")
 
 ---
 
