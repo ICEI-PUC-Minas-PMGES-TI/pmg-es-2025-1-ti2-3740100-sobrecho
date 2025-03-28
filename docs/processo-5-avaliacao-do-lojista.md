@@ -1,4 +1,4 @@
-# 3.3.2 Processo 6 – Avaliação de Cliente 
+# 3.3.6 Processo 5 – Avaliação de Cliente 
 
 O processo de avaliação de clientes permite que lojistas atribuam uma nota ao cliente após um atendimento. Caso a nota seja menor ou igual a 2 estrelas, um comentário se torna obrigatório antes de finalizar a avaliação. 
 
