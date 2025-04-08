@@ -14,7 +14,7 @@ _Descreva qual(is) tecnologias você vai usar para resolver o seu problema, ou s
 | **Dimensão**   | **Tecnologia**  |
 | ---            | ---             |
 | SGBD           | MySQL           |
-| Front end      | HTML+CSS+JS     |
+| Front end      | Next.js, TypeScript, TailwindCSS, ShadCN/UI, Redux, Redux-Saga, Axios, ESLint, Prettier e VSCode. |
 | Back end       | Java SpringBoot |
 | Deploy         | Github Pages    |
 
