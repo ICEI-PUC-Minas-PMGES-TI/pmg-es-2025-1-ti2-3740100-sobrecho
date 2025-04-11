@@ -1,4 +1,4 @@
-# Nome do projeto
+# Só Brechó
 
 O objetivo deste trabalho é desenvolver uma plataforma inovadora para a compra e venda de produtos de segunda mão, com foco em brechós e bazares. A solução proposta busca facilitar a conexão entre vendedores e compradores, promovendo o consumo sustentável e acessível por meio da digitalização do comércio de peças usadas.
 
