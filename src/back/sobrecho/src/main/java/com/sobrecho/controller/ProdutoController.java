@@ -16,33 +16,36 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/produto")
 public class ProdutoController {
 
-	@Autowired
-	ProdutoRepository produtoRepository;
-	
+    @Autowired
+    ProdutoRepository produtoRepository;
+
     @Autowired
     private ProdutoService produtoService;
-    
 
     @GetMapping("/listar")
-	public List<Produto> listar(){
-		return produtoRepository.findAll();
-	}
-    
+    public List<Produto> listar() {
+        return produtoRepository.findAll();
+    }
+
     @PostMapping("/criar")
     public ResponseEntity<String> criarProduto(
             @ModelAttribute Produto produto,
-            @RequestParam(value = "file", required = false) MultipartFile arquivo) {
-        
+            @RequestParam(value = "files", required = false) MultipartFile[] arquivos) {
         try {
-            produtoService.salvarProdutoComImagem(produto, arquivo);
+            produtoService.salvarProdutoComImagens(produto, arquivos);
             return ResponseEntity.ok("Produto cadastrado com sucesso!");
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body("Erro");
-        } 
+            return ResponseEntity.internalServerError().body("Erro ao salvar o produto");
+        }
     }
-    
-	@DeleteMapping("deletar/{id}")
-	public void deletar(@PathVariable Long id) {
-		produtoRepository.deleteById(id);
-	}
+
+    @DeleteMapping("deletar/{id}")
+    public ResponseEntity<String> deletar(@PathVariable Long id) {
+        try {
+            produtoService.deletarProduto(id);
+            return ResponseEntity.ok("Produto deletado com sucesso!");
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body("Erro ao salvar o produto");
+        }
+    }
 }
