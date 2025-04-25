@@ -14,7 +14,7 @@ export default function RootLayout({ children }: IRootLayoutProps) {
 	return (
 		<html lang="pt-BR" suppressHydrationWarning>
 			<body
-				className={cn('bg-background antialised', FontSans.variable, FontMono.variable)}
+				className={cn('bg-background font-sans antialised', FontSans.variable, FontMono.variable)}
 			>
 				<RootProvider>{children}</RootProvider>
 			</body>
