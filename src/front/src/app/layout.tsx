@@ -1,3 +1,5 @@
+'use client';
+
 import '@/styles/global.css';
 
 import { RootProvider } from '@/components/providers';
@@ -14,7 +16,11 @@ export default function RootLayout({ children }: IRootLayoutProps) {
 	return (
 		<html lang="pt-BR" suppressHydrationWarning>
 			<body
-				className={cn('bg-background font-sans antialised', FontSans.variable, FontMono.variable)}
+				className={cn(
+					'antialised bg-background font-sans',
+					FontSans.variable,
+					FontMono.variable
+				)}
 			>
 				<RootProvider>{children}</RootProvider>
 			</body>
