@@ -2,25 +2,42 @@
 
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import { AuthFormLayout } from '@/components/layouts/forms';
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
+import {
+	Button,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	Input
+} from '@/components/ui';
 
+import { useTypedSelector } from '@/hooks';
+import { AuthCreators } from '@/redux/reducers';
 import { signUpFormSchema } from '@/schemas/forms/auth';
 import { SignUpFormType } from '@/types/forms/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2Icon } from 'lucide-react';
 
 export function SignUpForm() {
 	const form = useForm<SignUpFormType>({
 		resolver: zodResolver(signUpFormSchema),
+		mode: 'onChange',
 		defaultValues: {
 			email: '',
 			password: ''
 		}
 	});
 
-	function onSubmit(values: SignUpFormType) {
-		console.log(values);
+	const { loading } = useTypedSelector((state) => state.auth);
+
+	const dispatch = useDispatch();
+
+	function onSubmit({ email, password }: SignUpFormType) {
+		dispatch(AuthCreators.postAuthRegisterRequest(email, password));
 	}
 
 	return (
@@ -41,7 +58,6 @@ export function SignUpForm() {
 										<FormControl>
 											<Input placeholder="email@exemplo.com" {...field} />
 										</FormControl>
-										<FormMessage />
 									</FormItem>
 								)}
 							/>
@@ -56,12 +72,16 @@ export function SignUpForm() {
 										<FormControl>
 											<Input type="password" {...field} />
 										</FormControl>
-										<FormMessage />
 									</FormItem>
 								)}
 							/>
 						</div>
-						<Button type="submit" className="w-full">
+						<Button
+							type="submit"
+							className="w-full"
+							disabled={!form.formState.isValid || loading}
+						>
+							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : null}
 							Criar conta
 						</Button>
 					</div>

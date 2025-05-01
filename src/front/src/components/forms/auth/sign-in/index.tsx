@@ -2,25 +2,41 @@
 
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import { AuthFormLayout } from '@/components/layouts/forms';
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
+import {
+	Button,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	Input
+} from '@/components/ui';
 
+import { useTypedSelector } from '@/hooks';
+import { AuthCreators } from '@/redux/reducers/auth';
 import { signInFormSchema } from '@/schemas/forms/auth';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInFormType } from '@/types/forms/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2Icon } from 'lucide-react';
 
 export function SignInForm() {
 	const form = useForm<SignInFormType>({
 		resolver: zodResolver(signInFormSchema),
+		mode: 'onChange',
 		defaultValues: {
 			email: '',
 			password: ''
 		}
 	});
+	const dispatch = useDispatch();
 
-	function onSubmit(values: SignInFormType) {
-		console.log(values);
+	const { loading } = useTypedSelector((state) => state.auth);
+
+	function onSubmit({ email, password }: SignInFormType) {
+		dispatch(AuthCreators.postAuthLoginRequest(email, password));
 	}
 
 	return (
@@ -41,7 +57,6 @@ export function SignInForm() {
 										<FormControl>
 											<Input placeholder="email@exemplo.com" {...field} />
 										</FormControl>
-										<FormMessage />
 									</FormItem>
 								)}
 							/>
@@ -64,12 +79,12 @@ export function SignInForm() {
 										<FormControl>
 											<Input type="password" {...field} />
 										</FormControl>
-										<FormMessage />
 									</FormItem>
 								)}
 							/>
 						</div>
-						<Button type="submit" className="w-full">
+						<Button type="submit" className="w-full" disabled={!form.formState.isValid}>
+							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : null}
 							Entrar
 						</Button>
 					</div>
