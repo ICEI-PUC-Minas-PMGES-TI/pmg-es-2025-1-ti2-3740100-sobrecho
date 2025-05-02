@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
@@ -27,17 +29,24 @@ export function SignUpForm() {
 		resolver: zodResolver(signUpFormSchema),
 		mode: 'onChange',
 		defaultValues: {
+			name: '',
 			email: '',
 			password: ''
 		}
 	});
 
-	const { loading } = useTypedSelector((state) => state.auth);
+	const { loading, signed } = useTypedSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 
-	function onSubmit({ email, password }: SignUpFormType) {
-		dispatch(AuthCreators.postAuthRegisterRequest(email, password));
+	useEffect(() => {
+		if (signed) {
+			redirect('/');
+		}
+	}, [signed]);
+
+	function onSubmit({ name, email, password }: SignUpFormType) {
+		dispatch(AuthCreators.postAuthRegisterRequest(name, email, password));
 	}
 
 	return (
@@ -51,12 +60,26 @@ export function SignUpForm() {
 						<div className="grid gap-2">
 							<FormField
 								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Nome</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
+										</FormControl>
+									</FormItem>
+								)}
+							/>
+						</div>
+						<div className="grid gap-2">
+							<FormField
+								control={form.control}
 								name="email"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Email</FormLabel>
 										<FormControl>
-											<Input placeholder="email@exemplo.com" {...field} />
+											<Input type="email" {...field} />
 										</FormControl>
 									</FormItem>
 								)}

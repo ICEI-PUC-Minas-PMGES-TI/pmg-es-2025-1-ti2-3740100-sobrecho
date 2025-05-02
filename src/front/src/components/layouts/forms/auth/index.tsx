@@ -1,9 +1,16 @@
 import Link from 'next/link';
 
-import { buttonVariants, Card, CardContent, CardDescription, CardTitle } from '@/components/ui';
+import {
+	buttonVariants,
+	Card,
+	CardContent,
+	CardDescription,
+	CardTitle
+} from '@/components/ui';
+import { CardHeader } from '@/components/ui';
+
 import { cn } from '@/lib/utils';
 import { ArrowLeft, ShirtIcon } from 'lucide-react';
-import { CardHeader } from '@/components/ui';
 
 interface IAuthFormLayoutProps {
 	title: string;
@@ -22,12 +29,12 @@ export function AuthFormLayout({
 		<div className="flex w-full max-w-sm flex-col items-center justify-center gap-6">
 			<Link
 				href="/"
-				className="flex w-full items-center justify-center gap-2 font-medium"
+				className="flex w-full items-center justify-center gap-4 text-lg font-bold"
 			>
-				<div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-					<ShirtIcon className="size-4" />
+				<div className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
+					<ShirtIcon className="size-5" />
 				</div>
-				SóBrechó
+				SoBrecho
 			</Link>
 			<div className="flex w-full flex-col gap-6">
 				<Card>
