@@ -21,9 +21,9 @@ export const { Creators: AuthCreators, Types: AuthTypes } = createActions<
 	postAuthLoginSuccess: ['user'],
 	postAuthLoginFailure: [],
 
-	postAuthRegisterRequest: ['email', 'password'],
+	postAuthRegisterRequest: ['name', 'email', 'password'],
 	postAuthRegisterSuccess: ['user'],
-	postAuthRegisterFailure: ['error']
+	postAuthRegisterFailure: []
 });
 
 const postAuthLoginRequest = (state = INITIAL_STATE): IAuthState => ({

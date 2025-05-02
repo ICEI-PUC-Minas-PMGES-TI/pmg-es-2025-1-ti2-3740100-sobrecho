@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux-saga';
 
 export interface ILoggedUserInfo {
+	id: number;
 	name: string;
 	email: string;
 }
@@ -33,6 +34,7 @@ export interface IPostAuthLoginSuccessAction extends AnyAction {
 export interface IPostAuthLoginFailureAction extends AnyAction {}
 
 export interface IPostAuthRegisterRequestAction extends AnyAction {
+	name: string;
 	email: string;
 	password: string;
 }
@@ -47,6 +49,7 @@ export interface IAuthCreators {
 	postAuthLoginFailure: (error: string) => IPostAuthLoginFailureAction;
 
 	postAuthRegisterRequest: (
+		name: string,
 		email: string,
 		password: string
 	) => IPostAuthRegisterRequestAction;
