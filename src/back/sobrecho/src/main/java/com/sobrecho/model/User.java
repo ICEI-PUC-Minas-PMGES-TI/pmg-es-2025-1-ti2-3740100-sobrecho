@@ -7,15 +7,18 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -64,12 +67,25 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
+	@CreationTimestamp
+	@Column(name = "created_at")
+	private Instant createdAt;
+
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private Instant updatedAt;
+
+	@OneToMany(mappedBy = "user")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<Product> products = new ArrayList<Product>();
+
 	public User() {
 	}
 
 	public User(Long id, @NotNull @NotEmpty @Size(min = 2, max = 100) String name, @NotNull @NotEmpty String email,
 			@Size(min = 11, max = 14) String documentNumber, DocumentType documentType, String addressLine,
-			String country, String state, @Size(max = 30) String zipCode, String password) {
+			String country, String state, @Size(max = 30) String zipCode, String password, Instant createdAt,
+			Instant updatedAt) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -80,6 +96,8 @@ public class User {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.password = password;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {
@@ -162,63 +180,111 @@ public class User {
 		this.password = password;
 	}
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.email);
-        hash = 37 * hash + Objects.hashCode(this.documentNumber);
-        hash = 37 * hash + Objects.hashCode(this.documentType);
-        hash = 37 * hash + Objects.hashCode(this.addressLine);
-        hash = 37 * hash + Objects.hashCode(this.country);
-        hash = 37 * hash + Objects.hashCode(this.state);
-        hash = 37 * hash + Objects.hashCode(this.zipCode);
-        hash = 37 * hash + Objects.hashCode(this.password);
-        return hash;
-    }
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final User other = (User) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.documentNumber, other.documentNumber)) {
-            return false;
-        }
-        if (!Objects.equals(this.addressLine, other.addressLine)) {
-            return false;
-        }
-        if (!Objects.equals(this.country, other.country)) {
-            return false;
-        }
-        if (!Objects.equals(this.state, other.state)) {
-            return false;
-        }
-        if (!Objects.equals(this.zipCode, other.zipCode)) {
-            return false;
-        }
-        if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return this.documentType == other.documentType;
-    }
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
 
-	
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((documentNumber == null) ? 0 : documentNumber.hashCode());
+		result = prime * result + ((documentType == null) ? 0 : documentType.hashCode());
+		result = prime * result + ((addressLine == null) ? 0 : addressLine.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (documentNumber == null) {
+			if (other.documentNumber != null)
+				return false;
+		} else if (!documentNumber.equals(other.documentNumber))
+			return false;
+		if (documentType != other.documentType)
+			return false;
+		if (addressLine == null) {
+			if (other.addressLine != null)
+				return false;
+		} else if (!addressLine.equals(other.addressLine))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (zipCode == null) {
+			if (other.zipCode != null)
+				return false;
+		} else if (!zipCode.equals(other.zipCode))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (updatedAt == null) {
+			if (other.updatedAt != null)
+				return false;
+		} else if (!updatedAt.equals(other.updatedAt))
+			return false;
+		return true;
+	}
+
+    public List<Product> getProducts() {
+        return products;
+    }
 }
