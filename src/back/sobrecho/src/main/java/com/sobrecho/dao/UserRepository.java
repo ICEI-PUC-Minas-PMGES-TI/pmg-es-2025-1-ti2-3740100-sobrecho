@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.sobrecho.model.User;
 
 @Repository
-public interface UserRespository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
 }

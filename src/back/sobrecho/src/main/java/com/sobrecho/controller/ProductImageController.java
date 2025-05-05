@@ -1,8 +1,11 @@
 package com.sobrecho.controller;
 
-import com.sobrecho.dao.UserRepository;
+import com.sobrecho.dao.ProductRepository;
+import com.sobrecho.model.Product;
+import com.sobrecho.model.ProductImage;
 import com.sobrecho.model.User;
-import com.sobrecho.service.UserService;
+import com.sobrecho.service.ProductImageService;
+import com.sobrecho.service.ProductService;
 
 import jakarta.validation.Valid;
 
@@ -13,34 +16,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
+import com.sobrecho.dao.ProductImageRepository;
 
 
 @RestController
-@Validated
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/product-image")
+public class ProductImageController {
 
     @Autowired
-    UserRepository userRepository;
+    ProductImageRepository productImageRepository;
 
     @Autowired
-    private UserService userService;
+    private ProductImageService productImageService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> findUserById(@PathVariable Long id) {
-        User obj = this.userService.findById(id);
-        return ResponseEntity.ok().body(obj);
+    @GetMapping("/product/{id}")
+    public ResponseEntity<List<ProductImage>> findAllProductById(@PathVariable Long id) {
+        List<ProductImage> objs = this.productImageService.findAllByProductId(id);
+        return  ResponseEntity.ok().body(objs);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> create(@Valid @RequestBody User obj) {
-        this.userService.create(obj);
+    public ResponseEntity<Void> create(@Valid @RequestBody ProductImage obj) {
+        this.productImageService.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(obj.getId())
@@ -48,17 +49,9 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody User obj, @PathVariable Long id) {
-        obj.setId(id);
-        this.userService.update(obj);
-        return ResponseEntity.noContent().build();
-    }
-    
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        userService.delete(id);
+        productImageService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
