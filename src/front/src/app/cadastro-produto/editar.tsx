@@ -1,4 +1,3 @@
-// src/front/src/app/cadastro-produto/editar.tsx
 'use client';
 
 import { useState } from 'react';
