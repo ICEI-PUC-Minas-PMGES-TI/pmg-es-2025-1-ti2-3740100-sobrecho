@@ -1,8 +1,12 @@
+// src/front/src/app/cadastro-produto/editar.tsx
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function EditarProduto() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
@@ -26,13 +30,15 @@ export default function EditarProduto() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log('Produto cadastrado:', formData);
+    console.log('Produto atualizado:', formData);
+    setTimeout(() => {
+      router.push('/cadastro-produto');
+    }, 500);
   }
 
   return (
     <main className="min-h-screen bg-[#F8F4FF] py-10 px-6">
       <div className="max-w-6xl mx-auto bg-white rounded p-8 shadow-md grid grid-cols-1 md:grid-cols-2 gap-10">
-        {/* Formulário */}
         <div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Editar Produto</h1>
           <p className="text-sm text-purple-700 mb-6">
@@ -131,7 +137,6 @@ export default function EditarProduto() {
           </form>
         </div>
 
-        {/* Preview */}
         <div>
           <h2 className="text-lg font-semibold mb-4">Preview</h2>
           <div className="border rounded p-4 bg-gray-50">
