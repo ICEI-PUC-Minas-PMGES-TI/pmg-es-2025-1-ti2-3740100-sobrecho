@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 const produtosMock = new Array(8).fill(null).map((_, i) => {
   const categoria = i % 2 === 0 ? 'camiseta' : 'calca';
@@ -25,10 +26,28 @@ const produtosMock = new Array(8).fill(null).map((_, i) => {
 });
 
 export default function GestaoProdutos() {
-  const [produtos] = useState(produtosMock);
+  const [produtos, setProdutos] = useState(produtosMock);
   const [pesquisa, setPesquisa] = useState('');
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [ordenacao, setOrdenacao] = useState('');
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [produtoSelecionado, setProdutoSelecionado] = useState<any>(null);
+  const [textoConfirmacao, setTextoConfirmacao] = useState('');
+
+  const router = useRouter();
+
+  const abrirModalExclusao = (produto: any) => {
+    setProdutoSelecionado(produto);
+    setTextoConfirmacao('');
+    setMostrarModal(true);
+  };
+
+  const confirmarExclusao = () => {
+    if (textoConfirmacao === `Desejo excluir ${produtoSelecionado.nome}`) {
+      setProdutos(produtos.filter(p => p.id !== produtoSelecionado.id));
+      setMostrarModal(false);
+    }
+  };
 
   const produtosFiltrados = produtos.filter((produto) => {
     const correspondeCategoria =
@@ -58,7 +77,6 @@ export default function GestaoProdutos() {
   return (
     <main className="min-h-screen bg-[#F8F4FF] p-4">
       <div className="max-w-7xl mx-auto">
-        {/* Título e Navegação */}
         <h1 className="text-3xl font-bold text-gray-800">Gestão de Produtos</h1>
         <p className="text-sm text-purple-700 mt-1 mb-6">
           <a href="#" className="hover:underline">Central de gestão</a> &gt; <a href="#" className="hover:underline">Gestão de Produtos</a>
@@ -66,7 +84,6 @@ export default function GestaoProdutos() {
 
         {/* Filtros */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          {/* Filtro de categoria */}
           <select
             value={categoriaSelecionada}
             onChange={(e) => setCategoriaSelecionada(e.target.value)}
@@ -78,7 +95,6 @@ export default function GestaoProdutos() {
             <option value="sapato">Sapato</option>
           </select>
 
-          {/* Ordenação */}
           <select
             value={ordenacao}
             onChange={(e) => setOrdenacao(e.target.value)}
@@ -90,9 +106,13 @@ export default function GestaoProdutos() {
             <option value="tamanho">Tamanho (A-Z)</option>
           </select>
 
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cadastrar Produto</button>
+          <button
+            onClick={() => router.push('/cadastro-produto')}
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Cadastrar Produto
+          </button>
 
-          {/* Campo de pesquisa */}
           <input
             type="text"
             placeholder="Pesquisar Produto"
@@ -115,10 +135,16 @@ export default function GestaoProdutos() {
                 <p className="text-sm text-purple-600">Quantidade Disponível: {produto.quantidade}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <button className="bg-cyan-500 text-white px-4 py-1 rounded hover:bg-cyan-600 flex items-center gap-1">
+                <button
+                  onClick={() => router.push(`/cadastro-produto/editar?id=${produto.id}`)}
+                  className="bg-cyan-500 text-white px-4 py-1 rounded hover:bg-cyan-600 flex items-center gap-1"
+                >
                   <FiEdit2 size={16} /> Atualizar
                 </button>
-                <button className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 flex items-center gap-1">
+                <button
+                  onClick={() => abrirModalExclusao(produto)}
+                  className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 flex items-center gap-1"
+                >
                   <FiTrash2 size={16} /> Excluir
                 </button>
               </div>
@@ -126,6 +152,44 @@ export default function GestaoProdutos() {
           ))}
         </div>
       </div>
+
+      {/* Modal de Confirmação */}
+      {mostrarModal && produtoSelecionado && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 shadow-lg max-w-md w-full text-center">
+            <h2 className="text-xl font-bold mb-2 text-black">Deseja excluir?</h2>
+            <p className="text-lg font-semibold text-black">{produtoSelecionado.nome}</p>
+            <p className="text-sm mb-2 text-black">
+              Para confirmar, digite: <strong>{`Desejo excluir ${produtoSelecionado.nome}`}</strong>
+            </p>
+            <input
+              type="text"
+              value={textoConfirmacao}
+              onChange={(e) => setTextoConfirmacao(e.target.value)}
+              className="border w-full px-3 py-2 rounded mb-4"
+            />
+            <div className="flex justify-between">
+              <button
+                onClick={() => setMostrarModal(false)}
+                className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+              >
+                Voltar
+              </button>
+              <button
+                disabled={textoConfirmacao !== `Desejo excluir ${produtoSelecionado.nome}`}
+                onClick={confirmarExclusao}
+                className={`px-4 py-2 rounded text-black ${
+                  textoConfirmacao === `Desejo excluir ${produtoSelecionado.nome}`
+                    ? 'bg-purple-500 hover:bg-purple-600'
+                    : 'bg-gray-400 cursor-not-allowed'
+                }`}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
