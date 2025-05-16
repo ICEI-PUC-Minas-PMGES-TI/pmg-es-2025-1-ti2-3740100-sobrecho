@@ -56,16 +56,16 @@ export function SignUpForm() {
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="flex flex-col gap-6">
+					<div className="flex flex-col gap-2">
 						<div className="grid gap-2">
 							<FormField
 								control={form.control}
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Nome</FormLabel>
+										<FormLabel required>Nome</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input type="text" required {...field} />
 										</FormControl>
 									</FormItem>
 								)}
@@ -77,23 +77,23 @@ export function SignUpForm() {
 								name="email"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Email</FormLabel>
+										<FormLabel required>Email</FormLabel>
 										<FormControl>
-											<Input type="email" {...field} />
+											<Input type="email" required {...field} />
 										</FormControl>
 									</FormItem>
 								)}
 							/>
 						</div>
-						<div className="grid gap-2">
+						<div className="mb-2 grid gap-2">
 							<FormField
 								control={form.control}
 								name="password"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Senha</FormLabel>
+										<FormLabel required>Senha</FormLabel>
 										<FormControl>
-											<Input type="password" {...field} />
+											<Input type="password" required {...field} />
 										</FormControl>
 									</FormItem>
 								)}
