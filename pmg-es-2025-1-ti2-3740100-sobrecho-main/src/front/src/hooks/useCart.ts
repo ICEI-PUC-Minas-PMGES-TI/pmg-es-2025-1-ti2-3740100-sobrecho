@@ -8,6 +8,10 @@ interface CartItem {
   price: number;
   quantity: number;
   image?: string;
+  bargain?: {
+    wantsBargain: boolean;
+    proposedPrice: number | null;
+  };
 }
 
 export const useCart = () => {
@@ -20,20 +24,26 @@ export const useCart = () => {
     }
   }, []);
 
-  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+  const saveCart = (items: CartItem[]) => {
+    localStorage.setItem('cart', JSON.stringify(items));
+  };
+
+  const addToCart = (item: Omit<CartItem, 'quantity' | 'bargain'>) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
       let newItems;
 
       if (existingItem) {
         newItems = prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.id === item.id
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
         );
       } else {
-        newItems = [...prevItems, { ...item, quantity: 1 }];
+        newItems = [...prevItems, { ...item, quantity: 1, bargain: { wantsBargain: false, proposedPrice: null } }];
       }
 
-      localStorage.setItem('cart', JSON.stringify(newItems));
+      saveCart(newItems);
       return newItems;
     });
   };
@@ -41,7 +51,7 @@ export const useCart = () => {
   const removeFromCart = (itemId: number) => {
     setCartItems((prevItems) => {
       const newItems = prevItems.filter((item) => item.id !== itemId);
-      localStorage.setItem('cart', JSON.stringify(newItems));
+      saveCart(newItems);
       return newItems;
     });
   };
@@ -52,7 +62,19 @@ export const useCart = () => {
       const newItems = prevItems.map((item) =>
         item.id === itemId ? { ...item, quantity } : item
       );
-      localStorage.setItem('cart', JSON.stringify(newItems));
+      saveCart(newItems);
+      return newItems;
+    });
+  };
+
+  const updateBargain = (itemId: number, wantsBargain: boolean, proposedPrice: number | null) => {
+    setCartItems((prevItems) => {
+      const newItems = prevItems.map((item) =>
+        item.id === itemId
+          ? { ...item, bargain: { wantsBargain, proposedPrice } }
+          : item
+      );
+      saveCart(newItems);
       return newItems;
     });
   };
@@ -63,6 +85,7 @@ export const useCart = () => {
   };
 
   const getTotal = () => {
+    // Total calculado com base no preço padrão (não considerando pechincha)
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
@@ -71,6 +94,7 @@ export const useCart = () => {
     addToCart,
     removeFromCart,
     updateQuantity,
+    updateBargain,
     clearCart,
     getTotal,
   };
