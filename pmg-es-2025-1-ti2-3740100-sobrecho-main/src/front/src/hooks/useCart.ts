@@ -13,7 +13,6 @@ interface CartItem {
 export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Carrega o carrinho do localStorage ao montar
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -21,53 +20,46 @@ export const useCart = () => {
     }
   }, []);
 
-  // Escuta mudanças externas no localStorage (outras abas/componentes)
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedCart = localStorage.getItem('cart');
-      setCartItems(updatedCart ? JSON.parse(updatedCart) : []);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  // Sempre salva no localStorage quando cartItems muda
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
-
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
+      let newItems;
+
       if (existingItem) {
-        return prevItems.map((i) =>
+        newItems = prevItems.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       } else {
-        return [...prevItems, { ...item, quantity: 1 }];
+        newItems = [...prevItems, { ...item, quantity: 1 }];
       }
+
+      localStorage.setItem('cart', JSON.stringify(newItems));
+      return newItems;
     });
   };
 
   const removeFromCart = (itemId: number) => {
-    setCartItems((prevItems) =>
-      prevItems.filter((item) => item.id !== itemId)
-    );
+    setCartItems((prevItems) => {
+      const newItems = prevItems.filter((item) => item.id !== itemId);
+      localStorage.setItem('cart', JSON.stringify(newItems));
+      return newItems;
+    });
   };
 
   const updateQuantity = (itemId: number, quantity: number) => {
     if (quantity < 1) return;
-
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
+    setCartItems((prevItems) => {
+      const newItems = prevItems.map((item) =>
         item.id === itemId ? { ...item, quantity } : item
-      )
-    );
+      );
+      localStorage.setItem('cart', JSON.stringify(newItems));
+      return newItems;
+    });
   };
 
   const clearCart = () => {
     setCartItems([]);
+    localStorage.removeItem('cart');
   };
 
   const getTotal = () => {
