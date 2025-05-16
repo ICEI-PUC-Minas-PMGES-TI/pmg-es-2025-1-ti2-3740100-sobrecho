@@ -135,12 +135,15 @@ export default function GestaoProdutos() {
                 <p className="text-sm text-purple-600">Quantidade Disponível: {produto.quantidade}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => router.push(`/cadastro-produto/editar?id=${produto.id}`)}
-                  className="bg-cyan-500 text-white px-4 py-1 rounded hover:bg-cyan-600 flex items-center gap-1"
-                >
-                  <FiEdit2 size={16} /> Atualizar
-                </button>
+              <button
+                onClick={() => {
+                   localStorage.setItem('produtos', JSON.stringify(produtos));
+                    router.push(`/cadastro-produto/editar?id=${produto.id}`);
+                              }}      
+                    className="bg-cyan-500 text-white px-4 py-1 rounded hover:bg-cyan-600 flex items-center gap-1"
+                    >
+                    <FiEdit2 size={16} /> Atualizar
+                    </button>
                 <button
                   onClick={() => abrirModalExclusao(produto)}
                   className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 flex items-center gap-1"

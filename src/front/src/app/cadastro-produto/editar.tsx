@@ -31,7 +31,11 @@ export default function EditarProduto() {
   const idParam = searchParams.get('id');
   const produtoId = idParam ? parseInt(idParam, 10) : null;
 
-  const produtoOriginal = produtosMock.find(p => p.id === produtoId);
+  const produtosSalvos = typeof window !== 'undefined' 
+  ? JSON.parse(localStorage.getItem('produtos') || '[]') 
+  : [];
+
+const produtoOriginal = produtosSalvos.find((p: any) => p.id === produtoId);
 
   const [formData, setFormData] = useState({
     nome: '',
