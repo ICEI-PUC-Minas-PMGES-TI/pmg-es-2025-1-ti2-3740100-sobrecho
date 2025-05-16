@@ -8,32 +8,12 @@ import { api } from '@/services';
 import { all, put, takeLatest } from 'redux-saga/effects';
 import { toast } from 'sonner';
 
-function fakeLoginMock({
-	email,
-	password
-}: {
-	email: string;
-	password: string;
-}): Promise<ILoggedUserInfo> {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			if (email === 'test@example.com' && password === '123456') {
-				resolve({
-					name: 'Test User',
-					email: 'text@example.com'
-				});
-			} else {
-				reject(new Error('Email ou senha incorretos'));
-			}
-		}, 1000);
-	});
-}
 
 function* postAuthLoginRequest({ email, password }: IPostAuthLoginRequestAction) {
 	try {
-		const { name, id } = yield fakeLoginMock({ email, password });
+		// const { name, id } = yield fakeLoginMock({ email, password });
 		toast.success('Login realizado com sucesso');
-		yield put(AuthCreators.postAuthLoginSuccess({ id, name, email }));
+		// yield put(AuthCreators.postAuthLoginSuccess({ id, name, email }));
 	} catch (error) {
 		toast.error(String(error));
 		yield put(AuthCreators.postAuthLoginFailure(String(error)));
