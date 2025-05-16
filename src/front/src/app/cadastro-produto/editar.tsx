@@ -1,10 +1,37 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+
+const produtosMock = new Array(8).fill(null).map((_, i) => {
+  const categoria = i % 2 === 0 ? 'camiseta' : 'calca';
+  const nome =
+    categoria === 'camiseta' ? `Camiseta Pokémon ${i + 1}` : `Calça Jeans ${i + 1}`;
+  const descricao =
+    categoria === 'camiseta'
+      ? 'Camiseta Infantil Pokémon estampada'
+      : 'Calça jeans azul clara com corte reto';
+
+  return {
+    id: i,
+    nome,
+    descricao,
+    tamanho: i % 3 === 0 ? 'P' : i % 3 === 1 ? 'M' : 'G',
+    quantidade: Math.floor(Math.random() * 10) + 1,
+    preco: 20 + i * 5,
+    categoria,
+    imagem: '/produto.png',
+  };
+});
+
 
 export default function EditarProduto() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const idParam = searchParams.get('id');
+  const produtoId = idParam ? parseInt(idParam, 10) : null;
+
+  const produtoOriginal = produtosMock.find(p => p.id === produtoId);
 
   const [formData, setFormData] = useState({
     nome: '',
@@ -14,6 +41,19 @@ export default function EditarProduto() {
     tamanho: '',
     imagens: [] as File[],
   });
+  
+  useEffect(() => {
+    if (produtoOriginal) {
+      setFormData({
+        nome: produtoOriginal.nome,
+        descricao: produtoOriginal.descricao,
+        categoria: produtoOriginal.categoria,
+        preco: produtoOriginal.preco.toFixed(2),
+        tamanho: produtoOriginal.tamanho,
+        imagens: [],
+      });
+    }
+  }, [produtoOriginal]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const { name, value } = e.target;
