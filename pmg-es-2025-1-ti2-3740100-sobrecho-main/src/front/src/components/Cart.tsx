@@ -52,12 +52,16 @@ export const Cart: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-col justify-between py-2">
-                    <p className="font-semibold">{item.name}</p>
-                    <p className="text-sm text-gray-600">Tamanho: M</p>
-                    <p className="text-sm text-gray-600">Cor: Qualquer</p>
-                    <p className="text-sm text-gray-600">Quantidade: 1</p>
-                  </div>
+                  <div className="flex flex-col justify-between">
+  <div>
+    <p className="font-semibold">{item.name}</p>
+    <p className="text-gray-600">Tamanho: M</p>
+    <p className="text-gray-600">Cor: Qualquer</p>
+    <p className="text-gray-600">Quantidade: {item.quantity}</p>
+  </div>
+  <p className="text-black font-bold mt-2">R$ {item.price.toFixed(2)}</p>
+</div>
+
                 </div>
               </div>
             ))}
