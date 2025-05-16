@@ -1,14 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCart } from '@/hooks/useCart';
-import { formatCurrency } from '@/lib/utils';
+import { useCart } from '../hooks/useCart';
+import { formatCurrency } from '../lib/utils';
 import { Trash2, Plus, Minus } from 'lucide-react';
 
 export const Cart: React.FC = () => {
   const { cartItems, removeFromCart, getTotal, updateQuantity } = useCart();
   const [wantsToBargain, setWantsToBargain] = useState<boolean>(false);
-  const [bargainPrice, setBargainPrice] = useState<string>('');
+  const [suggestedPrice, setSuggestedPrice] = useState<string>('');
+  const [bargainSent, setBargainSent] = useState<boolean>(false);
 
   if (cartItems.length === 0) {
     return (
@@ -21,36 +22,29 @@ export const Cart: React.FC = () => {
 
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  const handleSubmitBargain = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!bargainPrice) {
-      alert('Por favor, insira um valor para pechincha.');
-      return;
+  const handleBargainSubmit = () => {
+    if (suggestedPrice) {
+      alert('Solicitação de pechincha enviada!');
+      setBargainSent(true);
+      setSuggestedPrice('');
     }
-    alert(`Solicitação de pechincha enviada com o valor sugerido de R$ ${bargainPrice}`);
-    setBargainPrice('');
-    setWantsToBargain(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-100 text-black p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Coluna da esquerda - Meu carrinho */}
+        {/* Carrinho */}
         <div>
           <h2 className="text-2xl mb-6">Meu carrinho:</h2>
           <div className="space-y-4">
             {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-lg p-4 relative text-black"
-              >
+              <div key={item.id} className="bg-white rounded-lg p-4 relative text-black">
                 <button
                   onClick={() => removeFromCart(item.id)}
                   className="absolute top-4 right-4 text-gray-400"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-
                 <div className="flex gap-4 items-center">
                   <div className="w-24 h-24 bg-gray-100 rounded flex items-center justify-center">
                     {item.image ? (
@@ -88,7 +82,7 @@ export const Cart: React.FC = () => {
           </div>
         </div>
 
-        {/* Coluna da direita - Resumo da Compra */}
+        {/* Resumo */}
         <div>
           <div className="bg-white rounded-lg p-6 text-black">
             <div className="space-y-6">
@@ -97,43 +91,50 @@ export const Cart: React.FC = () => {
                 <span>{formatCurrency(getTotal())}</span>
               </div>
 
+              {/* Pechincha */}
               <div className="space-y-2">
                 <label className="block text-gray-600">Deseja pechinchar?</label>
                 <select
                   className="w-full p-2 border rounded bg-white text-black"
-                  onChange={(e) => setWantsToBargain(e.target.value === 'sim')}
-                  value={wantsToBargain ? 'sim' : 'nao'}
+                  onChange={(e) => {
+                    setWantsToBargain(e.target.value === 'sim');
+                    setBargainSent(false); // limpa aviso anterior
+                  }}
+                  defaultValue=""
                 >
                   <option value="">Escolha:</option>
                   <option value="sim">Sim</option>
                   <option value="nao">Não</option>
                 </select>
+
+                {wantsToBargain && (
+                  <div className="space-y-2 mt-2">
+                    <label className="block text-gray-600">Sugira um preço:</label>
+                    <input
+                      type="number"
+                      className="w-full p-2 border rounded bg-white text-black"
+                      placeholder="Ex: 99.99"
+                      value={suggestedPrice}
+                      onChange={(e) => setSuggestedPrice(e.target.value)}
+                    />
+                    <button
+                      onClick={handleBargainSubmit}
+                      className="w-full bg-[#E4D1FB] text-black py-2 rounded text-center"
+                    >
+                      Enviar sugestão
+                    </button>
+                  </div>
+                )}
+
+                {bargainSent && (
+                  <p className="text-green-600 text-sm mt-2">
+                    Solicitação de pechincha enviada com sucesso!
+                  </p>
+                )}
               </div>
 
-              {wantsToBargain && (
-                <form onSubmit={handleSubmitBargain} className="space-y-4 mt-4">
-                  <label className="block text-gray-600">
-                    Sugira um preço:
-                  </label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={bargainPrice}
-                    onChange={(e) => setBargainPrice(e.target.value)}
-                    className="w-full p-2 border rounded text-black bg-white"
-                    placeholder="Digite seu preço sugerido"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full bg-[#E4D1FB] text-black py-2 rounded"
-                  >
-                    Enviar Pechincha
-                  </button>
-                </form>
-              )}
-
-              <div className="space-y-4 mt-6">
+              {/* Total + Ações */}
+              <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Valor Total</span>
                   <span className="text-xl">{formatCurrency(getTotal())}</span>
