@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import { formatCurrency } from '../lib/utils';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Plus, Minus } from 'lucide-react';
 
 export const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, updateQuantity, getTotal } = useCart();
+  const { cartItems, removeFromCart, getTotal, updateQuantity } = useCart();
   const [wantsToBargain, setWantsToBargain] = useState<boolean>(false);
 
   if (cartItems.length === 0) {
@@ -18,10 +18,13 @@ export const Cart: React.FC = () => {
     );
   }
 
+  // Soma total das quantidades dos itens no carrinho
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <div className="min-h-screen bg-gray-100 text-black p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Coluna da esquerda - Itens do carrinho */}
+        {/* Coluna da esquerda - Meu carrinho */}
         <div>
           <h2 className="text-2xl mb-6">Meu carrinho:</h2>
           <div className="space-y-4">
@@ -36,8 +39,8 @@ export const Cart: React.FC = () => {
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-
-                <div className="flex gap-4">
+                
+                <div className="flex gap-4 items-center">
                   <div className="w-24 h-24 bg-gray-100 rounded flex items-center justify-center">
                     {item.image ? (
                       <img
@@ -49,31 +52,24 @@ export const Cart: React.FC = () => {
                       <span className="text-sm text-gray-400">Produto {item.id}</span>
                     )}
                   </div>
-
-                  <div className="flex flex-col justify-between">
+                  <div className="flex-1">
                     <p className="font-semibold">{item.name}</p>
-                    <p className="text-gray-600">Preço unitário: {formatCurrency(item.price)}</p>
-
-                    {/* Controle de quantidade */}
+                    <p className="text-gray-600">Preço: {formatCurrency(item.price)}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="bg-gray-300 text-black px-2 rounded"
+                        className="p-1 border rounded text-gray-700 hover:bg-gray-200"
                       >
-                        −
+                        <Minus className="w-4 h-4" />
                       </button>
-                      <span>{item.quantity}</span>
+                      <span className="px-3">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="bg-gray-300 text-black px-2 rounded"
+                        className="p-1 border rounded text-gray-700 hover:bg-gray-200"
                       >
-                        +
+                        <Plus className="w-4 h-4" />
                       </button>
                     </div>
-
-                    <p className="text-gray-800 text-sm mt-1">
-                      Total: {formatCurrency(item.price * item.quantity)}
-                    </p>
                   </div>
                 </div>
               </div>
@@ -81,12 +77,12 @@ export const Cart: React.FC = () => {
           </div>
         </div>
 
-        {/* Coluna da direita - Resumo */}
+        {/* Coluna da direita - Resumo da Compra */}
         <div>
           <div className="bg-white rounded-lg p-6 text-black">
             <div className="space-y-6">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Subtotal ({cartItems.length} itens)</span>
+                <span className="text-gray-600">Subtotal ({totalQuantity} itens)</span>
                 <span>{formatCurrency(getTotal())}</span>
               </div>
 

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useCart } from '@/hooks/useCart';
 import { Button } from '@/components/ui/button';
 
@@ -28,11 +29,19 @@ export default function TestPage() {
   const { addToCart } = useCart();
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 min-h-screen text-black" style={{ backgroundColor: '#cebad4' }}>
+      <div className="flex justify-end mb-6">
+        <Link href="/cart" passHref>
+          <Button>
+            Ver Carrinho
+          </Button>
+        </Link>
+      </div>
+      
       <h1 className="text-2xl font-bold mb-6">Página de Teste - Produtos</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {produtos.map((produto) => (
-          <div key={produto.id} className="border rounded-lg p-4">
+          <div key={produto.id} className="border rounded-lg p-4 bg-white">
             <img 
               src={produto.image} 
               alt={produto.name} 
