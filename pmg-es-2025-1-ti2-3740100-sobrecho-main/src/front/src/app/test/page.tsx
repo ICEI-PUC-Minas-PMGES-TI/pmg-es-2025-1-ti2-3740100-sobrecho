@@ -14,7 +14,7 @@ const produtos = [
     id: 2,
     name: "Produto Teste 2",
     price: 149.99,
-    image: "https://img.ltwebstatic.com/gspCenter/goodsImage/2023/3/16/9201975936_1057337/89517A5BA30B54A0981089BABD66EB77_thumbnail_720x.jpg"
+    image: "https://img.joomcdn.net/0d36df39157555cbc292f2bcc73a5f372c95d7fa_original.jpeg"
   },
   {
     id: 3,
