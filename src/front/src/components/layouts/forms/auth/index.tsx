@@ -34,7 +34,7 @@ export function AuthFormLayout({
 				<div className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
 					<ShirtIcon className="size-5" />
 				</div>
-				SoBrecho
+				SoBrechó
 			</Link>
 			<div className="flex w-full flex-col gap-6">
 				<Card>
