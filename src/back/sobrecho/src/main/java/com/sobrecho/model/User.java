@@ -9,13 +9,19 @@ import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sobrecho.enums.DocumentType;
+import com.sobrecho.enums.ProfileEnum;
 
 @Entity
 @Table(name = "user")
@@ -74,6 +81,13 @@ public class User {
 	@UpdateTimestamp
 	@Column(name = "updated_at")
 	private Instant updatedAt;
+
+	@Column(name = "profile", nullable = false)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_profile")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<Integer> profiles = new HashSet<>(Arrays.asList(ProfileEnum.USER.getCode()));
+
 
 	@OneToMany(mappedBy = "user")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -287,4 +301,28 @@ public class User {
     public List<Product> getProducts() {
         return products;
     }
+
+	public String getUsername() {
+		return this.email;
+	}
+
+	public Set<ProfileEnum> getProfiles() {
+        return this.profiles.stream().map(x -> ProfileEnum.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addProfile(ProfileEnum profileEnum) {
+        this.profiles.add(profileEnum.getCode());
+    }
+
+	public void setProfiles(Set<Integer> profiles) {
+		this.profiles = profiles;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", documentNumber=" + documentNumber
+				+ ", documentType=" + documentType + ", addressLine=" + addressLine + ", country=" + country
+				+ ", state=" + state + ", zipCode=" + zipCode + ", password=" + password + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", profiles=" + profiles + "]";
+	}
 }

@@ -1,16 +1,26 @@
 package com.sobrecho.service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sobrecho.dao.UserRepository;
+import com.sobrecho.enums.ProfileEnum;
 import com.sobrecho.model.User;
+import com.sobrecho.security.UserSpringSecurity;
 
 @Service
 public class UserService {
+    
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -31,6 +41,8 @@ public class UserService {
     @Transactional
     public User create(User obj) {
         obj.setId(null);
+        obj.setPassword(this.bCryptPasswordEncoder.encode(obj.getPassword()));
+        obj.setProfiles(Stream.of(ProfileEnum.USER.getCode()).collect(Collectors.toSet()));
         obj = this.userRepository.save(obj);
         return obj;
     }
@@ -46,6 +58,8 @@ public class UserService {
         newObj.setCountry(obj.getCountry());
         newObj.setZipCode(obj.getZipCode());
         newObj.setPassword(obj.getPassword());
+        newObj.setPassword(this.bCryptPasswordEncoder.encode(obj.getPassword()));
+        newObj.setProfiles(Stream.of(ProfileEnum.USER.getCode()).collect(Collectors.toSet()));
         return this.userRepository.save(newObj);
     }
 
@@ -58,4 +72,11 @@ public class UserService {
         }
     }
     
+    public static UserSpringSecurity authenticated() {
+        try {
+            return (UserSpringSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

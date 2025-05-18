@@ -13,6 +13,7 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -179,4 +180,10 @@ public class Product {
         }
         return Objects.equals(this.images, other.images);
     }
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", user=" + user + ", name=" + name + ", description=" + description + ", price="
+				+ price + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", images=" + images + "]";
+	}
 }

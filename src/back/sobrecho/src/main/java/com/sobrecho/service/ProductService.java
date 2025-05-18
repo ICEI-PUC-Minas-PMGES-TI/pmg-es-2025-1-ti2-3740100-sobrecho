@@ -4,11 +4,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import com.sobrecho.dao.ProductRepository;
 import com.sobrecho.model.Product;
 import com.sobrecho.model.User;
+import com.sobrecho.security.UserSpringSecurity;
+import com.sobrecho.service.exceptions.AuthorizationException;
 
 import jakarta.transaction.Transactional;
 
@@ -26,15 +29,24 @@ public class ProductService {
     }
 
     public List<Product> findAllByUserId(Long userId) {
-        return this.productRepository.findByUser_Id(userId);
+        UserSpringSecurity userSpringSecurity = UserService.authenticated();
+        if (Objects.isNull(userSpringSecurity))
+            throw new AuthorizationException("Acesso negado!");
+
+        return this.productRepository.findByUser_Id(userSpringSecurity.getId());
     }
 
     @Transactional
     public Product create(Product obj) {
-        User user = this.userService.findById(obj.getUser().getId());
+        UserSpringSecurity userSpringSecurity = UserService.authenticated();
+        if (Objects.isNull(userSpringSecurity))
+            throw new AuthorizationException("Acesso negado!");
+
+        User user = this.userService.findById(userSpringSecurity.getId());
         obj.setId(null);
         obj.setUser(user);
         obj = this.productRepository.save(obj);
+        System.out.println(obj.toString());
         return obj;
     }
 
@@ -56,5 +68,9 @@ public class ProductService {
         } catch (Exception e) {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas");
         }
+    }
+
+    private Boolean userHasProduct(UserSpringSecurity userSpringSecurity, Product product) {
+        return product.getUser().getId().equals(userSpringSecurity.getId());
     }
 }
