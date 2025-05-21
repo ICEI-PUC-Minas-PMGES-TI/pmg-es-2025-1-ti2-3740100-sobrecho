@@ -1,22 +1,19 @@
 import { AuthCreators, AuthTypes } from '@/redux/reducers';
 import {
-	ILoggedUserInfo,
+	IPostAuthForgotPasswordRequestAction,
 	IPostAuthLoginRequestAction,
-	IPostAuthRegisterRequestAction
+	IPostAuthRegisterRequestAction,
+	IPostAuthResetPasswordRequestAction
 } from '@/redux/types';
-import { api } from '@/services';
 import { all, put, takeLatest } from 'redux-saga/effects';
 import { toast } from 'sonner';
 
-
 function* postAuthLoginRequest({ email, password }: IPostAuthLoginRequestAction) {
 	try {
-		// const { name, id } = yield fakeLoginMock({ email, password });
-		toast.success('Login realizado com sucesso');
-		// yield put(AuthCreators.postAuthLoginSuccess({ id, name, email }));
+		console.log('(REDUX) postAuthLoginRequest: ', email, password);
 	} catch (error) {
 		toast.error(String(error));
-		yield put(AuthCreators.postAuthLoginFailure(String(error)));
+		yield put(AuthCreators.postAuthLoginFailure());
 	}
 }
 
@@ -26,16 +23,43 @@ function* postAuthRegisterRequest({
 	password
 }: IPostAuthRegisterRequestAction) {
 	try {
-		const { data } = yield api.post('user', { name, email, password });
-		toast.success('Cadastro realizado com sucesso');
-		yield put(AuthCreators.postAuthRegisterSuccess(data));
+		console.log('(REDUX) postAuthRegisterRequest: ', name, email, password);
 	} catch (error) {
 		toast.error(String(error));
-		yield put(AuthCreators.postAuthRegisterFailure(String(error)));
+		yield put(AuthCreators.postAuthRegisterFailure());
+	}
+}
+
+function* postAuthForgotPasswordRequest({ email }: IPostAuthForgotPasswordRequestAction) {
+	try {
+		console.log('(REDUX) postAuthForgotPasswordRequest: ', email);
+	} catch (error) {
+		toast.error(String(error));
+		yield put(AuthCreators.postAuthForgotPasswordFailure());
+	}
+}
+
+function* postAuthResetPasswordRequest({
+	token,
+	password,
+	passwordConfirm
+}: IPostAuthResetPasswordRequestAction) {
+	try {
+		console.log(
+			'(REDUX) postAuthResetPasswordRequest: ',
+			token,
+			password,
+			passwordConfirm
+		);
+	} catch (error) {
+		toast.error(String(error));
+		yield put(AuthCreators.postAuthResetPasswordFailure());
 	}
 }
 
 export const auth = all([
 	takeLatest(AuthTypes.POST_AUTH_LOGIN_REQUEST, postAuthLoginRequest),
-	takeLatest(AuthTypes.POST_AUTH_REGISTER_REQUEST, postAuthRegisterRequest)
+	takeLatest(AuthTypes.POST_AUTH_REGISTER_REQUEST, postAuthRegisterRequest),
+	takeLatest(AuthTypes.POST_AUTH_FORGOT_PASSWORD_REQUEST, postAuthForgotPasswordRequest),
+	takeLatest(AuthTypes.POST_AUTH_RESET_PASSWORD_REQUEST, postAuthResetPasswordRequest)
 ]);

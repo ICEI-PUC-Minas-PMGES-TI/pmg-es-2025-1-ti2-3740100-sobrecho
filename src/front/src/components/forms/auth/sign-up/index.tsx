@@ -1,8 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
@@ -35,15 +33,10 @@ export function SignUpForm() {
 		}
 	});
 
-	const { loading, signed } = useTypedSelector((state) => state.auth);
-
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (signed) {
-			redirect('/');
-		}
-	}, [signed]);
+	const {
+		signUp: { loading }
+	} = useTypedSelector((state) => state.auth);
 
 	function onSubmit({ name, email, password }: SignUpFormType) {
 		dispatch(AuthCreators.postAuthRegisterRequest(name, email, password));
@@ -104,8 +97,11 @@ export function SignUpForm() {
 							className="w-full"
 							disabled={!form.formState.isValid || loading}
 						>
-							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : null}
-							Criar conta
+							{loading ? (
+								<Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								'Criar conta'
+							)}
 						</Button>
 					</div>
 					<div className="mt-4 text-center text-sm">

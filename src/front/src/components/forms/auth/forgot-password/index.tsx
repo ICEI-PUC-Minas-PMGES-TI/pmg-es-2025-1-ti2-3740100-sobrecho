@@ -1,6 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import { AuthFormLayout } from '@/components/layouts/forms';
 import {
@@ -14,6 +15,7 @@ import {
 } from '@/components/ui';
 
 import { useTypedSelector } from '@/hooks';
+import { AuthCreators } from '@/redux/reducers';
 import { forgotPasswordFormSchema } from '@/schemas/forms/auth';
 import { ForgotPasswordFormType } from '@/types/forms/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,13 +29,15 @@ export function ForgotPasswordForm() {
 			email: ''
 		}
 	});
-	// const dispatch = useDispatch();
 
-	const { loading } = useTypedSelector((state) => state.auth);
+	const dispatch = useDispatch();
+
+	const {
+		forgotPassword: { loading }
+	} = useTypedSelector((state) => state.auth);
 
 	function onSubmit({ email }: ForgotPasswordFormType) {
-		// dispatch(AuthCreators.postAuthForgotPasswordRequest(email));
-		console.log(email);
+		dispatch(AuthCreators.postAuthForgotPasswordRequest(email));
 	}
 
 	return (
@@ -58,9 +62,16 @@ export function ForgotPasswordForm() {
 								)}
 							/>
 						</div>
-						<Button type="submit" className="w-full" disabled={!form.formState.isValid}>
-							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : null}
-							Enviar e-mail
+						<Button
+							type="submit"
+							className="w-full"
+							disabled={!form.formState.isValid || loading}
+						>
+							{loading ? (
+								<Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								'Enviar e-mail'
+							)}
 						</Button>
 					</div>
 				</form>

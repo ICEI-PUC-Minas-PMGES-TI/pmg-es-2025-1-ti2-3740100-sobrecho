@@ -8,7 +8,7 @@ export function RootProvider({ children }: IRootProviderProps) {
 	return (
 		<>
 			<ReduxProvider>
-				<ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 					<ToasterProvider>{children}</ToasterProvider>
 				</ThemeProvider>
 			</ReduxProvider>

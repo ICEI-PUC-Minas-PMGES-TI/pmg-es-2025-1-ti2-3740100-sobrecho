@@ -1,6 +1,9 @@
 'use client';
 
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import { AuthFormLayout } from '@/components/layouts/forms';
 import {
@@ -14,6 +17,7 @@ import {
 } from '@/components/ui';
 
 import { useTypedSelector } from '@/hooks';
+import { AuthCreators } from '@/redux/reducers';
 import { resetPasswordFormSchema } from '@/schemas/forms/auth';
 import { ResetPasswordFormType } from '@/types/forms/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,19 +32,33 @@ export function ResetPasswordForm() {
 			passwordConfirm: ''
 		}
 	});
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const searchParams = useSearchParams();
+	const router = useRouter();
 
-	const { loading } = useTypedSelector((state) => state.auth);
+	const {
+		resetPassword: { loading }
+	} = useTypedSelector((state) => state.auth);
+	const [token, setToken] = useState<string>('');
+
+	useEffect(() => {
+		const urlToken = searchParams.get('token');
+
+		if (!urlToken) {
+			router.replace('/forgot-password');
+		} else {
+			setToken(urlToken);
+		}
+	}, [searchParams, router]);
 
 	function onSubmit({ password, passwordConfirm }: ResetPasswordFormType) {
-		// dispatch(AuthCreators.postAuthResetPassword(password, passwordConfirm));
-		console.log(password, passwordConfirm);
+		dispatch(AuthCreators.postAuthResetPasswordRequest(token, password, passwordConfirm));
 	}
 
 	return (
 		<AuthFormLayout
 			title="Esqueceu sua senha?"
-			description="Digite seu e-mail para recuperar sua senha."
+			description="Digite sua nova senha nos campos abaixo."
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -73,9 +91,16 @@ export function ResetPasswordForm() {
 								)}
 							/>
 						</div>
-						<Button type="submit" className="w-full" disabled={!form.formState.isValid}>
-							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : null}
-							Alterar senha
+						<Button
+							type="submit"
+							className="w-full"
+							disabled={!form.formState.isValid || loading}
+						>
+							{loading ? (
+								<Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								'Alterar senha'
+							)}
 						</Button>
 					</div>
 				</form>

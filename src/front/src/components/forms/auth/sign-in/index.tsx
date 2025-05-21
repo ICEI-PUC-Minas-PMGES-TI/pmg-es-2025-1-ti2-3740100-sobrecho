@@ -33,7 +33,9 @@ export function SignInForm() {
 	});
 	const dispatch = useDispatch();
 
-	const { loading } = useTypedSelector((state) => state.auth);
+	const {
+		signIn: { loading }
+	} = useTypedSelector((state) => state.auth);
 
 	function onSubmit({ email, password }: SignInFormType) {
 		dispatch(AuthCreators.postAuthLoginRequest(email, password));
@@ -83,9 +85,12 @@ export function SignInForm() {
 								)}
 							/>
 						</div>
-						<Button type="submit" className="w-full" disabled={!form.formState.isValid}>
-							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : null}
-							Entrar
+						<Button
+							type="submit"
+							className="w-full"
+							disabled={!form.formState.isValid || loading}
+						>
+							{loading ? <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> : 'Entrar'}
 						</Button>
 					</div>
 					<div className="mt-4 text-center text-sm">
