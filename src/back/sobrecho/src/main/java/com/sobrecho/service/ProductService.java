@@ -1,4 +1,6 @@
 package com.sobrecho.service;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -6,9 +8,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sobrecho.dao.ProductRepository;
 import com.sobrecho.model.Product;
+import com.sobrecho.model.ProductImage;
 import com.sobrecho.model.User;
 import com.sobrecho.security.UserSpringSecurity;
 import com.sobrecho.service.exceptions.AuthorizationException;
@@ -22,7 +26,10 @@ public class ProductService {
 
     @Autowired
     private UserService userService;
-
+   
+    @Autowired
+    private ProductImageService productImageService;
+    
     public Product findById(Long id) {
         Optional<Product> product = this.productRepository.findById(id);
         return product.orElseThrow(() -> new RuntimeException("Produto de Id: " + id + "não encontrado."));
@@ -37,18 +44,32 @@ public class ProductService {
     }
 
     @Transactional
-    public Product create(Product obj) {
+    public Product create(Product obj, MultipartFile[] images) throws IOException {
         UserSpringSecurity userSpringSecurity = UserService.authenticated();
-        if (Objects.isNull(userSpringSecurity))
+        if (Objects.isNull(userSpringSecurity)) {
             throw new AuthorizationException("Acesso negado!");
-
+        }
         User user = this.userService.findById(userSpringSecurity.getId());
         obj.setId(null);
         obj.setUser(user);
         obj = this.productRepository.save(obj);
+
+        List<ProductImage> productImages = new ArrayList<>();
+        if (images != null && images.length > 0) {
+            for (MultipartFile image : images) {
+                if (!image.isEmpty()) {
+                    ProductImage productImage = productImageService.uploadProductImage(image, obj);
+                    productImages.add(productImage);
+                }
+            }
+            obj.setImages(productImages); 
+            obj = this.productRepository.save(obj); 
+        }
+
         System.out.println(obj.toString());
         return obj;
     }
+      
 
     @Transactional
     public Product update(Product obj) {
