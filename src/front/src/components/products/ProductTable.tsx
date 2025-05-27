@@ -1,9 +1,17 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface Product {
-  id: number; name: string; price: number; image?: string;
+  id: number;
+  name: string;
+  price: number;
+  description?: string;
+  image?: string;
+  tipo?: string;
+  tamanho?: string;
+  quantidadeDisponivel?: number;
 }
 
 interface ProductTableProps {
@@ -23,9 +31,20 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
             )}
             <CardTitle className="pt-4">{product.name}</CardTitle>
           </CardHeader>
+          {}
           <CardContent>
             <p className="text-lg font-semibold">R$ {product.price.toFixed(2)}</p>
+            {product.tipo && (
+              <p className="text-sm text-muted-foreground">Tipo: {product.tipo}</p>
+            )}
+            {product.tamanho && (
+              <p className="text-sm text-muted-foreground">Tamanho: {product.tamanho}</p>
+            )}
+            {product.quantidadeDisponivel !== undefined && (
+              <p className="text-sm text-muted-foreground">Disponível: {product.quantidadeDisponivel}</p>
+            )}
           </CardContent>
+          {}
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => onEdit(product)}>Atualizar</Button>
             <Button variant="destructive" onClick={() => onDelete(product.id)}>Excluir</Button>
