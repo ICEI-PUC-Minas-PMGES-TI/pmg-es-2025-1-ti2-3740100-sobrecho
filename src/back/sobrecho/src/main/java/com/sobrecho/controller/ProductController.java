@@ -6,6 +6,8 @@ import com.sobrecho.model.User;
 import com.sobrecho.service.ProductService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,12 +16,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @RestController
+@Validated
 @RequestMapping("/product")
 public class ProductController {
 
@@ -40,14 +44,27 @@ public class ProductController {
         return  ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> create(@Valid @RequestBody Product obj) {
-        this.productService.create(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(obj.getId())
-            .toUri();
-        return ResponseEntity.created(uri).build();
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> create(
+            @RequestParam("name") @NotBlank String name,
+            @RequestParam("description") @NotBlank String description,
+            @RequestParam("price") @Positive double price,
+            @RequestParam(value = "images", required = false) MultipartFile[] images) {
+        try {
+            Product product = new Product();
+            product.setName(name);
+            product.setDescription(description);
+            product.setPrice(price);
+
+            Product savedProduct = productService.create(product, images);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(savedProduct.getId())
+                    .toUri();
+            return ResponseEntity.created(uri).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @PutMapping("/{id}")
