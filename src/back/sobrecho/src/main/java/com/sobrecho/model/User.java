@@ -74,6 +74,12 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
+	@Column(name = "phone")
+	private String phone;
+
+	@Column(name = "birthdate")
+	private java.time.LocalDate birthdate;
+
 	@CreationTimestamp
 	@Column(name = "created_at")
 	private Instant createdAt;
@@ -92,6 +98,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Product> products = new ArrayList<Product>();
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private Store store;
 
 	public User() {
 	}

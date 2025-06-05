@@ -21,10 +21,12 @@ public class JWTUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role, String userId) {
         SecretKey key = getKeyBySecret();
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
+                .claim("userId", userId)
                 .setExpiration(new Date(System.currentTimeMillis() + this.expiration))
                 .signWith(key)
                 .compact();
@@ -52,6 +54,16 @@ public class JWTUtil {
         if (Objects.nonNull(claims))
             return claims.getSubject();
         return null;
+    }
+
+    public String getRole(String token) {
+        Claims claims = getClaims(token);
+        return claims != null ? (String) claims.get("role") : null;
+    }
+
+    public String getUserId(String token) {
+        Claims claims = getClaims(token);
+        return claims != null ? (String) claims.get("userId") : null;
     }
 
     private Claims getClaims(String token) {

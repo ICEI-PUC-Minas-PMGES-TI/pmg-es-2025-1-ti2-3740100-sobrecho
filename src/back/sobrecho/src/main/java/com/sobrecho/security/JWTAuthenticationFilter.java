@@ -52,7 +52,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throws IOException, ServletException {
         UserSpringSecurity userSpringSecurity = (UserSpringSecurity) authentication.getPrincipal();
         String username = userSpringSecurity.getUsername();
-        String token = this.jwtUtil.generateToken(username);
+        String userId = userSpringSecurity.getId().toString();
+        // Pegue o primeiro perfil (role) do usuário autenticado
+        String role = userSpringSecurity.getAuthorities().iterator().next().getAuthority().toLowerCase();
+        String token = jwtUtil.generateToken(username, role, userId);
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
     }

@@ -38,6 +38,15 @@ public class Product {
 	
 	@Column(name = "price")
 	private double price;
+
+	@Column(name = "phone")
+	private String phone;
+
+	@Column(name = "birthdate")
+	private LocalDate birthdate;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private Store store;
 	
 	@CreationTimestamp
 	@Column(name = "created_at")
