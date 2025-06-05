@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,8 +46,8 @@ public class Product {
 	@Column(name = "birthdate")
 	private LocalDate birthdate;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private Store store;
+	// @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	// private Store store;
 	
 	@CreationTimestamp
 	@Column(name = "created_at")

@@ -16,7 +16,7 @@ public class FirebaseInitialization {
     public void initialization() {
         try {
             InputStream serviceAccount = getClass().getClassLoader()
-                    .getResourceAsStream("sobrecho-7728b-firebase-adminsdk-fbsvc-27af6b1371.json");
+                    .getResourceAsStream("sobrecho-7728b-firebase-adminsdk-fbsvc-5aa66a958c.json");
 
             if (serviceAccount == null) {
                 throw new IOException("Firebase service account file not found in resources");

@@ -5,9 +5,15 @@ import java.util.Objects;
 public enum ProfileEnum {
 
     ADMIN(1, "ROLE_ADMIN"),
-    USER(2, "ROLE_USER");
+    USER(2, "ROLE_USER"),
+    SELLER(3, "ROLE_SELLER");
 
-    ProfileEnum(int i, String string) {
+    private Integer code;
+    private String description;
+
+    ProfileEnum(Integer code, String description) {
+        this.code = code;
+        this.description = description;
     }
 
     public static ProfileEnum getADMIN() {
@@ -18,8 +24,9 @@ public enum ProfileEnum {
         return USER;
     }
 
-    private Integer code;
-    private String description;
+    public static ProfileEnum getSELLER() {
+        return SELLER;
+    }
 
     public static ProfileEnum toEnum(Integer code) {
         if (Objects.isNull(code))

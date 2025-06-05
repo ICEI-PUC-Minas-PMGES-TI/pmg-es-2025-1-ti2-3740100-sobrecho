@@ -76,8 +76,5 @@ public class ProductImageService {
 
         return productImage;
     }
-    /*
-     * @TODO
-     * Implementar salvamento das imagens do produto na nuvem (firebase) e atualizar o service para suportar essa funcionalidade.
-     */
+
 }

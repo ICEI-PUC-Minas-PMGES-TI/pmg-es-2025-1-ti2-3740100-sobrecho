@@ -54,7 +54,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String username = userSpringSecurity.getUsername();
         String userId = userSpringSecurity.getId().toString();
         // Pegue o primeiro perfil (role) do usuário autenticado
-        String role = userSpringSecurity.getAuthorities().iterator().next().getAuthority().toLowerCase();
+        String role = "user"; // valor padrão
+        if (userSpringSecurity.getAuthorities() != null && userSpringSecurity.getAuthorities().iterator().hasNext()) {
+            role = userSpringSecurity.getAuthorities().iterator().next().getAuthority().toLowerCase();
+        }
         String token = jwtUtil.generateToken(username, role, userId);
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
