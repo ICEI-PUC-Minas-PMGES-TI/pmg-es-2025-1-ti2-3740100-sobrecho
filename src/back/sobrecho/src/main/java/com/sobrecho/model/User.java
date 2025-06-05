@@ -102,6 +102,10 @@ public class User {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Store store;
 
+	public Store getStore() {
+		return this.store;
+	}
+
 	public User() {
 	}
 
@@ -250,6 +254,31 @@ public class User {
 
 	public void setProfiles(Set<Integer> profiles) {
 		this.profiles = profiles;
+	}
+
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public java.time.LocalDate getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(java.time.LocalDate birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 	@Override

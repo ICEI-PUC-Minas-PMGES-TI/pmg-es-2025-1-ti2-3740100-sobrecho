@@ -17,7 +17,6 @@ public class Store {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Getters e setters
 
     public Long getId() {
         return id;
