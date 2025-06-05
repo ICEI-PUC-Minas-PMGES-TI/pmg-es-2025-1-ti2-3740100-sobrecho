@@ -61,4 +61,14 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/me")
+    public ResponseEntity<User> getAuthenticatedUser(){
+    	var userSpringSecurity = UserService.authenticated();
+    	if(userSpringSecurity == null) {
+    		return ResponseEntity.status(401).build();
+    	}
+    	User user = userService.findById(userSpringSecurity.getId());
+    	return ResponseEntity.ok(user);
+    }
 }

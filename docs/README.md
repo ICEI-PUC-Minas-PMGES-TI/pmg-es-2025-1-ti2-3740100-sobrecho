@@ -129,7 +129,7 @@ _O documento a seguir apresenta o detalhamento do projeto da solução. São apr
 
 _O documento a seguir apresenta os indicadores de desempenho dos processos._
 
-[Indicadores de desempenho dos processos](performance-indicators.md)
+[Indicadores de desempenho dos processos](indicadores-desempenho.md)
 
 
 ## 6. Interface do sistema
