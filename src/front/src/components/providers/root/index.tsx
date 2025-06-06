@@ -6,12 +6,10 @@ interface IRootProviderProps {
 
 export function RootProvider({ children }: IRootProviderProps) {
 	return (
-		<>
-			<ReduxProvider>
-				<ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-					<ToasterProvider>{children}</ToasterProvider>
-				</ThemeProvider>
-			</ReduxProvider>
-		</>
+		<ReduxProvider>
+			<ThemeProvider>
+				<ToasterProvider>{children}</ToasterProvider>
+			</ThemeProvider>
+		</ReduxProvider>
 	);
 }

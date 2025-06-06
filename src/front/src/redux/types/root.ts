@@ -1,6 +1,6 @@
-import { IAuthState, IProductState } from '@/redux/types';
+import { IAuthState, IProductsState } from '@/redux/types';
 
 export interface IRootState {
 	auth: IAuthState;
-	product: IProductState;
+	products: IProductsState;
 }

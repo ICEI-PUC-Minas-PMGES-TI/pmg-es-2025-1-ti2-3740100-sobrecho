@@ -3,71 +3,160 @@ import {
 	IAuthState,
 	IAuthTypes,
 	ILoggedUserInfo,
-	IPostAuthLoginRequestAction
+	IPostAuthSignInSuccessAction,
+	IPostAuthSignUpSellerSuccessAction,
+	IPostAuthSignUpSuccessAction
 } from '@/redux/types';
+import { cookies } from '@/services';
 import { createActions, createReducer } from 'reduxsauce';
 
+const session = cookies.get('sobrecho.session');
+
+const sessionUser = session?.user;
+
+let user: ILoggedUserInfo;
+
+if (sessionUser?.role === 'seller') {
+	if (!sessionUser.store) {
+		throw new Error('User with role seller must have store data');
+	}
+
+	user = {
+		id: sessionUser.id,
+		name: sessionUser.name,
+		email: sessionUser.email,
+		role: 'seller',
+		store: sessionUser.store
+	};
+} else {
+	user = {
+		id: sessionUser?.id || '',
+		name: sessionUser?.name || '',
+		email: sessionUser?.email || '',
+		role:
+			sessionUser?.role === 'user' || sessionUser?.role === 'admin'
+				? sessionUser.role
+				: 'user'
+	};
+}
+
 const INITIAL_STATE: IAuthState = {
-	loading: false,
-	signed: false,
-	user: {} as ILoggedUserInfo
+	signed: Boolean(session?.tokens?.access),
+	user,
+	signUp: { loading: false },
+	signUpSeller: { loading: false },
+	signIn: { loading: false }
 };
 
 export const { Creators: AuthCreators, Types: AuthTypes } = createActions<
 	IAuthTypes,
 	IAuthCreators
 >({
-	postAuthLoginRequest: ['email', 'password'],
-	postAuthLoginSuccess: ['user'],
-	postAuthLoginFailure: [],
+	postAuthSignUpRequest: ['payload'],
+	postAuthSignUpSuccess: ['payload'],
+	postAuthSignUpFailure: [],
 
-	postAuthRegisterRequest: ['name', 'email', 'password'],
-	postAuthRegisterSuccess: ['user'],
-	postAuthRegisterFailure: []
+	postAuthSignUpSellerRequest: ['payload'],
+	postAuthSignUpSellerSuccess: ['payload'],
+	postAuthSignUpSellerFailure: [],
+
+	postAuthSignInRequest: ['payload'],
+	postAuthSignInSuccess: ['payload'],
+	postAuthSignInFailure: [],
+
+	authSignOut: []
 });
 
-const postAuthLoginRequest = (state = INITIAL_STATE): IAuthState => ({
+const signUpRequest = (state = INITIAL_STATE): IAuthState => ({
 	...state,
-	loading: true
+	signUp: {
+		loading: true
+	}
 });
-const postAuthLoginSuccess = (
+const signUpSuccess = (
 	state = INITIAL_STATE,
-	{ user }: IPostAuthLoginRequestAction
+	{ payload }: IPostAuthSignUpSuccessAction
 ): IAuthState => ({
 	...state,
-	loading: false,
+	signUp: {
+		loading: false
+	},
 	signed: true,
-	user
+	user: payload
 });
-const postAuthLoginFailure = (state = INITIAL_STATE): IAuthState => ({
+const signUpFailure = (state = INITIAL_STATE): IAuthState => ({
 	...state,
-	loading: false
+	signUp: {
+		loading: false
+	}
 });
 
-const postAuthRegisterRequest = (state = INITIAL_STATE): IAuthState => ({
+const signUpSellerRequest = (state = INITIAL_STATE): IAuthState => ({
 	...state,
-	loading: true
+	signUpSeller: {
+		loading: true
+	}
 });
-const postAuthRegisterSuccess = (
+const signUpSellerSuccess = (
 	state = INITIAL_STATE,
-	{ user }: IPostAuthLoginRequestAction
+	{ payload }: IPostAuthSignUpSellerSuccessAction
 ): IAuthState => ({
 	...state,
-	loading: false,
+	signUpSeller: {
+		loading: false
+	},
 	signed: true,
-	user
+	user: payload
 });
-const postAuthRegisterFailure = (state = INITIAL_STATE): IAuthState => ({
+const signUpSellerFailure = (state = INITIAL_STATE): IAuthState => ({
 	...state,
-	loading: false
+	signUpSeller: {
+		loading: false
+	}
+});
+
+const signInRequest = (state = INITIAL_STATE): IAuthState => ({
+	...state,
+	signIn: {
+		loading: true
+	}
+});
+const signInSuccess = (
+	state = INITIAL_STATE,
+	{ payload }: IPostAuthSignInSuccessAction
+): IAuthState => ({
+	...state,
+	signIn: {
+		loading: false
+	},
+	signed: true,
+	user: payload
+});
+const signInFailure = (state = INITIAL_STATE): IAuthState => ({
+	...state,
+	signIn: {
+		loading: false
+	}
+});
+
+const authSignOut = (state = INITIAL_STATE): IAuthState => ({
+	...state,
+	signed: false,
+	user: {} as ILoggedUserInfo
 });
 
 export const auth = createReducer(INITIAL_STATE, {
-	[AuthTypes.POST_AUTH_LOGIN_REQUEST]: postAuthLoginRequest,
-	[AuthTypes.POST_AUTH_LOGIN_SUCCESS]: postAuthLoginSuccess,
-	[AuthTypes.POST_AUTH_LOGIN_FAILURE]: postAuthLoginFailure,
+	[AuthTypes.POST_AUTH_SIGN_UP_REQUEST]: signUpRequest,
+	[AuthTypes.POST_AUTH_SIGN_UP_SUCCESS]: signUpSuccess,
+	[AuthTypes.POST_AUTH_SIGN_UP_FAILURE]: signUpFailure,
 
-	[AuthTypes.POST_AUTH_REGISTER_REQUEST]: postAuthRegisterRequest,
-	[AuthTypes.POST_AUTH_REGISTER_SUCCESS]: postAuthRegisterSuccess,
-	[AuthTypes.POST_AUTH_REGISTER_FAILURE]: postAuthRegisterFailure
+	[AuthTypes.POST_AUTH_SIGN_UP_SELLER_REQUEST]: signUpSellerRequest,
+	[AuthTypes.POST_AUTH_SIGN_UP_SELLER_SUCCESS]: signUpSellerSuccess,
+	[AuthTypes.POST_AUTH_SIGN_UP_SELLER_FAILURE]: signUpSellerFailure,
+
+	[AuthTypes.POST_AUTH_SIGN_IN_REQUEST]: signInRequest,
+	[AuthTypes.POST_AUTH_SIGN_IN_SUCCESS]: signInSuccess,
+	[AuthTypes.POST_AUTH_SIGN_IN_FAILURE]: signInFailure,
+
+	[AuthTypes.AUTH_SIGN_OUT]: authSignOut
 });

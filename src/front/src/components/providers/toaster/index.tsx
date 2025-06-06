@@ -1,4 +1,4 @@
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui';
 
 interface IToasterProviderProps {
 	children: React.ReactNode;
@@ -8,7 +8,7 @@ export function ToasterProvider({ children }: IToasterProviderProps) {
 	return (
 		<>
 			{children}
-			<Toaster position="top-center" />
+			<Toaster richColors position="top-center" />
 		</>
 	);
 }

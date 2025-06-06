@@ -1,4 +1,5 @@
 export * from '@/redux/types/root';
 
 export * from '@/redux/types/auth';
-export * from '@/redux/types/product';
+export * from '@/redux/types/products';
+export * from '@/redux/types/user';

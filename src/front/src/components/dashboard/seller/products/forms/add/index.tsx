@@ -1,0 +1,470 @@
+'use client';
+
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import type React from 'react';
+import { useState, useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+
+import {
+	Form,
+	Card,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+	CardContent,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormControl,
+	Input,
+	FormMessage,
+	Textarea,
+	Button,
+	Select,
+	SelectTrigger,
+	SelectValue,
+	SelectContent,
+	SelectItem,
+	Checkbox,
+	Label
+} from '@/components/ui';
+
+import { useTypedSelector } from '@/hooks';
+import { ProductsCreators } from '@/redux/reducers';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Upload, X, Loader2 } from 'lucide-react';
+import { z } from 'zod';
+
+// Schema atualizado para incluir arquivos
+const addProductSchema = z.object({
+	name: z.string().min(1, 'Nome é obrigatório'),
+	category: z.string().min(1, 'Categoria é obrigatória'),
+	price: z.string().refine((val) => {
+		const parsedValue = parseFloat(val);
+		return !isNaN(parsedValue) && parsedValue > 0;
+	}, 'Preço deve ser um número maior que zero'),
+	quantity: z.string().min(1, 'Quantidade deve ser pelo menos 1'),
+	description: z.string().min(10, 'Descrição deve ter pelo menos 10 caracteres'),
+	size: z.array(z.string()).min(1, 'Selecione pelo menos um tamanho'),
+	images: z
+		.array(z.instanceof(File))
+		.min(1, 'Adicione pelo menos uma imagem')
+		.max(8, 'Máximo 8 imagens')
+});
+
+type AddProductFormType = z.input<typeof addProductSchema>;
+
+export function AddProductForm() {
+	const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
+	const form = useForm<AddProductFormType>({
+		resolver: zodResolver(addProductSchema),
+		mode: 'onChange',
+		defaultValues: {
+			name: '',
+			category: '',
+			price: '',
+			description: '',
+			quantity: '',
+			size: [],
+			images: []
+		}
+	});
+
+	const {
+		productCreate: { loading }
+	} = useTypedSelector((state) => state.products);
+	const { user } = useTypedSelector((state) => state.auth);
+	const dispatch = useDispatch();
+	const router = useRouter();
+
+	const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const files = event.target.files;
+		if (!files) return;
+
+		const currentImages = form.getValues('images') || [];
+		const newFiles = Array.from(files);
+
+		// Verificar se não excede o limite de 8 imagens
+		if (currentImages.length + newFiles.length > 8) {
+			alert('Máximo de 8 imagens permitidas');
+			return;
+		}
+
+		// Verificar se são arquivos de imagem
+		const validFiles = newFiles.filter((file) => file.type.startsWith('image/'));
+		if (validFiles.length !== newFiles.length) {
+			alert('Apenas arquivos de imagem são permitidos');
+		}
+
+		const updatedImages = [...currentImages, ...validFiles];
+		form.setValue('images', updatedImages, { shouldValidate: true });
+
+		// Criar URLs de preview
+		const newPreviewUrls = validFiles.map((file) => URL.createObjectURL(file));
+		setImagePreviewUrls((prev) => [...prev, ...newPreviewUrls]);
+
+		// Limpar o input
+		if (fileInputRef.current) {
+			fileInputRef.current.value = '';
+		}
+	};
+
+	const removeImage = (index: number) => {
+		const currentImages = form.getValues('images') || [];
+		const newImages = currentImages.filter((_, i) => i !== index);
+		form.setValue('images', newImages, { shouldValidate: true });
+
+		// Remover URL de preview e liberar memória
+		const urlToRevoke = imagePreviewUrls[index];
+		if (urlToRevoke) {
+			URL.revokeObjectURL(urlToRevoke);
+		}
+
+		const newPreviewUrls = imagePreviewUrls.filter((_, i) => i !== index);
+		setImagePreviewUrls(newPreviewUrls);
+	};
+
+	function onSubmit(data: AddProductFormType) {
+		if (user.role !== 'seller') {
+			return;
+		}
+
+		const payload = {
+			...data,
+			storeId: user.store.id
+		};
+
+		dispatch(ProductsCreators.productCreateRequest(payload));
+
+		if (loading === false) {
+			setTimeout(() => {
+				router.push('/dashboard/products');
+			}, 1000);
+		}
+	}
+
+	const sizes = [
+		{ value: 'pp', label: 'PP' },
+		{ value: 'p', label: 'P' },
+		{ value: 'm', label: 'M' },
+		{ value: 'g', label: 'G' },
+		{ value: 'gg', label: 'GG' },
+		{ value: 'xgg', label: 'XGG' }
+	];
+
+	const categories = [
+		{ value: 'roupas-femininas', label: 'Roupas Femininas' },
+		{ value: 'roupas-masculinas', label: 'Roupas Masculinas' },
+		{ value: 'acessorios', label: 'Acessórios' },
+		{ value: 'calcados', label: 'Calçados' },
+		{ value: 'bolsas', label: 'Bolsas' },
+		{ value: 'joias', label: 'Joias' },
+		{ value: 'decoracao', label: 'Decoração' },
+		{ value: 'livros', label: 'Livros' }
+	];
+
+	return (
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 md:grid-cols-2">
+				<div className="space-y-6">
+					<Card>
+						<CardHeader>
+							<CardTitle>Informações do Produto</CardTitle>
+							<CardDescription>
+								Preencha as informações básicas do produto
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-4">
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Nome do Produto</FormLabel>
+										<FormControl>
+											<Input placeholder="Ex: Vestido Vintage Azul" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="category"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Categoria</FormLabel>
+										<Select onValueChange={field.onChange} value={field.value}>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Selecione uma categoria" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												{categories.map((category) => (
+													<SelectItem key={category.value} value={category.value}>
+														{category.label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="price"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Preço (R$)</FormLabel>
+										<FormControl>
+											<Input
+												type="text"
+												inputMode="decimal"
+												placeholder="0,00"
+												value={field.value ?? ''}
+												onChange={(e) => {
+													const inputValue = e.target.value;
+
+													// Aceita apenas números e vírgula/ponto
+													if (/^[0-9]*[.,]?[0-9]*$/.test(inputValue)) {
+														field.onChange(inputValue);
+													}
+												}}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="description"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Descrição</FormLabel>
+										<FormControl>
+											<Textarea
+												placeholder="Descreva o produto, seu estado, marca, etc."
+												className="resize-none"
+												rows={4}
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="size"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Tamanhos Disponíveis</FormLabel>
+										<FormControl>
+											<div className="grid grid-cols-3 gap-4">
+												{sizes.map((size) => (
+													<div key={size.value} className="flex items-center space-x-2">
+														<Checkbox
+															id={size.value}
+															checked={field.value?.includes(size.value)}
+															onCheckedChange={(checked) => {
+																const currentSizes = field.value || [];
+																if (checked) {
+																	field.onChange([...currentSizes, size.value]);
+																} else {
+																	field.onChange(
+																		currentSizes.filter((s) => s !== size.value)
+																	);
+																}
+															}}
+														/>
+														<Label
+															htmlFor={size.value}
+															className="cursor-pointer text-sm font-normal"
+														>
+															{size.label}
+														</Label>
+													</div>
+												))}
+											</div>
+										</FormControl>
+										<FormMessage />
+										{field.value && field.value.length > 0 && (
+											<p className="text-sm text-muted-foreground">
+												Selecionados:{' '}
+												{field.value
+													.map((s) => sizes.find((size) => size.value === s)?.label)
+													.join(', ')}
+											</p>
+										)}
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="quantity"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Quantidade total</FormLabel>
+										<FormControl>
+											<Input
+												{...field}
+												type="text"
+												inputMode="numeric"
+												pattern="[0-9]*"
+												value={field.value ?? ''}
+												onChange={(e) => {
+													const inputValue = e.target.value;
+
+													// Aceita apenas números inteiros (0-9)
+													if (/^\d*$/.test(inputValue)) {
+														field.onChange(inputValue);
+													}
+												}}
+												className="appearance-none [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none
+             [&::-webkit-outer-spin-button]:appearance-none"
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</CardContent>
+					</Card>
+				</div>
+
+				<div className="space-y-6">
+					<Card>
+						<CardHeader>
+							<CardTitle>Fotos do Produto</CardTitle>
+							<CardDescription>
+								Adicione até 8 fotos do produto. A primeira será a foto principal.
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<FormField
+								control={form.control}
+								name="images"
+								render={() => (
+									<FormItem>
+										<FormControl>
+											<div className="space-y-4">
+												<div className="grid grid-cols-2 gap-4">
+													{imagePreviewUrls.map((url, index) => (
+														<div key={index} className="group relative">
+															<Image
+																src={url || '/placeholder.svg'}
+																alt={`Produto ${index + 1}`}
+																width={200}
+																height={200}
+																className="h-32 w-full rounded-lg border object-cover"
+															/>
+															<Button
+																type="button"
+																variant="destructive"
+																size="icon"
+																className="absolute right-2 top-2 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+																onClick={() => removeImage(index)}
+															>
+																<X className="h-3 w-3" />
+															</Button>
+															{index === 0 && (
+																<div className="absolute bottom-2 left-2 rounded bg-primary px-2 py-1 text-xs text-primary-foreground">
+																	Principal
+																</div>
+															)}
+														</div>
+													))}
+
+													{imagePreviewUrls.length < 8 && (
+														<div>
+															<input
+																ref={fileInputRef}
+																type="file"
+																accept="image/*"
+																multiple
+																onChange={handleFileSelect}
+																className="hidden"
+																id="image-upload"
+															/>
+															<Label
+																htmlFor="image-upload"
+																className="flex h-32 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-muted-foreground/25 bg-foreground/5 transition-colors hover:bg-muted/50"
+															>
+																<div className="flex flex-col items-center gap-2">
+																	<Upload className="h-6 w-6" />
+																	<span className="text-sm">Adicionar Foto</span>
+																</div>
+															</Label>
+														</div>
+													)}
+												</div>
+
+												{imagePreviewUrls.length > 0 && (
+													<p className="text-sm text-muted-foreground">
+														{imagePreviewUrls.length} de 8 imagens adicionadas
+													</p>
+												)}
+											</div>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</CardContent>
+					</Card>
+
+					<div className="flex gap-4">
+						<Button
+							type="submit"
+							className="flex-1"
+							disabled={!form.formState.isValid || loading}
+						>
+							{loading ? (
+								<>
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									Publicando...
+								</>
+							) : (
+								'Publicar Produto'
+							)}
+						</Button>
+					</div>
+
+					{/* Debug: Mostrar estado do formulário em desenvolvimento */}
+					{process.env.NODE_ENV === 'development' && (
+						<Card>
+							<CardHeader>
+								<CardTitle className="text-sm">Debug - Estado do Formulário</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="space-y-1 text-xs">
+									<p>Valid: {form.formState.isValid ? '✅' : '❌'}</p>
+									<p>Dirty: {form.formState.isDirty ? '✅' : '❌'}</p>
+									<p>Errors: {Object.keys(form.formState.errors).length}</p>
+									<p>Images: {form.watch('images')?.length || 0}</p>
+									{Object.keys(form.formState.errors).length > 0 && (
+										<pre className="rounded bg-muted p-2 text-xs">
+											{JSON.stringify(form.formState.errors, null, 2)}
+										</pre>
+									)}
+								</div>
+							</CardContent>
+						</Card>
+					)}
+				</div>
+			</form>
+		</Form>
+	);
+}

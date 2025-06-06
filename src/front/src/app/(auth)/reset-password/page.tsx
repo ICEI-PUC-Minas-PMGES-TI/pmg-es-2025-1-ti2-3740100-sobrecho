@@ -1,5 +1,19 @@
-import { ResetPasswordForm } from '@/components/forms/auth';
+import { notFound } from 'next/navigation';
 
-export default function Page() {
-	return <ResetPasswordForm />;
+import { ResetPasswordForm } from '@/components/auth/forms';
+
+interface IPageProps {
+	searchParams: {
+		token: number;
+	};
+}
+
+export default async function Page({ searchParams }: IPageProps) {
+	const { token } = await searchParams;
+
+	if (token) {
+		return <ResetPasswordForm />;
+	}
+
+	return notFound();
 }

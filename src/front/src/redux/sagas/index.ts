@@ -1,4 +1,4 @@
-export { sagas } from '@/redux/sagas/root';
+export * from '@/redux/sagas/root';
 
 export { auth } from '@/redux/sagas/auth';
-export { product } from '@/redux/sagas/product';
+export { products } from '@/redux/sagas/products';
