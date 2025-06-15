@@ -100,6 +100,7 @@ public class User {
 	private List<Product> products = new ArrayList<Product>();
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonManagedReference // Define este como o lado "pai" da serialização
 	private Store store;
 
 	public Store getStore() {

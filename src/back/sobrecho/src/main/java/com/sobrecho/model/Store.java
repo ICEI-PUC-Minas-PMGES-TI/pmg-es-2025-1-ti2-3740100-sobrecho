@@ -1,5 +1,6 @@
 package com.sobrecho.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -16,8 +17,8 @@ public class Store {
     private String image; // URL da imagem
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
     
 

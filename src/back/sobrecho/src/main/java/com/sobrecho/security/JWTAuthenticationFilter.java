@@ -1,7 +1,10 @@
 package com.sobrecho.security;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Set;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,8 +18,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sobrecho.dto.AuthResponseDTO;
+import com.sobrecho.dto.SignInDTO;
+import com.sobrecho.enums.ProfileEnum;
 import com.sobrecho.exceptions.GlobalExceptionHandler;
-import com.sobrecho.model.User;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -34,10 +39,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request,
             HttpServletResponse response) throws AuthenticationException {
         try {
-            User userCredentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
+            SignInDTO userCredentials = new ObjectMapper().readValue(request.getInputStream(), SignInDTO.class);
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    userCredentials.getUsername(), userCredentials.getPassword(), new ArrayList<>());
+                    userCredentials.getEmail(), userCredentials.getPassword(), new ArrayList<>());
 
             Authentication authentication = this.authenticationManager.authenticate(authToken);
             return authentication;
@@ -50,17 +55,43 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
             HttpServletResponse response, FilterChain filterChain, Authentication authentication)
             throws IOException, ServletException {
+        
+        
         UserSpringSecurity userSpringSecurity = (UserSpringSecurity) authentication.getPrincipal();
         String username = userSpringSecurity.getUsername();
         String userId = userSpringSecurity.getId().toString();
-        // Pegue o primeiro perfil (role) do usuário autenticado
-        String role = "user"; // valor padrão
-        if (userSpringSecurity.getAuthorities() != null && userSpringSecurity.getAuthorities().iterator().hasNext()) {
-            role = userSpringSecurity.getAuthorities().iterator().next().getAuthority().toLowerCase();
+        
+        String role;
+        if (userSpringSecurity.hasRole(ProfileEnum.SELLER)) {
+            role = ProfileEnum.SELLER.getDescription();
+        } else if (userSpringSecurity.hasRole(ProfileEnum.ADMIN)) {
+            role = ProfileEnum.ADMIN.getDescription();
+        } else {
+            role = ProfileEnum.USER.getDescription();
         }
-        String token = jwtUtil.generateToken(username, role, userId);
-        response.addHeader("Authorization", "Bearer " + token);
-        response.addHeader("access-control-expose-headers", "Authorization");
+        
+        String accessToken = jwtUtil.generateAccessToken(username, role, userId);
+        String refreshToken = jwtUtil.generateRefreshToken(username);
+
+        AuthResponseDTO responseBody = new AuthResponseDTO();
+        AuthResponseDTO.TokensDTO tokens = new AuthResponseDTO.TokensDTO();
+        tokens.setAccess(accessToken);
+        tokens.setAccess_expires_at(Instant.now().plus(15, ChronoUnit.MINUTES).toString());
+        tokens.setRefresh(refreshToken);
+        tokens.setRefresh_expires_at(Instant.now().plus(7, ChronoUnit.DAYS).toString());
+        responseBody.setTokens(tokens);
+
+        AuthResponseDTO.UserDTO userDTO = new AuthResponseDTO.UserDTO();
+        userDTO.setId(userId);
+        userDTO.setName(userSpringSecurity.getUsername()); 
+        userDTO.setEmail(username);
+        userDTO.setRole(role);
+        responseBody.setUser(userDTO);
+        
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.getWriter().write(new ObjectMapper().writeValueAsString(responseBody));
+        response.getWriter().flush();
     }
 
 }

@@ -19,18 +19,31 @@ public class JWTUtil {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private Long expiration;
+    private Long accessTokenExpiration;
 
-    public String generateToken(String username, String role, String userId) {
+    @Value("${jwt.refresh.expiration}")
+    private Long refreshTokenExpiration;
+
+    public String generateAccessToken(String username, String role, String userId) {
         SecretKey key = getKeyBySecret();
         return Jwts.builder()
                 .setSubject(username)
                 .claim("role", role)
                 .claim("userId", userId)
-                .setExpiration(new Date(System.currentTimeMillis() + this.expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + this.accessTokenExpiration))
                 .signWith(key)
                 .compact();
     }
+
+    public String generateRefreshToken(String username) {
+        SecretKey key = getKeyBySecret();
+        return Jwts.builder()
+                .setSubject(username)
+                .setExpiration(new Date(System.currentTimeMillis() + this.refreshTokenExpiration))
+                .signWith(key)
+                .compact();
+    }
+
 
     private SecretKey getKeyBySecret() {
         SecretKey key = Keys.hmacShaKeyFor(this.secret.getBytes());
@@ -58,12 +71,12 @@ public class JWTUtil {
 
     public String getRole(String token) {
         Claims claims = getClaims(token);
-        return claims != null ? (String) claims.get("role") : null;
+        return (claims != null && claims.get("role") != null) ? (String) claims.get("role") : null;
     }
 
     public String getUserId(String token) {
         Claims claims = getClaims(token);
-        return claims != null ? (String) claims.get("userId") : null;
+        return (claims != null && claims.get("userId") != null) ? (String) claims.get("userId") : null;
     }
 
     private Claims getClaims(String token) {

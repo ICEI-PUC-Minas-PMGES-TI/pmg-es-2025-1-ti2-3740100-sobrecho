@@ -1,4 +1,3 @@
-
 package com.sobrecho.service;
 
 import com.sobrecho.dto.*;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AuthService {
@@ -52,8 +52,9 @@ public class AuthService {
         user.addProfile(ProfileEnum.USER);
         userRepository.save(user);
 
-        String accessToken = jwtUtil.generateToken(user.getEmail(), "user", user.getId().toString());
-        String refreshToken = accessToken;
+        String role = ProfileEnum.USER.getDescription();
+        String accessToken = jwtUtil.generateAccessToken(user.getEmail(), role, user.getId().toString());
+        String refreshToken = jwtUtil.generateRefreshToken(user.getEmail());
 
         AuthResponseDTO response = new AuthResponseDTO();
         AuthResponseDTO.TokensDTO tokens = new AuthResponseDTO.TokensDTO();
@@ -67,7 +68,7 @@ public class AuthService {
         userDTO.setId(user.getId().toString());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setRole("user");
+        userDTO.setRole(role);
         response.setUser(userDTO);
 
         return response;
@@ -90,6 +91,7 @@ public class AuthService {
             user.setPhone(dto.getPhone());
         }
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.addProfile(ProfileEnum.USER);
         user.addProfile(ProfileEnum.SELLER);
         userRepository.save(user);
 
@@ -100,8 +102,9 @@ public class AuthService {
         store.setUser(user);
         storeRepository.save(store);
 
-        String accessToken = jwtUtil.generateToken(user.getEmail(), "seller", user.getId().toString());
-        String refreshToken = accessToken;
+        String role = ProfileEnum.SELLER.getDescription();
+        String accessToken = jwtUtil.generateAccessToken(user.getEmail(), role, user.getId().toString());
+        String refreshToken = jwtUtil.generateRefreshToken(user.getEmail());
 
         AuthResponseDTO response = new AuthResponseDTO();
         AuthResponseDTO.TokensDTO tokens = new AuthResponseDTO.TokensDTO();
@@ -115,7 +118,7 @@ public class AuthService {
         userDTO.setId(user.getId().toString());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setRole("seller");
+        userDTO.setRole(role);
 
         AuthResponseDTO.StoreDTO storeDTO = new AuthResponseDTO.StoreDTO();
         storeDTO.setId(store.getId().toString());
@@ -138,10 +141,20 @@ public class AuthService {
             throw new RuntimeException("Senha inválida");
         }
 
-        String role = user.getProfiles().stream().findFirst().map(p -> p.getDescription()).orElse("user");
+        Set<ProfileEnum> profiles = user.getProfiles();
+        String role;
 
-        String accessToken = jwtUtil.generateToken(user.getEmail(), role, user.getId().toString());
-        String refreshToken = accessToken;
+        if (profiles.contains(ProfileEnum.SELLER)) {
+            role = ProfileEnum.SELLER.getDescription();
+        } else if (profiles.contains(ProfileEnum.ADMIN)) {
+            role = ProfileEnum.ADMIN.getDescription();
+        } else {
+            role = ProfileEnum.USER.getDescription();
+        }
+        // --- FIM DA CORREÇÃO ---
+
+        String accessToken = jwtUtil.generateAccessToken(user.getEmail(), role, user.getId().toString());
+        String refreshToken = jwtUtil.generateRefreshToken(user.getEmail());
 
         AuthResponseDTO response = new AuthResponseDTO();
         AuthResponseDTO.TokensDTO tokens = new AuthResponseDTO.TokensDTO();
@@ -157,10 +170,9 @@ public class AuthService {
         userDTO.setEmail(user.getEmail());
         userDTO.setRole(role);
 
-        if (role.equals("seller")) {
-            Optional<User> userWithStore = userRepository.findById(user.getId());
-            if (userWithStore.isPresent() && userWithStore.get().getStore() != null) {
-                Store store = userWithStore.get().getStore();
+        if (role.equals("ROLE_SELLER")) {
+            if (user.getStore() != null) {
+                Store store = user.getStore();
                 AuthResponseDTO.StoreDTO storeDTO = new AuthResponseDTO.StoreDTO();
                 storeDTO.setId(store.getId().toString());
                 storeDTO.setName(store.getName());
