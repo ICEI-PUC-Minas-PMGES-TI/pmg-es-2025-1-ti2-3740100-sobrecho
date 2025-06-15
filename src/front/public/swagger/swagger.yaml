@@ -1,0 +1,673 @@
+openapi: 3.0.3
+info:
+  title: Sobrecho API
+  version: 1.0.0
+  description: |
+    Documentação da API do projeto Sobrecho, organizada por módulos:
+    - Autenticação
+    - Produtos
+    - Pedidos
+
+servers:
+  - url: http://localhost:3000
+    description: Localhost
+
+tags:
+  - name: Auth
+    description: Endpoints de autenticação
+  - name: Produtos
+    description: Endpoints para produtos
+  - name: Pedidos
+    description: Endpoints para checkout e pedidos
+
+paths:
+  # AUTH
+  /auth/signin:
+    post:
+      summary: Login de qualquer usuário
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInRequest'
+      responses:
+        '200':
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthBasicResponse'
+                  - $ref: '#/components/schemas/AuthSellerResponse'
+        '401':
+          description: Credenciais inválidas
+
+  /auth/signup:
+    post:
+      summary: Cadastro de usuário comum ou admin
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+      responses:
+        '201':
+          description: Cadastro bem-sucedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthBasicResponse'
+
+  /auth/signup/seller:
+    post:
+      summary: Cadastro de vendedor
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignUpSellerRequest'
+      responses:
+        '201':
+          description: Cadastro de vendedor bem-sucedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSellerResponse'
+
+  /auth/signout:
+    post:
+      summary: Logout do usuário
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignOutRequest'
+      responses:
+        '204':
+          description: Logout realizado com sucesso
+        '400':
+          description: Token inválido
+
+  # PEDIDOS
+  /orders:
+    post:
+      summary: Iniciar um novo pedido (checkout)
+      tags: [Pedidos]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Pedido criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+        '400':
+          description: Dados inválidos
+        '401':
+          description: Não autorizado
+
+    get:
+      summary: Listar pedidos do usuário autenticado
+      tags: [Pedidos]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de pedidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrdersResponse'
+        '401':
+          description: Não autorizado
+
+  /orders/{orderId}:
+    get:
+      summary: Buscar detalhes de um pedido específico
+      tags: [Pedidos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do pedido
+      responses:
+        '200':
+          description: Detalhes do pedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailsResponse'
+        '404':
+          description: Pedido não encontrado
+        '401':
+          description: Não autorizado
+
+    put:
+      summary: Atualizar status do pedido
+      tags: [Pedidos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderStatusRequest'
+      responses:
+        '200':
+          description: Status do pedido atualizado
+        '400':
+          description: Status inválido
+        '404':
+          description: Pedido não encontrado
+        '401':
+          description: Não autorizado
+
+  # PRODUTOS
+  /products/new:
+    post:
+      summary: Criar novo produto (admin ou seller)
+      tags: [Produtos]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '201':
+          description: Produto criado com sucesso
+        '400':
+          description: Dados inválidos
+        '401':
+          description: Não autorizado
+
+  /products:
+    get:
+      summary: Listar todos os produtos
+      tags: [Produtos]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+        '401':
+          description: Não autorizado
+
+  /products/{id}:
+    get:
+      summary: Buscar produto por ID
+      tags: [Produtos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do produto
+      responses:
+        '200':
+          description: Produto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductFetchByIdResponse'
+        '404':
+          description: Produto não encontrado
+        '401':
+          description: Não autorizado
+
+    put:
+      summary: Atualizar produto
+      tags: [Produtos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductUpdateRequest'
+      responses:
+        '200':
+          description: Produto atualizado
+        '400':
+          description: Dados inválidos
+        '401':
+          description: Não autorizado
+        '404':
+          description: Produto não encontrado
+
+    delete:
+      summary: Deletar produto
+      tags: [Produtos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Produto deletado
+        '401':
+          description: Não autorizado
+        '404':
+          description: Produto não encontrado
+
+  /products/store/{storeId}:
+    get:
+      summary: Listar produtos por loja
+      tags: [Produtos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: storeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de produtos da loja
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+        '401':
+          description: Não autorizado
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Auth
+    SignInRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+          example: seller@sobrecho.com
+        password:
+          type: string
+          example: 12345678
+
+    SignUpRequest:
+      type: object
+      required: [name, email, password, phone, birthdate]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        phone:
+          type: string
+        birthdate:
+          type: string
+          format: date
+
+    SignUpSellerRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+        - phone
+        - birthdate
+        - store_name
+        - store_description
+        - store_image
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        phone:
+          type: string
+        birthdate:
+          type: string
+          format: date
+        store_name:
+          type: string
+          example: Loja do Zé
+        store_description:
+          type: string
+          example: Vendemos camisetas divertidas
+        store_image:
+          type: string
+          format: binary
+
+    SignOutRequest:
+      type: object
+      required: [refresh]
+      properties:
+        refresh:
+          type: string
+          example: eyJhbGciOiJIUzI1...
+
+    AuthBasicResponse:
+      type: object
+      properties:
+        token:
+          $ref: '#/components/schemas/AuthToken'
+        user:
+          $ref: '#/components/schemas/BasicUser'
+
+    AuthSellerResponse:
+      type: object
+      properties:
+        token:
+          $ref: '#/components/schemas/AuthToken'
+        user:
+          $ref: '#/components/schemas/SellerUser'
+
+    AuthToken:
+      type: object
+      properties:
+        access:
+          type: string
+          example: eyJhbGciOiJIUzI1...
+        refresh:
+          type: string
+          example: eyJhbGciOiJIUzI1...
+        access_expires_at:
+          type: string
+          format: date-time
+        refresh_expires_at:
+          type: string
+          format: date-time
+
+    BasicUser:
+      type: object
+      required: [id, name, email, role]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+
+    SellerUser:
+      allOf:
+        - $ref: '#/components/schemas/BasicUser'
+        - type: object
+          required: [store, role]
+          properties:
+            role:
+              type: string
+              enum: [seller]
+            store:
+              $ref: '#/components/schemas/Store'
+
+    Store:
+      type: object
+      required: [id, name, description, image]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+          example: https://firebasestorage.googleapis.com/...
+
+    # Checkout
+    CartItem:
+      type: object
+      required: [id, size]
+      properties:
+        id:
+          type: string
+          example: prod-123
+        size:
+          type: string
+          example: M
+
+    CreateOrderRequest:
+      type: object
+      required: [cart, paymentMethod]
+      properties:
+        cart:
+          type: array
+          description: Lista de produtos únicos no carrinho
+          items:
+            $ref: '#/components/schemas/CartItem'
+        paymentMethod:
+          type: string
+          enum: [credit_card, debit_card, pix]
+          example: credit_card
+
+    CreateOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: order-456
+        total:
+          type: number
+          format: float
+          example: 179.70
+        freight:
+          type: number
+          format: float
+          example: 15.00
+        status:
+          type: string
+          enum: [pending, paid, cancelled]
+          example: pending
+
+    OrderProduct:
+      type: object
+      required: [id, size, price]
+      properties:
+        id:
+          type: string
+        size:
+          type: string
+        price:
+          type: number
+          format: float
+
+    Order:
+      type: object
+      required:
+        - id
+        - userId
+        - products
+        - total
+        - freight
+        - status
+        - paymentMethod
+        - createdAt
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderProduct'
+        total:
+          type: number
+          format: float
+        freight:
+          type: number
+          format: float
+        status:
+          type: string
+          enum: [pending, paid, cancelled]
+        paymentMethod:
+          type: string
+          enum: [credit_card, debit_card, pix]
+        createdAt:
+          type: string
+          format: date-time
+
+    UpdateOrderStatusRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [paid, cancelled]
+
+    ListOrdersResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+
+    OrderDetailsResponse:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+
+    # Produtos
+    CreateProductRequest:
+      type: object
+      required: [storeId, name, category, price, description, size, image]
+      properties:
+        storeId:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        size:
+          type: string
+        image:
+          type: string
+          format: binary
+
+    Product:
+      type: object
+      required: [id, storeId, name, category, price, description, size, image, createdAt]
+      properties:
+        id:
+          type: string
+        storeId:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        size:
+          type: string
+        image:
+          type: string
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ProductListResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
+    ProductFetchByIdResponse:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+
+    ProductUpdateRequest:
+      type: object
+      properties:
+        storeId:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        size:
+          type: string
+        image:
+          type: string
+          format: binary
