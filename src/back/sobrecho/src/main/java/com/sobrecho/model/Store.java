@@ -1,5 +1,7 @@
 package com.sobrecho.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,9 +16,10 @@ public class Store {
     private String image; // URL da imagem
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
-
+    
 
     public Long getId() {
         return id;
@@ -57,4 +60,6 @@ public class Store {
     public void setUser(User user) {
         this.user = user;
     }
+    
+    
 }

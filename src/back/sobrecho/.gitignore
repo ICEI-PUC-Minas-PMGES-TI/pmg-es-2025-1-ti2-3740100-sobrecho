@@ -4,7 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/application.properties
-sobrecho/src/main/resources/sobrecho-7728b-firebase-adminsdk-fbsvc-f0754cdff4.json
 
 ### STS ###
 .apt_generated
