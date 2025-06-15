@@ -79,4 +79,16 @@ public class ProductController {
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
+        Product obj = this.productService.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+    
+    @GetMapping("/store/{storeId}")
+    public ResponseEntity<List<Product>> findByStore(@PathVariable Long storeId) {
+        List<Product> products = this.productService.findAllByStoreId(storeId);
+        return ResponseEntity.ok().body(products);
+    }
 }

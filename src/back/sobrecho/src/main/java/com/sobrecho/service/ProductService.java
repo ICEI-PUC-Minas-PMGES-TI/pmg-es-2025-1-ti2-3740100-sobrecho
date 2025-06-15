@@ -94,4 +94,10 @@ public class ProductService {
     private Boolean userHasProduct(UserSpringSecurity userSpringSecurity, Product product) {
         return product.getUser().getId().equals(userSpringSecurity.getId());
     }
+
+    public List<Product> findAllByStoreId(Long storeId) {
+        return productRepository.findAllByUser_Store_Id(storeId);
+    }
+	
+	
 }
