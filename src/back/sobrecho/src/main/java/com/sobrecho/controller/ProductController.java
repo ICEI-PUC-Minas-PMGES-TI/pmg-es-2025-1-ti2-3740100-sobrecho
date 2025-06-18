@@ -49,12 +49,16 @@ public class ProductController {
             @RequestParam("name") @NotBlank String name,
             @RequestParam("description") @NotBlank String description,
             @RequestParam("price") @Positive double price,
+            @RequestParam(value = "size") String size,
+            @RequestParam(value = "category") String category,
             @RequestParam(value = "images", required = false) MultipartFile[] images) {
         try {
             Product product = new Product();
             product.setName(name);
             product.setDescription(description);
             product.setPrice(price);
+            product.setSize(size);
+            product.setCategory(category);
 
             Product savedProduct = productService.create(product, images);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
