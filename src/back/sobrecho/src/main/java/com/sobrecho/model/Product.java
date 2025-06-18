@@ -45,6 +45,13 @@ public class Product {
 
 	@Column(name = "birthdate")
 	private LocalDate birthdate;
+	
+	@Size(min = 1, max= 5)
+	@Column(name = "size")
+	private String size;
+	
+	@Column(name = "category")
+	private String category;
 
 	// @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	// private Store store;
@@ -62,7 +69,8 @@ public class Product {
 	private List<ProductImage> images = new ArrayList<>();
 
     public Product(Long id, User user, @Size(min = 4, max = 100) String name,
-			@Size(min = 4, max = 100) String description, double price, Instant createdAt, Instant updatedAt,
+			@Size(min = 4, max = 100) String description, double price,
+			@Size(min = 1, max= 5)String size, String category, Instant createdAt, Instant updatedAt,
 			List<ProductImage> images) {
 		this.id = id;
 		this.user = user;
@@ -115,6 +123,22 @@ public class Product {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public Instant getCreatedAt() {

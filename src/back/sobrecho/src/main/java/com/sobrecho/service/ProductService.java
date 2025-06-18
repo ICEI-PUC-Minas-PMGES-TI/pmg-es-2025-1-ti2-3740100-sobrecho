@@ -73,11 +73,17 @@ public class ProductService {
 
     @Transactional
     public Product update(Product obj) {
+    	UserSpringSecurity userSpringSecurity = UserService.authenticated();
+        if (Objects.isNull(userSpringSecurity)) {
+            throw new AuthorizationException("Acesso negado!");
+        }
         Product newObj = this.findById(obj.getId());
         newObj.setDescription(obj.getDescription());
         newObj.setName(obj.getName());
         newObj.setDescription(obj.getDescription());
         newObj.setPrice(obj.getPrice());
+        newObj.setSize(obj.getSize());
+        newObj.setCategory(obj.getCategory());
         newObj.setName(obj.getName());
         return this.productRepository.save(newObj);
     }
