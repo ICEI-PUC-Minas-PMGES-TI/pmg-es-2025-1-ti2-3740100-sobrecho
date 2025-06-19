@@ -1,6 +1,6 @@
 ### 3.3.3 Processo 2 – PAGAMENTO DE PEDIDOS
 
-O processo 3 tem como prioridade a implementação do sistema de pagamentos funcional, capaz de reconhecer a forma de pagamento selecionada pelo cliente, confirmar a compra e enviar um recibo para o cliente.
+O processo 2 tem como prioridade a implementação do sistema de pagamentos funcional, capaz de reconhecer a forma de pagamento selecionada pelo cliente, confirmar a compra e enviar um recibo para o cliente.
 
 ## Oportunidades de Melhoria
 - Adicionar cupons de desconto.
