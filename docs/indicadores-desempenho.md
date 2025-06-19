@@ -8,7 +8,7 @@
 | **Média de Receita por Produto** | Entender o valor médio gerado por cada item vendido pelo vendedor. | Receita total de vendas do vendedor dividida pelo número total de produtos (itens) vendidos. | Tabelas: `Product`, `Order_Product`, `Order`, `Payment` | `RECEITA TOTAL DO VENDEDOR / Nº TOTAL DE PRODUTOS VENDIDOS PELO VENDEDOR` |
 | **Variação Percentual** | Analisar a tendência de crescimento ou declínio do desempenho do vendedor. | A variação percentual de uma métrica (ex: Receita Total) do período atual em comparação com o mesmo período anterior. | Tabela: `Order`, `Payment` | `((MÉTRICA_ATUAL - MÉTRICA_ANTERIOR) / MÉTRICA_ANTERIOR) * 100` |
 
-**Indicadores do Vendedor:**
+**Indicadores do Admin:**
 
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte de dados (conforme Modelo de Dados)** | **Fórmula de cálculo** |
 | :-------------------------------- | :-------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
