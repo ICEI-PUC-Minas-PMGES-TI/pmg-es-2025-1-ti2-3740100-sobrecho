@@ -1,4 +1,4 @@
-# 3.3.6 Processo 5 – Avaliação de Cliente 
+# 3.3.4 Processo 4 – Avaliação de Cliente 
 
 O processo de avaliação de clientes permite que lojistas atribuam uma nota ao cliente após um atendimento. Caso a nota seja menor ou igual a 2 estrelas, um comentário se torna obrigatório antes de finalizar a avaliação. 
 
@@ -7,8 +7,8 @@ O processo de avaliação de clientes permite que lojistas atribuam uma nota ao 
 - Integração de um sistema de alertas para clientes com avaliações baixas recorrentes. 
 - Interface mais intuitiva para a atribuição de notas e comentários. 
 
-## Modelo BPMN do Processo 6 
-![Modelo BPMN do Processo 6](images/processoAvaliacaoLojista.png "Modelo BPMN do Processo 6.") 
+## Modelo BPMN do Processo 4
+![Modelo BPMN do Processo 4](images/processoAvaliacaoLojista.png "Modelo BPMN do Processo 6.") 
 
 ---
 
