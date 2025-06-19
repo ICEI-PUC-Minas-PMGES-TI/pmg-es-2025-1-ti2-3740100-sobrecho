@@ -1,4 +1,4 @@
-# 3.3.4 Processo 4 – Gestão de Produtos
+# 3.3.1 Processo 1 – Cadastro de produtos
 
 ## Modelo BPMN do Processo 1
 <img src="images/DiagramaCadastroProdutoAtualizadoSoBrecho.png">
