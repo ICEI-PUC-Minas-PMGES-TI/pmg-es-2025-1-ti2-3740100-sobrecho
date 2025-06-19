@@ -2,14 +2,14 @@
 
 ### 4.1. Modelo de dados
 
-_Apresente o modelo de dados por meio de um modelo relacional que contemple todos os conceitos e atributos apresentados na modelagem dos processos._ 
+_Este modelo de dados relacional (ERD) representa a estrutura do banco de dados para o projeto "SóBrechó". Ele detalha as entidades principais como usuários, produtos, pedidos e pagamentos._ 
 
 ![Exemplo de um modelo relacional](images//Modelos%20Relacionais/Modelo%20de%20Dados%20atualizado.png "Exemplo de Modelo Relacional.")
 ---
 
 ### 4.2. Tecnologias
 
-_Descreva qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços Web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas._
+_Para implementar a solução do "SóBrechó", utilizaremos MySQL como sistema de gerenciamento de banco de dados. O frontend será construído com Next.js e TypeScript para a interface, estilizado com TailwindCSS e ShadCN/UI, e terá gerenciamento de estado via Redux e Redux-Saga para interações com APIs via Axios. O backend será desenvolvido em Java SpringBoot, e o deploy do frontend será no GitHub Pages._
 
 | **Dimensão**   | **Tecnologia**  |
 | ---            | ---             |
