@@ -115,7 +115,7 @@ No que tange os prcessos, o controle dos produtos será feito de forma digital, 
 
 [PROCESSO 3 - Carrinho-de-compras](processo-3-Carrinho-de-compra.md "Detalhamento do Processo 3.")
 
-[PROCESSO 4 - Indicador de Desempenho](processo-5-avaliacao-do-lojista.md "Detalhamento do Processo 5.")
+[PROCESSO 4 - Indicador de Desempenho](processo-4-avaliacao-do-lojista.md "Detalhamento do Processo 4.")
 
 ## 4. Projeto da solução
 
