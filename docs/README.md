@@ -33,8 +33,9 @@ _Instituto de Informática e Ciências Exatas – Pontifícia Universidade Cató
 
 ---
 
-_**Resumo**. Escrever aqui o resumo. O resumo deve contextualizar rapidamente o trabalho, descrever seu objetivo e, ao final, 
-mostrar algum resultado relevante do trabalho (até 10 linhas)._
+**Resumo**. 
+
+ Este trabalho aborda o desenvolvimento do SóBrechó, um marketplace digital inovador para brechós e bazares. Diante da crescente digitalização do comércio e do _boom_ do mercado de vestuário de segunda mão, o projeto visa capacitar pequenos lojistas, tradicionalmente analógicos, a expandir seu alcance e competitividade. A plataforma facilita a conexão entre vendedores e compradores, oferecendo funcionalidades essenciais como um intuitivo carrinho de compras, eficiente cadastro de produtos e um sistema de pagamento de pedidos integrado. Priorizando a sustentabilidade e a economia circular, o sistema foca na experiência de compra e venda de roupas digitalizada.
 
 ---
 
@@ -73,7 +74,7 @@ O projeto tem como objetivos específicos desenvolver as seguintes funcionalidad
 - Cadastro de Produtos, permitindo que os vendedores anunciem seus itens de forma organizada e atrativa.
 - Sistema de Pagamento de Pedidos, integrando métodos de pagamento seguros e acessíveis.
 - Trocas de Produtos, incentivando a economia circular e o consumo sustentável.
-- 
+  
 ### 1.4 Justificativas
 
 O desenvolvimento deste projeto surgiu a partir das dificuldades observadas pelos integrantes do grupo na experiência de compra e venda de produtos usados em brechós e bazares. Em um cenário cada vez mais dominado pelo comércio digital, esses estabelecimentos enfrentam desafios significativos para se manterem competitivos.
@@ -138,7 +139,13 @@ _A sessão a seguir apresenta a descrição do produto de software desenvolvido.
 
 ## 7. Conclusão
 
-_Apresente aqui a conclusão do seu trabalho. Deve ser apresentada aqui uma discussão dos resultados obtidos no trabalho, local em que se verifica as observações pessoais de cada aluno. Essa seção poderá também apresentar sugestões de novas linhas de estudo._
+O projeto SóBrechó surge como uma resposta estratégica e inovadora aos desafios enfrentados por brechós e bazares na era da transformação digital. Por meio do desenvolvimento de um marketplace intuitivo e de fácil acesso, a plataforma busca reduzir a distância entre o comércio tradicional e as novas exigências por praticidade e sustentabilidade no ambiente online.
+
+Nossa proposta foca diretamente nas limitações de alcance das lojas físicas e na necessidade de competir com grandes players do e-commerce. Recursos como um carrinho de compras funcional, um processo simplificado de cadastro de produtos e um sistema de pagamento integrado foram implementados para oferecer uma experiência digital mais eficiente e agradável tanto para compradores quanto para vendedores.
+
+O uso de tecnologias modernas como Next.js no frontend, Spring Boot no backend, MySQL para gerenciamento de dados e Tailwind CSS em conjunto com o shadcn/ui para o design da interface garante uma estrutura sólida, escalável e com boa performance. Além disso, a definição e o acompanhamento de indicadores de desempenho, tanto para os lojistas quanto para a administração da plataforma, permitirão um monitoramento contínuo da qualidade e do sucesso dos serviços oferecidos.
+
+Em resumo, o SóBrechó não apenas facilita o ingresso de pequenos comerciantes no mercado digital, como também reforça a prática do consumo consciente e incentiva a economia circular. O projeto fortalece o espírito comunitário característico dos brechós, agora adaptado a um formato online. Trata-se de um exemplo claro de como a tecnologia pode ser utilizada para impulsionar negócios locais e apoiar um futuro mais sustentável.
 
 # REFERÊNCIAS
 
