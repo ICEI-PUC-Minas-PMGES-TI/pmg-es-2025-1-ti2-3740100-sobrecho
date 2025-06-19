@@ -5,7 +5,7 @@ O processo 3 tem como prioridade a implementação do sistema de pagamentos func
 ## Oportunidades de Melhoria
 - Adicionar cupons de desconto.
 
-<img src="images/PagamentoDePedidoDiagramaAtualizado.png" alt="Modelo BPMN do Processo 3">
+<img src="images/PagamentoDeProduto.drawio.png" alt="Modelo BPMN do Processo 2">
 
 # Detalhamento das Atividades - Pagamento de Pedidos
 
