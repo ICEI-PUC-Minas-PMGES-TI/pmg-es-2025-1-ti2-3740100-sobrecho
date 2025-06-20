@@ -2,7 +2,6 @@ package com.sobrecho.dto.checkout;
 
 public class PaymentDTO {
     private String method;
-    private Double totalValue;
     private Integer installments;
     private CreditCardDTO card;
     
@@ -12,12 +11,6 @@ public class PaymentDTO {
 	}
 	public void setMethod(String method) {
 		this.method = method;
-	}
-	public Double getTotalValue() {
-		return totalValue;
-	}
-	public void setTotalValue(Double totalValue) {
-		this.totalValue = totalValue;
 	}
 	public Integer getInstallments() {
 		return installments;

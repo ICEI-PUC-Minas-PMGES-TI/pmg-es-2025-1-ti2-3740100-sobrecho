@@ -75,25 +75,22 @@ public class CheckoutService {
             newOrder.addOrderItem(orderItem);
             calculatedTotalValue += product.getPrice();
         }
+        newOrder.setTotalValue(calculatedTotalValue);
 
-        newOrder.setTotalValue(calculatedTotalValue); 
-
-        newOrder.setPaymentMethod(checkoutRequest.getPayment().getMethod()); 
+        newOrder.setPaymentMethod(checkoutRequest.getPayment().getMethod());
+        newOrder.setInstallments(checkoutRequest.getPayment().getInstallments());
 
         if ("credit-card".equalsIgnoreCase(checkoutRequest.getPayment().getMethod())) {
-            
             newOrder.setInstallments(checkoutRequest.getPayment().getInstallments());
             newOrder.setCardHolderName(checkoutRequest.getPayment().getCard().getHolder());
             String cardNumber = checkoutRequest.getPayment().getCard().getNumber();
             newOrder.setCardNumberLastDigits(cardNumber.substring(Math.max(0, cardNumber.length() - 4)));
             newOrder.setCpfHolderPayment(checkoutRequest.getPayment().getCard().getCpf());
-          
-            newOrder.setStatus("PAID");
-            System.out.println("DEBUG: Processando pagamento com cartão de crédito. ID da transação simulada...");
+            
+            newOrder.setStatus("PAID"); 
 
         } else if ("pix".equalsIgnoreCase(checkoutRequest.getPayment().getMethod())) {
             newOrder.setStatus("PENDING"); 
-            System.out.println("DEBUG: Processando pagamento com Pix. Status PENDING...");
         }
 
         String checkoutIdentifier = UUID.randomUUID().toString();

@@ -2,10 +2,14 @@ package com.sobrecho.dto.checkout;
 
 import java.util.List;
 
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class CheckoutRequestDTO {
     private AddressDTO address;
     private List<CheckoutItemDTO> items;
     private PaymentDTO payment;
+    @PositiveOrZero
+    private Double total;
     
     
 	public AddressDTO getAddress() {
@@ -25,6 +29,12 @@ public class CheckoutRequestDTO {
 	}
 	public void setPayment(PaymentDTO payment) {
 		this.payment = payment;
+	}
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
 	} 
     
     
