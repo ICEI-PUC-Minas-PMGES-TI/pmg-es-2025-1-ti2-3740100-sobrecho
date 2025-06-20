@@ -1,1 +1,0 @@
-export { AuthFormLayout } from '@/components/layouts/forms/auth';
