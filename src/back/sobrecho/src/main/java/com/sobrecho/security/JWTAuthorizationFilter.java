@@ -37,15 +37,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             String token = authorizationHeader.replace("Bearer ", "");
             if (jwtUtil.isValidToken(token)) {
                 String username = jwtUtil.getUsername(token);
-                String role = jwtUtil.getRole(token); // NOVO: pode ser usado para RBAC
-                String userId = jwtUtil.getUserId(token); // NOVO: pode ser usado para identificar o usuário
+                String role = jwtUtil.getRole(token);
+                String userId = jwtUtil.getUserId(token);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                // Aqui você pode usar 'role' e 'userId' para lógica adicional de RBAC, se necessário
             }
         }
         filterChain.doFilter(request, response);
