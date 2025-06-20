@@ -1,6 +1,7 @@
 package com.sobrecho.controller;
 
 import com.sobrecho.dao.ProductRepository;
+import com.sobrecho.dto.ProductDTO;
 import com.sobrecho.model.Product;
 import com.sobrecho.model.User;
 import com.sobrecho.service.ProductService;
@@ -91,8 +92,8 @@ public class ProductController {
     }
     
     @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<Product>> findByStore(@PathVariable Long storeId) {
-        List<Product> products = this.productService.findAllByStoreId(storeId);
+    public ResponseEntity<List<ProductDTO>> findByStore(@PathVariable Long storeId) {
+        List<ProductDTO> products = this.productService.findAllByStoreIdAsDTO(storeId);
         return ResponseEntity.ok().body(products);
     }
 }

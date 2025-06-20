@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.config.Task;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sobrecho.dao.ProductRepository;
+import com.sobrecho.dto.ProductDTO;
 import com.sobrecho.model.Product;
 import com.sobrecho.model.ProductImage;
 import com.sobrecho.model.User;
@@ -104,6 +106,28 @@ public class ProductService {
     public List<Product> findAllByStoreId(Long storeId) {
         return productRepository.findAllByUser_Store_Id(storeId);
     }
+    
+    
+    public List<ProductDTO> findAllByStoreIdAsDTO(Long storeId) {
+        List<Product> products = findAllByStoreId(storeId);
+        return products.stream().map(this::convertToProductDTO).collect(Collectors.toList());
+    }
 	
+    private ProductDTO convertToProductDTO(Product product) {
+        List<String> imageUrls = product.getImages() != null ?
+                                 product.getImages().stream()
+                                     .map(ProductImage::getUrl)
+                                     .collect(Collectors.toList()) :
+                                 new ArrayList<>();
+        return new ProductDTO(
+            product.getId(),
+            product.getName(),
+            product.getDescription(),
+            product.getPrice(),
+            product.getSize(),
+            product.getCategory(),
+            imageUrls
+        );
+    }
 	
 }
