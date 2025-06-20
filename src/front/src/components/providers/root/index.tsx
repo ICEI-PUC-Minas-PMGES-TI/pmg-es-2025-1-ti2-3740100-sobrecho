@@ -1,17 +1,18 @@
-import { ReduxProvider, ThemeProvider, ToasterProvider } from '@/components/providers';
+import {
+	FontProvider,
+	ReduxProvider,
+	ThemeProvider,
+	ToasterProvider
+} from '@/components/providers';
 
-interface IRootProviderProps {
-	children: React.ReactNode;
-}
-
-export function RootProvider({ children }: IRootProviderProps) {
+export function RootProvider({ children }: React.PropsWithChildren) {
 	return (
-		<>
-			<ReduxProvider>
-				<ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+		<ThemeProvider>
+			<FontProvider>
+				<ReduxProvider>
 					<ToasterProvider>{children}</ToasterProvider>
-				</ThemeProvider>
-			</ReduxProvider>
-		</>
+				</ReduxProvider>
+			</FontProvider>
+		</ThemeProvider>
 	);
 }

@@ -1,10 +1,6 @@
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from 'sonner';
 
-interface IToasterProviderProps {
-	children: React.ReactNode;
-}
-
-export function ToasterProvider({ children }: IToasterProviderProps) {
+export function ToasterProvider({ children }: React.PropsWithChildren) {
 	return (
 		<>
 			{children}

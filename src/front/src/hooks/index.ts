@@ -1,1 +1,1 @@
-export { useTypedSelector } from '@/hooks/typed-selector';
+export { useTypedSelector } from '@/hooks/use-typed-selector';

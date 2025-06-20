@@ -1,27 +1,17 @@
-'use client';
-
-import '@/styles/global.css';
+import { Metadata } from 'next';
 
 import { RootProvider } from '@/components/providers';
 
-import { cn } from '@/lib/utils';
-import { GeistMono as FontMono } from 'geist/font/mono';
-import { GeistSans as FontSans } from 'geist/font/sans';
+import '@/styles/globals.css';
 
-export interface IRootLayoutProps {
-	children: React.ReactNode;
-}
+export const metadata: Metadata = {
+	title: 'SoBrechó'
+};
 
-export default function RootLayout({ children }: IRootLayoutProps) {
+export default function RootLayout({ children }: React.PropsWithChildren) {
 	return (
 		<html lang="pt-BR" suppressHydrationWarning>
-			<body
-				className={cn(
-					'antialised bg-background font-sans',
-					FontSans.variable,
-					FontMono.variable
-				)}
-			>
+			<body className="bg-background antialised min-h-screen">
 				<RootProvider>{children}</RootProvider>
 			</body>
 		</html>
