@@ -5,7 +5,17 @@ _Visão geral da interação do usuário por meio das telas do sistema. Apresent
 
 ## 6.1. Tela principal do sistema
 
-A tela principal do sistema SóBrechó é o ponto de entrada para os usuários explorarem os produtos disponíveis na plataforma. Ela funciona como uma vitrine digital, apresentando os produtos mais vendidos nas últimas semanas, com um layout atrativo e organizado.
+A tela principal do sistema SóBrechó é composta por uma home moderna e acolhedora, voltada para o usuário final. Logo no topo, temos um banner com chamada de impacto:
+
+"Descubra tesouros únicos em brechós"
+
+Essa seção inicial apresenta o propósito da plataforma: um marketplace colaborativo de moda sustentável, onde os usuários podem encontrar peças exclusivas, negociar diretamente com os vendedores e contribuir para um consumo mais consciente.
+
+Destaques da parte superior: Selo visual “Moda Sustentável”, Benefícios do sistema (ex: +10k vendedores, +50k peças únicas, compra segura), Imagens ilustrativas de roupas e calçados,  Navegação com acesso rápido para Vender, Sobre nós, FAQ, Entrar e Cadastrar.
+
+![WhatsApp Image 2025-06-20 at 13 43 08](https://github.com/user-attachments/assets/d65c8474-29a1-42ea-875f-d4c4f83b7430)
+
+Outra tela principal do sistema SóBrechó é o ponto de entrada para os usuários explorarem os produtos disponíveis na plataforma. Ela funciona como uma vitrine digital, apresentando os produtos mais vendidos nas últimas semanas, com um layout atrativo e organizado.
 
 Na lateral esquerda, o usuário encontra filtros para facilitar a navegação, incluindo: Categorias (ex: calçados, roupas masculinas), Faixa de preço com controle deslizante, Ordenação por nome, menor ou maior preço.
 
