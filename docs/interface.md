@@ -5,10 +5,17 @@ _Visão geral da interação do usuário por meio das telas do sistema. Apresent
 
 ## 6.1. Tela principal do sistema
 
-_Descrição da tela principal do sistema._
+A tela principal do sistema SóBrechó é o ponto de entrada para os usuários explorarem os produtos disponíveis na plataforma. Ela funciona como uma vitrine digital, apresentando os produtos mais vendidos nas últimas semanas, com um layout atrativo e organizado.
 
-Tela principal do sistema
+Na lateral esquerda, o usuário encontra filtros para facilitar a navegação, incluindo: Categorias (ex: calçados, roupas masculinas), Faixa de preço com controle deslizante, Ordenação por nome, menor ou maior preço.
 
+Ao centro, os produtos são exibidos em formato de cards, contendo: Imagem do item, Categoria, nome e tamanho e Preço.
+
+Botão roxo “Adicionar ao carrinho” para ação rápida.
+
+No topo da tela, há acesso à navegação geral, carrinho de compras e ícone de perfil do usuário.
+
+![WhatsApp Image 2025-06-19 at 15 42 24 (1)](https://github.com/user-attachments/assets/bee0b2e5-d614-4571-b862-b830d513a0d3)
 
 ## 6.2. Telas do processo 1
 
