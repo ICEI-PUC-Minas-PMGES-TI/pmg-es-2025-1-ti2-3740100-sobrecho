@@ -28,8 +28,11 @@ O objetivo deste trabalho é desenvolver uma plataforma inovadora para a compra 
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+Clone o repositorio em sua máquina
 
+Rode os comandos "npm install" e "npm run dev"
+
+Caso não exista nenhum erro, basta acessar http://localhost:3000/ e acessar o sistema
 ## Histórico de versões
 
 * 0.1.1
