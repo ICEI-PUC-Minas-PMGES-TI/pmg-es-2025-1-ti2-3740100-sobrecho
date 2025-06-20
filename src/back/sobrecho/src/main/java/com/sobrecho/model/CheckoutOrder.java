@@ -1,6 +1,8 @@
 package com.sobrecho.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class CheckoutOrder {
 
     @Column(name = "payment_method", nullable = false, length = 50)
     private String paymentMethod;
+    @NotNull
     @Column(name = "total_value", nullable = false)
     private Double totalValue;
     @Column(name = "installments")
