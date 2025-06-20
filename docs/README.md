@@ -13,8 +13,6 @@
 
 **Matheus Ruas Gazire Xavier, matheus.gazire@sga.pucminas.br**
 
-**Sol Quaresma Crisóstomo, quaresmasol1221@gmail.com**
-
 ---
 
 Professores:
