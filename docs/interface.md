@@ -59,7 +59,15 @@ Na lateral, o painel de “Dicas de Edição” orienta o usuário sobre a impor
 
 # Atividade 3 – Exclusão de Produto
 
-Aguardando tela
+Ao optar por excluir um produto, o sistema exibe um modal de confirmação sobre a ação. A interface confirma o nome do item selecionado e alerta o usuário de que a exclusão é permanente e não pode ser desfeita.
+
+O modal apresenta dois botões:
+
+Cancelar (para voltar atrás)
+
+Excluir (com destaque em vermelho, indicando ação crítica)
+
+![WhatsApp Image 2025-06-19 at 17 00 58](https://github.com/user-attachments/assets/4fc38789-7da6-4c5a-8295-2b016f0087e6)
 
 # Atividade 4 – Listagem de Produtos
 
@@ -69,17 +77,55 @@ Também é possível visualizar estatísticas no topo, como quantidade total de 
 
 ![WhatsApp Image 2025-06-19 at 15 39 23](https://github.com/user-attachments/assets/909e308a-d781-43b1-8a3c-a13e838a8086)
 
-## 6.4. Telas do processo 2
+## 6.4. Telas do processo 3
+
+# Atividade 1 – Página de Produtos (Vitrine)
+
+Esta é a vitrine pública da plataforma, acessível a qualquer usuário. A interface exibe os produtos disponíveis para compra em formato de cards, contendo: Imagem do produto, Nome e categoria, Tamanho disponível e Preço.
+
+Na lateral esquerda, o usuário pode aplicar filtros por categoria, faixa de preço e também ordenar por nome ou preço.
+
+![WhatsApp Image 2025-06-19 at 15 42 24](https://github.com/user-attachments/assets/54b51a33-15cf-4bd3-b892-8b76486f3ed0)
+
+# Atividade 2 – Carrinho de Compras
+
+Ao clicar em “Adicionar ao carrinho”, o usuário é redirecionado para o carrinho, onde pode revisar os itens antes de finalizar o pedido. A tela exibe: Nome do produto, categoria e tamanho, Preço individual, Opção de remover cada item do carrinho, Botão “Limpar carrinho e o Resumo do pedido com subtotal, frete e total.
+
+O botão “Finalizar Compra” está destacado na parte inferior da tela.
+
+![WhatsApp Image 2025-06-19 at 15 42 48](https://github.com/user-attachments/assets/a8e605d5-36a2-4b7c-a6a3-ece2492aacb3)
+
+# Atividade 3 – Finalização de Compra
+
+Nesta etapa, o usuário preenche os dados de entrega e escolhe o método de pagamento. A tela está dividida em três áreas: Endereço de entrega: CEP, rua, número, cidade, bairro, estado e complemento, Forma de pagamento: Cartão de crédito ou PIX, Resumo do pedido: Produtos listados, valores e total, com destaque para o frete grátis (se aplicável)
+
+O botão “Finalizar Compra” conclui o processo.
+
+![WhatsApp Image 2025-06-19 at 20 14 15](https://github.com/user-attachments/assets/2c0015b3-8b13-4015-8a04-54e4a9ef8428)
+
+![WhatsApp Image 2025-06-19 at 20 14 15 (1)](https://github.com/user-attachments/assets/77d59ee8-7581-4b85-a16a-275efb7d0ac6)
+
+## 6.4. Telas do processo 4
+
+# Atividade 1 – Dashboard do Vendedor
+
+O painel do vendedor oferece uma visão geral personalizada do desempenho da sua loja. Ele reúne dados relevantes em tempo real para análise de performance, incluindo: Receita total, Quantidade de produtos cadastrados, Avaliação média da loja e a Receita média por produto.
+
+Abaixo dos indicadores, há um gráfico interativo de receita diária com filtros de tempo (últimos 7 dias, 30 dias e 3 meses), permitindo ao vendedor acompanhar a evolução das vendas de forma visual.
+
+![WhatsApp Image 2025-06-19 at 15 21 18](https://github.com/user-attachments/assets/54637c44-cf99-49fa-a58d-21f17bc642a7)
+
+# Atividade 2 – Dashboard do Administrador
+
+O painel administrativo é mais abrangente e serve para gestão estratégica da plataforma. Ele apresenta: Receita total da plataforma, Porcentagem de usuários vendedores, Receita média por vendedor, Valor médio por compra e um Gráfico de acessos por perfil (usuários e vendedores), possibilitando análise de engajamento.
+
+Esse dashboard também disponibiliza acesso direto a seções críticas da administração como: Anúncios, Usuários, Transações, Denúncias, Categorias, Relatórios e Configurações.
+
+![WhatsApp Image 2025-06-19 at 15 39 57](https://github.com/user-attachments/assets/3d6bb2fb-03a9-493d-b515-981d75e93494)
 
 
 
-## 6.5. Telas do processo 2
 
-_Descrição da tela relativa à atividade 1._
 
-Tela da atividade 1
 
-_Descrição da tela relativa à atividade 2._
-
-Tela da atividade 2
 
