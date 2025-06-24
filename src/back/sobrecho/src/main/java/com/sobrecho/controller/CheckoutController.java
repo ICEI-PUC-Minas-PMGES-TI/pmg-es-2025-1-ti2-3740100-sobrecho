@@ -76,4 +76,14 @@ public class CheckoutController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<CheckoutResponseDTO> findById(@PathVariable String id) {
+        try {
+            CheckoutResponseDTO response = checkoutService.findByIdentifier(id);
+            return ResponseEntity.ok(response);
+        } catch (ObjectNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+    }
 }

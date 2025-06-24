@@ -3,10 +3,13 @@ package com.sobrecho.service;
 import com.sobrecho.dao.ProductRepository;
 import com.sobrecho.dao.CheckoutOrderRepository;
 import com.sobrecho.dto.checkout.AddressDTO;
+import com.sobrecho.dto.checkout.CardDetailsDTO;
 import com.sobrecho.dto.checkout.CheckoutItemDTO;
 import com.sobrecho.dto.checkout.CheckoutRequestDTO;
 import com.sobrecho.dto.checkout.CheckoutResponseDTO;
+import com.sobrecho.dto.checkout.CreditCardDTO;
 import com.sobrecho.dto.checkout.PaymentDTO;
+import com.sobrecho.dto.checkout.PaymentDetailsDTO;
 import com.sobrecho.dto.checkout.UpdateCheckoutStatusDTO;
 import com.sobrecho.model.CheckoutOrder;
 import com.sobrecho.model.CheckoutOrderItem;
@@ -85,6 +88,9 @@ public class CheckoutService {
         newOrder.setInstallments(checkoutRequest.getPayment().getInstallments());
 
         if ("credit-card".equalsIgnoreCase(checkoutRequest.getPayment().getMethod())) {
+        	if (checkoutRequest.getPayment().getCard() == null || checkoutRequest.getPayment().getInstallments() == null) {
+                throw new IllegalArgumentException("Para pagamento com cartão de crédito, os dados do cartão são obrigatórios.");
+            }
             newOrder.setInstallments(checkoutRequest.getPayment().getInstallments());
             newOrder.setCardHolderName(checkoutRequest.getPayment().getCard().getHolder());
             String cardNumber = checkoutRequest.getPayment().getCard().getNumber();
@@ -173,5 +179,56 @@ public class CheckoutService {
             order.setStatus(statusDTO.getStatus());
             checkoutOrderRepository.save(order);
             return new UpdateCheckoutStatusDTO(order.getCheckoutIdentifier(), order.getStatus());
+        }
+        
+        public CheckoutResponseDTO findByIdentifier(String identifier) {
+            UserSpringSecurity userSpringSecurity = UserService.authenticated();
+            if (userSpringSecurity == null) {
+                throw new AuthorizationException("Acesso negado. Usuário não autenticado.");
+            }
+
+            CheckoutOrder order = checkoutOrderRepository.findByCheckoutIdentifier(identifier)
+                .orElseThrow(() -> new ObjectNotFoundException("Checkout com identificador '" + identifier + "' não encontrado."));
+
+            AddressDTO addressDTO = new AddressDTO();
+            addressDTO.setCep(order.getDeliveryCep());
+            addressDTO.setStreet(order.getDeliveryStreet());
+            addressDTO.setNumber(order.getDeliveryNumber());
+            addressDTO.setComplement(order.getDeliveryComplement());
+            addressDTO.setDistrict(order.getDeliveryDistrict());
+            addressDTO.setCity(order.getDeliveryCity());
+            addressDTO.setState(order.getDeliveryState());
+            
+            List<CheckoutItemDTO> itemDTOs = order.getItems().stream()
+                .map(item -> {
+                    CheckoutItemDTO dto = new CheckoutItemDTO();
+                    dto.setId(item.getProduct().getId());
+                    dto.setSize(item.getProductSize());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+            PaymentDTO paymentDTO = new PaymentDTO();
+            paymentDTO.setMethod(order.getPaymentMethod());
+            if ("credit_card".equalsIgnoreCase(order.getPaymentMethod())) {
+                paymentDTO.setInstallments(order.getInstallments());
+                
+                CreditCardDTO cardDTO = new CreditCardDTO();
+                cardDTO.setHolder(order.getCardHolderName());
+                cardDTO.setNumber(order.getCardNumberLastDigits()); 
+                paymentDTO.setCard(cardDTO);
+            }
+
+            CheckoutRequestDTO checkoutRequestDTO = new CheckoutRequestDTO();
+            checkoutRequestDTO.setAddress(addressDTO);
+            checkoutRequestDTO.setItems(itemDTOs);
+            checkoutRequestDTO.setPayment(paymentDTO);
+            checkoutRequestDTO.setTotal(order.getTotalValue());
+
+            return new CheckoutResponseDTO(
+                order.getCheckoutIdentifier(),
+                checkoutRequestDTO,
+                order.getStatus()
+            );
         }
 }
