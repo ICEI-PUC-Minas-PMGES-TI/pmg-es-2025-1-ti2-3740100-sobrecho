@@ -7,6 +7,7 @@ import com.sobrecho.dto.checkout.CheckoutItemDTO;
 import com.sobrecho.dto.checkout.CheckoutRequestDTO;
 import com.sobrecho.dto.checkout.CheckoutResponseDTO;
 import com.sobrecho.dto.checkout.PaymentDTO;
+import com.sobrecho.dto.checkout.UpdateCheckoutStatusDTO;
 import com.sobrecho.model.CheckoutOrder;
 import com.sobrecho.model.CheckoutOrderItem;
 import com.sobrecho.model.Product;
@@ -156,5 +157,21 @@ public class CheckoutService {
                 checkoutRequestDTO,
                 order.getStatus()
             );
+        }
+        
+        @Transactional
+        public UpdateCheckoutStatusDTO updateStatus(String identifier, UpdateCheckoutStatusDTO statusDTO) {
+            if (!identifier.equals(statusDTO.getId())) {
+                throw new IllegalArgumentException("O ID da URL não corresponde ao ID do corpo da requisição.");
+            }
+
+            CheckoutOrder order = checkoutOrderRepository.findByCheckoutIdentifier(identifier)
+                    .orElseThrow(() -> new ObjectNotFoundException(
+                            "Checkout com identificador '" + identifier + "' não encontrado."
+                    ));
+
+            order.setStatus(statusDTO.getStatus());
+            checkoutOrderRepository.save(order);
+            return new UpdateCheckoutStatusDTO(order.getCheckoutIdentifier(), order.getStatus());
         }
 }
