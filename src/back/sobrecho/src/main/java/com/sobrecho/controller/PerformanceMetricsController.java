@@ -16,10 +16,21 @@ public class PerformanceMetricsController {
 	@Autowired
 	PerformancemetricsService performancemetricsService;
 	
-	 @GetMapping("/percentage-sellers")
-	    public ResponseEntity<Double> getPercentageOfSellers() {
-	        Double percentage = performancemetricsService.calculatePercentageOfSellers();
-	        return ResponseEntity.ok(percentage);
-	    }
-	 
+	@GetMapping("/percentage-sellers")
+	public ResponseEntity<Double> getPercentageOfSellers() {
+	    Double percentage = performancemetricsService.calculatePercentageOfSellers();
+	    return ResponseEntity.ok(percentage);
+	}
+
+	@GetMapping("/receita-total")
+	public ResponseEntity<Double> getReceitaTotal() {
+	    Double receitaTotal = performancemetricsService.getReceitaTotal();
+	    return ResponseEntity.ok(receitaTotal);
+	}
+
+	@GetMapping("/quantidade-produtos-vendidos")
+	public ResponseEntity<Long> getQuantidadeProdutosVendidos() {
+	    Long quantidade = performancemetricsService.getQuantidadeProdutosVendidos();
+	    return ResponseEntity.ok(quantidade);
+	}
 }

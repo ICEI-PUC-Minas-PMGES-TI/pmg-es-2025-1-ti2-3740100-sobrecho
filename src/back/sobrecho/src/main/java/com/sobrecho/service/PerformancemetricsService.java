@@ -5,22 +5,37 @@ import org.springframework.stereotype.Service;
 
 import com.sobrecho.dao.ProductRepository;
 import com.sobrecho.dao.UserRepository;
+import com.sobrecho.dao.CheckoutOrderRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PerformancemetricsService {
 	
-	 @Autowired
-	 private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-	  @Autowired
-	  private ProductRepository productRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
-	  public Double calculatePercentageOfSellers() {
-	        Long totalUsers = userRepository.count();
-	        Long usersWithProducts = userRepository.countUsersWithProducts();
-	        if (totalUsers == null || totalUsers == 0) {
-	            return 0.0;
-	        }
-	        return (double) usersWithProducts / totalUsers * 100.0;
+	@Autowired
+	private CheckoutOrderRepository checkoutOrderRepository;
+
+	public Double calculatePercentageOfSellers() {
+	    Long totalUsers = userRepository.count();
+	    Long usersWithProducts = userRepository.countUsersWithProducts();
+	    if (totalUsers == null || totalUsers == 0) {
+	        return 0.0;
 	    }
+	    return (double) usersWithProducts / totalUsers * 100.0;
+	}
+
+	public Double getReceitaTotal() {
+	    return checkoutOrderRepository.sumTotalValueByStatus("PAID");
+	}
+
+	public Long getQuantidadeProdutosVendidos() {
+	    return checkoutOrderRepository.countByStatus("PAID");
+	}
 }
