@@ -12,6 +12,7 @@ public class CheckoutRequestDTO {
     private Double total;
     
     
+    
 	public AddressDTO getAddress() {
 		return address;
 	}

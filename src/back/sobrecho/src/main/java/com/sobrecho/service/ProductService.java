@@ -126,6 +126,8 @@ public class ProductService {
             product.getPrice(),
             product.getSize(),
             product.getCategory(),
+            product.getCreatedAt(),
+            product.getUpdatedAt(),
             imageUrls
         );
     }

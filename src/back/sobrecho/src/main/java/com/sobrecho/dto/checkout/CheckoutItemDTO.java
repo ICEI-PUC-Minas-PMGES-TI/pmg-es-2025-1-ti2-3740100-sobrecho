@@ -2,7 +2,7 @@ package com.sobrecho.dto.checkout;
 
 public class CheckoutItemDTO {
 	 private Long id; 
-	  private String size;
+	 private String size;
 	  
 	  
 	public Long getId() {

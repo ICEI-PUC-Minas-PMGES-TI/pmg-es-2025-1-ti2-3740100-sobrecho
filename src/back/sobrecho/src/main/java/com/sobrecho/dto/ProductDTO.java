@@ -1,5 +1,6 @@
 package com.sobrecho.dto;
 
+import java.time.Instant;
 import java.util.List;
 
 public class ProductDTO {
@@ -10,18 +11,23 @@ public class ProductDTO {
     private double price;
     private String size;
     private String category;
+    private Instant createdAt;
+	private Instant updatedAt;
+	
     private List<String> imageUrls;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, double price, String size, String category, List<String> imageUrls) {
+    public ProductDTO(Long id, String name, String description, double price, String size, String category,Instant createdAt,Instant updatedAt, List<String> imageUrls) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.size = size;
         this.category = category;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.imageUrls = imageUrls;
     }
 
@@ -73,7 +79,23 @@ public class ProductDTO {
         this.category = category;
     }
 
-    public List<String> getImageUrls() {
+    public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public List<String> getImageUrls() {
         return imageUrls;
     }
 
