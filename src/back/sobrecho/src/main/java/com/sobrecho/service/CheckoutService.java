@@ -2,9 +2,11 @@ package com.sobrecho.service;
 
 import com.sobrecho.dao.ProductRepository;
 import com.sobrecho.dao.CheckoutOrderRepository;
+import com.sobrecho.dto.checkout.AddressDTO;
 import com.sobrecho.dto.checkout.CheckoutItemDTO;
 import com.sobrecho.dto.checkout.CheckoutRequestDTO;
 import com.sobrecho.dto.checkout.CheckoutResponseDTO;
+import com.sobrecho.dto.checkout.PaymentDTO;
 import com.sobrecho.model.CheckoutOrder;
 import com.sobrecho.model.CheckoutOrderItem;
 import com.sobrecho.model.Product;
@@ -20,6 +22,7 @@ import jakarta.transaction.Transactional;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.List;
 
 @Service
@@ -104,4 +107,54 @@ public class CheckoutService {
             savedOrder.getStatus()
         );
     }
+   
+   
+        public List<CheckoutResponseDTO> findAllByAuthenticatedUser() {
+            UserSpringSecurity userSpringSecurity = UserService.authenticated();
+            if (Objects.isNull(userSpringSecurity)) {
+                throw new AuthorizationException("Acesso negado! Usuário não autenticado.");
+            }
+
+            List<CheckoutOrder> orders = checkoutOrderRepository.findAllByUserId(userSpringSecurity.getId());
+            return orders.stream()
+                    .map(this::convertOrderToResponseDTO)
+                    .collect(Collectors.toList());
+        }
+
+        private CheckoutResponseDTO convertOrderToResponseDTO(CheckoutOrder order) {
+                        AddressDTO addressDTO = new AddressDTO();
+            addressDTO.setCep(order.getDeliveryCep());
+            addressDTO.setStreet(order.getDeliveryStreet());
+            addressDTO.setNumber(order.getDeliveryNumber());
+            addressDTO.setComplement(order.getDeliveryComplement());
+            addressDTO.setDistrict(order.getDeliveryDistrict());
+            addressDTO.setCity(order.getDeliveryCity());
+            addressDTO.setState(order.getDeliveryState());
+
+            List<CheckoutItemDTO> itemDTOs = order.getItems().stream()
+                    .map(item -> {
+                        CheckoutItemDTO itemDTO = new CheckoutItemDTO();
+                        itemDTO.setId(item.getProduct().getId());
+                        itemDTO.setSize(item.getProductSize());
+                        return itemDTO;
+                    })
+                    .collect(Collectors.toList());
+            
+            PaymentDTO paymentDTO = new PaymentDTO();
+            paymentDTO.setMethod(order.getPaymentMethod());
+            paymentDTO.setInstallments(order.getInstallments());
+            paymentDTO.setCard(null); 
+
+            CheckoutRequestDTO checkoutRequestDTO = new CheckoutRequestDTO();
+            checkoutRequestDTO.setAddress(addressDTO);
+            checkoutRequestDTO.setItems(itemDTOs);
+            checkoutRequestDTO.setPayment(paymentDTO);
+            checkoutRequestDTO.setTotal(order.getTotalValue());
+
+            return new CheckoutResponseDTO(
+                order.getCheckoutIdentifier(),
+                checkoutRequestDTO,
+                order.getStatus()
+            );
+        }
 }

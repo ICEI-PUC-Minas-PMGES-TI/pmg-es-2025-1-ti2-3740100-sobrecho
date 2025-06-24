@@ -7,9 +7,13 @@ import com.sobrecho.service.exceptions.ObjectNotFoundException;
 import com.sobrecho.service.exceptions.AuthorizationException;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +41,21 @@ public class CheckoutController {
         catch (Exception e) {
             e.printStackTrace();
             System.err.println("Erro interno do servidor no checkout: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GetMapping("/getUserCheckouts")
+    public ResponseEntity<List<CheckoutResponseDTO>> getUserCheckouts() {
+        try {
+            List<CheckoutResponseDTO> response = checkoutService.findAllByAuthenticatedUser();
+            return ResponseEntity.ok(response);
+        } catch (AuthorizationException e) {
+            System.err.println("Erro 401/403 ao buscar checkouts: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Erro interno do servidor ao buscar checkouts: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
