@@ -33,4 +33,16 @@ public class PerformanceMetricsController {
 	    Long quantidade = performancemetricsService.getQuantidadeProdutosVendidos();
 	    return ResponseEntity.ok(quantidade);
 	}
+
+	@GetMapping("/media-receita-por-produto")
+	public ResponseEntity<Double> getMediaReceitaPorProduto() {
+	    Double media = performancemetricsService.getMediaReceitaPorProduto();
+	    return ResponseEntity.ok(media);
+	}
+
+	@GetMapping("/receita-total-usuario-logado")
+	public ResponseEntity<Double> getReceitaTotalUsuarioLogado() {
+	    Double receita = performancemetricsService.getReceitaTotalUsuarioLogado();
+	    return ResponseEntity.ok(receita);
+	}
 }
