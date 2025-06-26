@@ -22,5 +22,8 @@ public interface CheckoutOrderRepository extends JpaRepository<CheckoutOrder, Lo
     @Query("SELECT COALESCE(SUM(c.totalValue), 0) FROM CheckoutOrder c WHERE c.status = :status AND c.user.id = :userId")
     Double sumTotalValueByStatusAndUserId(@Param("status") String status, @Param("userId") Long userId);
 
+    @Query("SELECT COUNT(i) FROM CheckoutOrder c JOIN c.items i WHERE c.status = :status AND c.user.id = :userId")
+    Long countProductsSoldByUserId(@Param("status") String status, @Param("userId") Long userId);
+
     Long countByStatus(String status);
 }

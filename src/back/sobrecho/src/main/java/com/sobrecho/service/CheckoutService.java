@@ -210,7 +210,7 @@ public class CheckoutService {
 
             PaymentDTO paymentDTO = new PaymentDTO();
             paymentDTO.setMethod(order.getPaymentMethod());
-            if ("credit_card".equalsIgnoreCase(order.getPaymentMethod())) {
+            if ("credit-card".equalsIgnoreCase(order.getPaymentMethod())) {
                 paymentDTO.setInstallments(order.getInstallments());
                 
                 CreditCardDTO cardDTO = new CreditCardDTO();
