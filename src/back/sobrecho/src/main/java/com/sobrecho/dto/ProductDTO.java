@@ -11,6 +11,7 @@ public class ProductDTO {
     private double price;
     private String size;
     private String category;
+    private Boolean IsActive;
     private Instant createdAt;
 	private Instant updatedAt;
 	
@@ -19,13 +20,14 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, double price, String size, String category,Instant createdAt,Instant updatedAt, List<String> imageUrls) {
+    public ProductDTO(Long id, String name, String description, double price, String size, String category,Boolean IsActive,Instant createdAt,Instant updatedAt, List<String> imageUrls) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.size = size;
         this.category = category;
+        this.IsActive = IsActive;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.imageUrls = imageUrls;
@@ -79,7 +81,15 @@ public class ProductDTO {
         this.category = category;
     }
 
-    public Instant getCreatedAt() {
+    public Boolean getIsActive() {
+		return IsActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		IsActive = isActive;
+	}
+
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 
