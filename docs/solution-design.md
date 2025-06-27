@@ -16,5 +16,5 @@ _Para implementar a solução do "SóBrechó", utilizaremos MySQL como sistema d
 | SGBD           | MySQL           |
 | Front end      | Next.js, TypeScript, TailwindCSS, ShadCN/UI, Redux, Redux-Saga, Axios, ESLint, Prettier e VSCode. |
 | Back end       | Java SpringBoot |
-| Deploy         | Github Pages    |
+| Deploy         | Verecel e AWS    |
 
