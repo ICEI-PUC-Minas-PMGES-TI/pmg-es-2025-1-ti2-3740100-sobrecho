@@ -60,6 +60,7 @@ public class ProductController {
             product.setPrice(price);
             product.setSize(size);
             product.setCategory(category);
+            product.setIsActive(true);
 
             Product savedProduct = productService.create(product, images);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -95,5 +96,11 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> findByStore(@PathVariable Long storeId) {
         List<ProductDTO> products = this.productService.findAllByStoreIdAsDTO(storeId);
         return ResponseEntity.ok().body(products);
+    }
+    
+    @GetMapping("/active")
+    public ResponseEntity<List<Product>> findAllActive() {
+        List<Product> activeProducts = this.productService.findAllActive();
+        return ResponseEntity.ok(activeProducts);
     }
 }

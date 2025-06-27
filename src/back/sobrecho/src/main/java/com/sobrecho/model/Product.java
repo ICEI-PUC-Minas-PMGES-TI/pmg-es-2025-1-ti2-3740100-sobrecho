@@ -52,6 +52,10 @@ public class Product {
 	
 	@Column(name = "category")
 	private String category;
+	
+	@Column(name = "isActive")
+	private Boolean isActive;
+
 
 	// @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	// private Store store;
@@ -70,7 +74,7 @@ public class Product {
 
     public Product(Long id, User user, @Size(min = 4, max = 100) String name,
 			@Size(min = 4, max = 100) String description, double price,
-			@Size(min = 1, max= 5)String size, String category, Instant createdAt, Instant updatedAt,
+			@Size(min = 1, max= 5)String size, String category,Boolean isActive, Instant createdAt, Instant updatedAt,
 			List<ProductImage> images) {
 		this.id = id;
 		this.user = user;
@@ -79,6 +83,7 @@ public class Product {
 		this.price = price;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.isActive = isActive;
 		this.images = images;
 	}
 
@@ -139,6 +144,14 @@ public class Product {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public Instant getCreatedAt() {

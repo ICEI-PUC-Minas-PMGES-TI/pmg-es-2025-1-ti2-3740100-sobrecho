@@ -36,6 +36,9 @@ public class ProductService {
         Optional<Product> product = this.productRepository.findById(id);
         return product.orElseThrow(() -> new RuntimeException("Produto de Id: " + id + "não encontrado."));
     }
+    public List<Product> findAllActive() {
+        return this.productRepository.findAllByIsActiveTrue();
+    }
 
     public List<Product> findAllByUserId(Long userId) {
         UserSpringSecurity userSpringSecurity = UserService.authenticated();

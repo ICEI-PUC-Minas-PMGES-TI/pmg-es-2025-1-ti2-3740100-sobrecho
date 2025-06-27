@@ -98,6 +98,9 @@ public class CheckoutService {
             newOrder.setCpfHolderPayment(checkoutRequest.getPayment().getCard().getCpf());
             
             newOrder.setStatus("PAID"); 
+            for (CheckoutOrderItem item : newOrder.getItems()) {
+                item.getProduct().setIsActive(false);
+            }
 
         } else if ("pix".equalsIgnoreCase(checkoutRequest.getPayment().getMethod())) {
             newOrder.setStatus("PENDING"); 
@@ -175,7 +178,14 @@ public class CheckoutService {
                     .orElseThrow(() -> new ObjectNotFoundException(
                             "Checkout com identificador '" + identifier + "' não encontrado."
                     ));
-
+            if ("PAID".equalsIgnoreCase(statusDTO.getStatus())) {
+                for (CheckoutOrderItem item : order.getItems()) {
+                    Product product = item.getProduct();
+                    if (product != null) {
+                        product.setIsActive(false);
+                    }
+                }
+            }
             order.setStatus(statusDTO.getStatus());
             checkoutOrderRepository.save(order);
             return new UpdateCheckoutStatusDTO(order.getCheckoutIdentifier(), order.getStatus());
