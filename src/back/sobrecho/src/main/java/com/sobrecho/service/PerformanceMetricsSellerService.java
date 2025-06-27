@@ -23,7 +23,7 @@ public class PerformanceMetricsSellerService {
             return 0.0;
         }
         Long userId = user.getId();
-        return checkoutOrderRepository.sumTotalValueByStatusAndUserId("PAID", userId);
+        return checkoutOrderRepository.sumTotalValueByStatusAndUserIdFromItems("PAID", userId);
     }
 
     public Long getProductsQuantity() {
@@ -32,7 +32,7 @@ public class PerformanceMetricsSellerService {
             return 0L;
         }
         Long userId = user.getId();
-        return checkoutOrderRepository.countProductsSoldByUserId("PAID", userId);
+        return productRepository.countByUserId(userId);
     }
 
     public Double getRevenuePerProduct() {
