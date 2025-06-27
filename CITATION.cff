@@ -1,15 +1,17 @@
 cff-version: 1.0.1
-message: Please cite this software using these metadata.
+message:  Este trabalho foi desenvolvido como parte do curso de Engenharia de Software da PUC Minas e faz parte do projeto SóBrechó, um marketplace digital
+  para brechós e bazares. Caso utilize este software em trabalhos acadêmicos, pesquisas ou aplicações, por favor, cite-o utilizando as informações de autoria
+  e versão fornecidas neste arquivo.
 title: SóBrecho
 authors:
-  - family-names: Antonio Meirelles Lima
-    given-names: Bernardo
+  - family-names: Meirelles Lima
+    given-names: Bernardo Antonio
   - family-names: Souza de Resende
     given-names: Caio
   - family-names: de Lara Cotta Monteiro
     given-names: Iago
-  - family-names: Paulo Gobira Lopes Costa
-    given-names: João
+  - family-names: Gobira Lopes Costa
+    given-names: João Paulo
   - family-names: Cordeiro Berto
     given-names: Matheus
   - family-names: Ruas Gazire Xavier
@@ -20,12 +22,12 @@ authors:
     given-names: Danilo
   - name-suffix: Professora
     affiliation: PUC Minas
-    family-names: Gabriela Ribeiro de Souza
-    given-names: Joana
+    family-names: Ribeiro de Souza
+    given-names: Joana Gabriela
   - name-suffix: Professora
     affiliation: PUC Minas
-    family-names: Hanne Soares de Andrade
-    given-names: Michelle
+    family-names: Soares de Andrade
+    given-names: Michelle Hanne
 keywords:
   - Brecho
   - Marketplace
