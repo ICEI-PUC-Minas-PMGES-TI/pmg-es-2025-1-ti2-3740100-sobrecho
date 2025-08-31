@@ -1,0 +1,38 @@
+cff-version: 1.0.1
+message:  Este trabalho foi desenvolvido como parte do curso de Engenharia de Software da PUC Minas e faz parte do projeto SóBrechó, um marketplace digital
+  para brechós e bazares. Caso utilize este software em trabalhos acadêmicos, pesquisas ou aplicações, por favor, cite-o utilizando as informações de autoria
+  e versão fornecidas neste arquivo.
+title: SóBrecho
+authors:
+  - family-names: Meirelles Lima
+    given-names: Bernardo Antonio
+  - family-names: Souza de Resende
+    given-names: Caio
+  - family-names: de Lara Cotta Monteiro
+    given-names: Iago
+  - family-names: Gobira Lopes Costa
+    given-names: João Paulo
+  - family-names: Cordeiro Berto
+    given-names: Matheus
+  - family-names: Ruas Gazire Xavier
+    given-names: Matheus
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: de Quadros Maia Filho
+    given-names: Danilo
+  - name-suffix: Professora
+    affiliation: PUC Minas
+    family-names: Ribeiro de Souza
+    given-names: Joana Gabriela
+  - name-suffix: Professora
+    affiliation: PUC Minas
+    family-names: Soares de Andrade
+    given-names: Michelle Hanne
+keywords:
+  - Brecho
+  - Marketplace
+  - Roupas
+repository-code: https://github.com/ICEI-PUC-Minas-PMGES-TI/pmg-es-2025-1-ti2-3740100-sobrecho
+license: CC-BY-4.0
+version: 1.0.0
+date-released: 2025-06-20
