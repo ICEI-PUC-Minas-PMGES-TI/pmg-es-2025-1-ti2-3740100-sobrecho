@@ -1,7 +1,7 @@
 cff-version: 1.0.1
-message:  Este trabalho foi desenvolvido como parte do curso de Engenharia de Software da PUC Minas e faz parte do projeto SóBrechó, um marketplace digital
+message:  "Este trabalho foi desenvolvido como parte do curso de Engenharia de Software da PUC Minas e faz parte do projeto SóBrechó, um marketplace digital
   para brechós e bazares. Caso utilize este software em trabalhos acadêmicos, pesquisas ou aplicações, por favor, cite-o utilizando as informações de autoria
-  e versão fornecidas neste arquivo.
+  e versão fornecidas neste arquivo."
 title: SóBrecho
 authors:
   - family-names: Meirelles Lima
